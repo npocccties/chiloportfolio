@@ -39,9 +39,6 @@ make down-local
 npm run dev
 ```
 
-### アプリケーションとDBとの連携
-appコンテナ内に移動した後、以下に記載している「prismaの使用方法」より、コマンドを実行してDBとの連携を行います。
-
 ## Visual Studio CodeでdevContainerを使用する場合
 1. Docker および Docker Compose をインストール
 2. Visual Studio Code に拡張機能「Dev - Containers」をインストール
@@ -50,24 +47,6 @@ appコンテナ内に移動した後、以下に記載している「prismaの�
 
 ## デバッグ方法
 上記のdevContainerを起動し、VSCodeの左側にあるデバッグから起動ボタンを押して実行してください。
-
-## prismaの使用方法
-詳細に関しては[ドキュメント](https://www.prisma.io/docs/reference/api-reference/command-reference)を参照してください。
-
-1. コンテナ起動後、以下のコマンドでDBのテーブル定義をschema.prismaに反映します。
-```
-npx prisma db pull
-```
-
-2. 立ち上げたDBコンテナへダミーデータを反映する場合は、以下のコマンドを使用してください。
-```
-npx prisma db seed
-```
-
-3. [Prisma Studio](https://www.prisma.io/docs/concepts/components/prisma-studio)を起動します。（localhost:5555が起動する）
-```
-npx prisma studio
-```
 
 # 開発サーバー（または本番サーバー）
 
@@ -116,11 +95,6 @@ npx prisma studio
 | :----------------------------------- | :------------------------------------------ | :------------------- |
 |SSL_CERTS_DIR|サーバー証明書の配置ディレクトリ|・ディレクトリの末尾には `/` は付与しないこと<br>・本番環境では下記の命名でファイルを配置しておくこと<br>　`signed.crt`: サーバー証明書<br>　`domain.key`: サーバー証明書の秘密鍵|
 |ALLOWED_HOSTS|公開ホスト名|本番リリースする際は本番サーバーのホスト名を設定してください|
-|DB_HOST|DBのホスト名|docker-compose.*.yml に記載されている`db`がホスト名|
-|DB_NAME|DB名|-|
-|DB_USER|DBのユーザ名|-|
-|DB_PASS|DBのパスワード|-|
-|DATABASE_URL|接続先データベースのURL|-|
 
 ## Next.jsアプリケーション用
 Next.jsアプリケーションでは、環境毎に以下のパターンで.envファイルを参照します。
