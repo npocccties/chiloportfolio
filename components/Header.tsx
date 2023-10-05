@@ -23,7 +23,7 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
         </Box>
         <NextLink href="/">
           <Link fontSize={"2xl"} fontWeight={"bold"} style={{ textDecoration: "none" }}>
-            BadgeWallet
+            e-Portfolio
           </Link>
         </NextLink>
         <Flex gap={"16px"}></Flex>
