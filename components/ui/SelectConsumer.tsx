@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Select } from "@chakra-ui/react";
-import { ConsumerBadges } from '../response/OkutepResponse';
+import { ConsumerBadges } from '../data/OkutepData';
 
 type Props = {
   consumers: string[],

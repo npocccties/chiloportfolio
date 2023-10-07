@@ -1,5 +1,5 @@
 import { Box, ChakraProvider, Table, TableContainer, Tbody, Td, Th, Thead, Tr, Text } from '@chakra-ui/react'
-import { ConsumerBadges } from '../response/OkutepResponse'
+import { ConsumerBadges } from '../data/OkutepData'
 
 type Props = {
     consumerBadges: ConsumerBadges[],

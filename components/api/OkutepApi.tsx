@@ -1,4 +1,4 @@
-import { ConsumerBadges } from "../response/OkutepResponse"
+import { ConsumerBadges } from "../data/OkutepData"
 import useSWR from 'swr'
 const baseUrl = process.env.NEXT_PUBLIC_OKUTEP_BASE_URL as string
 
