@@ -1,6 +1,7 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Box, Flex, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
+import Head from "next/head"
 
 import React from "react";
 
@@ -11,6 +12,9 @@ type Props = {
 export const Header: React.FC<Props> = ({ onOpen }) => {
   return (
     <Box>
+      <Head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+      </Head>
       <Flex
         h={"64px"}
         alignItems={"center"}
