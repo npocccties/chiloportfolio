@@ -4,14 +4,14 @@ import type { NextPage } from "next";
 
 import { Layout } from "@/components/Layout";
 import { Metatag } from "@/components/Metatag";
-import { MyWaletVCList } from "@/components/page/mywallet/List";
+import { Portfolio } from "@/components/page/e-portfolio/Portfolio";
 import { SERVICE_NAME, SERVICE_DESCRITION } from "@/configs";
 
 const Home: NextPage = () => {
   return (
-    <Layout maxW="xl">
+    <Layout maxW="6xl">
       <Metatag title={SERVICE_NAME} description={SERVICE_DESCRITION} />
-      <MyWaletVCList />
+      <Portfolio />
     </Layout>
   );
 };
