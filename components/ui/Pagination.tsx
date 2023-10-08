@@ -2,7 +2,6 @@ import { ArrowLeftIcon, ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon } from
 import { Button, Flex, IconButton } from "@chakra-ui/react";
 import React from "react";
 
-
 type Props = {
   totalPages: number;
   currentPage: number;
