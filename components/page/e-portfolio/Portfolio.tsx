@@ -3,7 +3,7 @@ import { SelectConsumer } from "../../ui/SelectConsumer"
 import { useConsumerBadgesList } from "@/components/api/OkutepApi"
 import { useWalletBadgeList } from "@/components/api/WalletApi"
 import { getCsvText, mergeBadgeData } from "@/components/util/Converter"
-import { Button, FormLabel, Grid, GridItem, Link, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure } from "@chakra-ui/react"
+import { Button, FormLabel, Grid, WrapItem, Link, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Text, Wrap, useDisclosure, VStack } from "@chakra-ui/react"
 import { BadgeList } from "@/components/ui/BadgeList"
 import { KeyInput, KeyInputForm } from "./KeyInput"
 import { useForm } from "react-hook-form"
@@ -61,13 +61,12 @@ export const Portfolio = () => {
   if (isError || isErrorWB) return <div>failed to load</div>
   return (
     <>
-      <Grid templateColumns='repeat(5, 1fr)' gap={6}>
-        <GridItem w='300px'>
-          <FormLabel mb={2} fontWeight={"bold"}>教育指標選択</FormLabel>
+      <Text mb={2} fontWeight={"bold"}>教育指標選択</Text>
+      <Wrap spacing='5'>
+        <WrapItem>
           <SelectConsumer consumers={consumers} handleChange={onChangeConsumer} />
-        </GridItem>
-        <GridItem>
-          <FormLabel>　</FormLabel>
+        </WrapItem>
+        <WrapItem>
           <Link onClick={onOpen}>
             <span className="material-symbols-outlined"><Text fontSize='40px'>vpn_key</Text></span>
           </Link>
@@ -80,14 +79,11 @@ export const Portfolio = () => {
               </ModalBody>
             </ModalContent>
           </Modal>
-        </GridItem>
-        <GridItem />
-        <GridItem />
-        <GridItem>
-          <FormLabel>　</FormLabel>
+        </WrapItem>
+        <WrapItem>
           <Button colorScheme='blue' onClick={onCsvDownload}>CSVダウンロード</Button>
-        </GridItem>
-      </Grid>
+        </WrapItem>
+      </Wrap>
       <BadgeList portfolioBadges={portfolioBadges} selectedConsumer={selectedConsumer} validPassword={validPassword} />
       {/* <Pagination
               totalPages={totalPages}

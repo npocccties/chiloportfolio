@@ -8,7 +8,7 @@ type Props = {
 export const SelectConsumer = ({ consumers, handleChange }: Props) => {
   return (
     <div>
-      <Select placeholder="選択してください" onChange={handleChange}>
+      <Select  w={'270px'} placeholder="選択してください" onChange={handleChange}>
         {consumers.map((option, index) => (
           <option key={index} value={option}>
             {option}

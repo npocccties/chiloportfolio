@@ -15,6 +15,11 @@ a {
   box-sizing: border-box;
 }
 
-#no-wrap {
-  white-space: nowrap;
+@media screen and (min-width: 431px) {
+  /* PC */
+  .sp-only { display: none; }
+}
+@media screen and (max-width: 430px) {
+  /* SP */
+  .pc-only { display: none; }
 }
