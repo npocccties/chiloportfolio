@@ -1,5 +1,4 @@
 export type WalletBadge = {
-  wisdome_badges_name: string
-  scheduled_badges_count: number
-  acquired_badges_count: number
+  wisdom_badge_name: string
+  knowledge_badge_names: string[]
 }

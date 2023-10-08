@@ -1,12 +1,12 @@
-import { Box, ChakraProvider, Table, TableContainer, Tbody, Td, Th, Thead, Tr, Text } from '@chakra-ui/react'
-import { ConsumerBadges } from '../data/OkutepData'
+import { Box, Table, Tbody, Td, Th, Thead, Tr, Text } from '@chakra-ui/react'
+import { PortfolioBadgeData } from '../data/PortfolioData'
 
 type Props = {
-    consumerBadges: ConsumerBadges[],
+    portfolioBadges: PortfolioBadgeData[],
     selectedConsumer: string,
 }
 
-export const BadgeList = ({ consumerBadges, selectedConsumer }: Props) => {
+export const BadgeList = ({ portfolioBadges, selectedConsumer }: Props) => {
     return (
     <Box borderWidth="1px" boxShadow='xl' p='6' rounded='md' bg='white'>
         <Table variant="simple">
@@ -21,25 +21,25 @@ export const BadgeList = ({ consumerBadges, selectedConsumer }: Props) => {
                 </Tr>
             </Thead>
             <Tbody>
-            {consumerBadges.map((row) => (
+            {portfolioBadges.map((row) => (
                 <Tr  display={selectedConsumer == row.consumer_name ? 'table-row' : 'none'}>
                     <Td whiteSpace="nowrap" borderWidth="1px" borderColor="gray.200" bg="white">
                         {row.consumer_name}
                     </Td>
                     <Td borderWidth="1px" borderColor="gray.200" bg="white">
-                        {row.wisdome_badges_name}
+                        {row.wisdom_badges_name}
                     </Td>
                     <Td borderWidth="1px" borderColor="gray.200" bg="white">
                         <Text textAlign='center'>{row.knowledge_badges_count}</Text>
                     </Td>
                     <Td borderWidth="1px" borderColor="gray.200" bg="white">
-                        <Text textAlign='center'>0</Text>
+                        <Text textAlign='center'>{row.scheduled_badges_count}</Text>
                     </Td>
                     <Td borderWidth="1px" borderColor="gray.200" bg="white">
-                        <Text textAlign='center'>0</Text>
+                        <Text textAlign='center'>{row.acquired_badges_count}</Text>
                     </Td>
                     <Td borderWidth="1px" borderColor="gray.200" bg="white">
-                        {row.wisdome_badges_description}
+                        {row.wisdom_badges_description}
                     </Td>
                 </Tr>
             ))}
