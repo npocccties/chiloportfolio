@@ -1,5 +1,6 @@
 import { Flex, Link } from "@chakra-ui/react";
 import React from "react";
+const copyrightLink = process.env.NEXT_PUBLIC_COPYRIGHT_LINK as string
 const copyright = process.env.NEXT_PUBLIC_COPYRIGHT as string
 
 export const Footer: React.VFC = () => {
@@ -12,7 +13,7 @@ export const Footer: React.VFC = () => {
       gap={"16px"}
     >
       <Link
-        href="https://github.com/block-base/openbadge-vc-converter"
+        href={copyrightLink}
         fontSize={"sm"}
         fontWeight={"medium"}
       >
