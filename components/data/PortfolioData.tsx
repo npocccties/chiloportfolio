@@ -6,4 +6,5 @@ export type PortfolioBadgeData = {
   knowledge_badges_count: number
   scheduled_badges_count: number
   acquired_badges_count: number
+  special: boolean
 }

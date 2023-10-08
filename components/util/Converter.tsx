@@ -18,6 +18,7 @@ export function mergeBadgeData(consumerBadges: ConsumerBadges[], walletBadges: W
       acquired_badges_count: walletBadge.knowledge_badge_names.length,
       knowledge_badges_count: consumerBadge.knowledge_badges_names.length,
       wisdom_badges_description: consumerBadge.wisdom_badges_description,
+      special: consumerBadge.invisible,
     }
     badgeDatas.push(badgeData)
   }

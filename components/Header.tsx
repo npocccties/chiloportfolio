@@ -1,5 +1,5 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { Box, Flex, Link } from "@chakra-ui/react";
+import { Box, Flex, Link, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
 import Head from "next/head"
 
@@ -26,9 +26,7 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
           <HamburgerIcon w={6} h={6} cursor={"pointer"} onClick={() => onOpen()} />
         </Box>
         <NextLink href="/">
-          {/* <Link fontSize={"2xl"} fontWeight={"bold"} style={{ textDecoration: "none" }}>
-            e-Portfolio
-          </Link> */}
+          <Text fontSize={"2xl"} fontWeight={"bold"}>e-Portfolio</Text>
         </NextLink>
         <Flex gap={"16px"}></Flex>
       </Flex>

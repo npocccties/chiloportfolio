@@ -4,9 +4,10 @@ import { PortfolioBadgeData } from '../data/PortfolioData'
 type Props = {
     portfolioBadges: PortfolioBadgeData[],
     selectedConsumer: string,
+    validPassword: boolean,
 }
 
-export const BadgeList = ({ portfolioBadges, selectedConsumer }: Props) => {
+export const BadgeList = ({ portfolioBadges, selectedConsumer, validPassword }: Props) => {
     return (
     <Box borderWidth="1px" boxShadow='xl' p='6' rounded='md' bg='white'>
         <Table variant="simple">
@@ -22,7 +23,7 @@ export const BadgeList = ({ portfolioBadges, selectedConsumer }: Props) => {
             </Thead>
             <Tbody>
             {portfolioBadges.map((row) => (
-                <Tr  display={selectedConsumer == row.consumer_name ? 'table-row' : 'none'}>
+                <Tr display={selectedConsumer == row.consumer_name && (!row.special || (validPassword && row.special))? 'table-row' : 'none'}>
                     <Td whiteSpace="nowrap" borderWidth="1px" borderColor="gray.200" bg="white">
                         {row.consumer_name}
                     </Td>

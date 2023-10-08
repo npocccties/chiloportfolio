@@ -63,7 +63,7 @@ export const Portfolio = () => {
     <>
       <Grid templateColumns='repeat(5, 1fr)' gap={6}>
         <GridItem w='300px'>
-          <FormLabel mb={2}>教育指標選択</FormLabel>
+          <FormLabel mb={2} fontWeight={"bold"}>教育指標選択</FormLabel>
           <SelectConsumer consumers={consumers} handleChange={onChangeConsumer} />
         </GridItem>
         <GridItem>
@@ -74,7 +74,7 @@ export const Portfolio = () => {
           <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
-              <ModalHeader>キー入力</ModalHeader>
+              <ModalHeader>取得キー入力</ModalHeader>
               <ModalBody>
                 <KeyInput register={register} watch={watch} handleSubmit={handleSubmit} onClose={onClose} setValidPassword={setValidPassword}/>
               </ModalBody>
@@ -88,7 +88,7 @@ export const Portfolio = () => {
           <Button colorScheme='blue' onClick={onCsvDownload}>CSVダウンロード</Button>
         </GridItem>
       </Grid>
-      <BadgeList portfolioBadges={portfolioBadges} selectedConsumer={selectedConsumer} />
+      <BadgeList portfolioBadges={portfolioBadges} selectedConsumer={selectedConsumer} validPassword={validPassword} />
       {/* <Pagination
               totalPages={totalPages}
               currentPage={currentPage}

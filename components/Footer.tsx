@@ -1,5 +1,7 @@
 import { Flex, Link } from "@chakra-ui/react";
 import React from "react";
+const copyright = process.env.NEXT_PUBLIC_COPYRIGHT as string
+
 export const Footer: React.VFC = () => {
   return (
     <Flex
@@ -14,7 +16,7 @@ export const Footer: React.VFC = () => {
         fontSize={"sm"}
         fontWeight={"medium"}
       >
-        DID Maniax Japan @ 2022
+        {copyright}
       </Link>
     </Flex>
   );
