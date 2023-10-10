@@ -32,7 +32,7 @@ export const Layout: React.VFC<LayoutProps> = ({ children, maxW, textAlign, alig
       </Drawer>
       <Box flex={1}>
         <Container maxW={maxW}>
-          <Stack textAlign={textAlign} align={align} spacing={"5"} py={"10"}>
+          <Stack textAlign={textAlign} align={align} spacing={"14"} py={"14"}>
             {children}
           </Stack>
         </Container>

@@ -3,19 +3,17 @@ import { SelectConsumer } from "../../ui/SelectConsumer"
 import { useConsumerBadgesList } from "@/components/api/OkutepApi"
 import { useWalletBadgeList } from "@/components/api/WalletApi"
 import { getCsvText, mergeBadgeData } from "@/components/util/Converter"
-import { Button, FormLabel, Grid, WrapItem, Link, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Text, Wrap, useDisclosure, VStack } from "@chakra-ui/react"
+import { Button, FormLabel, Grid, WrapItem, Link, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Text, Wrap, useDisclosure, Box, Flex, HStack } from "@chakra-ui/react"
 import { BadgeList } from "@/components/ui/BadgeList"
 import { KeyInput, KeyInputForm } from "./KeyInput"
 import { useForm } from "react-hook-form"
 import jconv from "jconv"
+import { BiKey } from "react-icons/bi";
 
 export const Portfolio = () => {
 
   // OKUTEPからバッジ情報の取得
   const { consumerBadges, isLoading, isError } = useConsumerBadgesList()
-  const consumerSet = new Set(consumerBadges.map(obj => obj.consumer_name))
-  const consumers = []
-  consumerSet.forEach(v => consumers.push(v))
 
   // BadgeWalletからバッジ情報の取得
   const { walletBadges, isLoadingWB, isErrorWB } = useWalletBadgeList()
@@ -41,6 +39,14 @@ export const Portfolio = () => {
   } = useForm<KeyInputForm>()
   const [validPassword, setValidPassword] = useState(false)
 
+  const consumers = new Set<string>()
+  consumerBadges.map(v => {
+    if (!v.invisible || (validPassword && v.invisible)) {
+      consumers.add(v.consumer_name)
+    }
+  })
+  console.log('consumerDatas: ', consumers)
+
   // CSVダウンロード
   const onCsvDownload = () => {
     var targets = portfolioBadges.filter(v => v.consumer_name == selectedConsumer)
@@ -61,37 +67,65 @@ export const Portfolio = () => {
   if (isError || isErrorWB) return <div>failed to load</div>
   return (
     <>
-      <Text mb={2} fontWeight={"bold"}>教育指標選択</Text>
-      <Wrap spacing='5'>
-        <WrapItem>
-          <SelectConsumer consumers={consumers} handleChange={onChangeConsumer} />
-        </WrapItem>
-        <WrapItem>
-          <Link onClick={onOpen}>
-            <span className="material-symbols-outlined"><Text fontSize='40px'>vpn_key</Text></span>
-          </Link>
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>取得キー入力</ModalHeader>
-              <ModalBody>
-                <KeyInput register={register} watch={watch} handleSubmit={handleSubmit} onClose={onClose} setValidPassword={setValidPassword}/>
-              </ModalBody>
-            </ModalContent>
-          </Modal>
-        </WrapItem>
-        <WrapItem>
+      {/** desktop */}
+      <Flex
+        display={{ base: "none", sm: "flex" }}
+        w="full"
+        justify={"space-between"}
+        direction={"row"}
+        alignItems={"flex-end"}
+      >
+        <Box mt={4}>
+          <FormLabel mb={2} fontSize={"md"}>
+            教育指標選択
+          </FormLabel>
+          <HStack>
+            <SelectConsumer w={"64"} consumers={Array.from(consumers)} handleChange={onChangeConsumer} />
+            <Link onClick={onOpen}>
+              <Text fontSize='40px'><BiKey/></Text>
+            </Link>
+          </HStack>
+        </Box>
+        <Box mt={4}>
           <Button colorScheme='blue' onClick={onCsvDownload}>CSVダウンロード</Button>
-        </WrapItem>
-      </Wrap>
-      <BadgeList portfolioBadges={portfolioBadges} selectedConsumer={selectedConsumer} validPassword={validPassword} />
-      {/* <Pagination
-              totalPages={totalPages}
-              currentPage={currentPage}
-              handlePrev={handleClickPrev}
-              handleNext={handleClickNext}
-              handleMove={handleClickMove}
-            /> */}
+        </Box>
+      </Flex>
+
+      {/** smart phone */}
+      <Flex
+        display={{ base: "flex", sm: "none" }}
+        w="full"
+        justify={"space-between"}
+        direction={"column"}
+        alignItems={"center"}
+      >
+        <Box w={"full"} mt={7}>
+          <FormLabel mb={2} fontSize={"md"}>
+            教育指標選択
+          </FormLabel>
+          <HStack>
+            <SelectConsumer w={"60"} consumers={Array.from(consumers)} handleChange={onChangeConsumer} />
+            <Link onClick={onOpen}>
+              <Text fontSize='40px'><BiKey/></Text>
+            </Link>
+          </HStack>
+        </Box>
+        <Box w={"full"} mt={8}>
+          <Button w={"full"} colorScheme='blue' onClick={onCsvDownload}>CSVダウンロード</Button>
+        </Box>
+      </Flex>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>取得キー入力</ModalHeader>
+          <ModalBody>
+            <KeyInput register={register} watch={watch} handleSubmit={handleSubmit} onClose={onClose} setValidPassword={setValidPassword}/>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+
+      <BadgeList portfolioBadges={portfolioBadges} selectedConsumer={selectedConsumer} />
     </>
   )
 }

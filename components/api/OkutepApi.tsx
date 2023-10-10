@@ -96,7 +96,7 @@ function makeTestData1(cosumerName: string): ConsumerBadges[] {
     wisdom_badges_name: "子どもの心に耳をすます‐感情の社会化を促す関わり (v1.0)",
     wisdom_badges_description: "近年の不登校・いじめ・非行事例において、家庭や学校で、身近な大人に気持ちを送信できない子どもや、身近な大人から気持ちを受信してもらえない子どもが増えている。 本講義は、大人がどのように関われば子どもが気持ちを送信しやすくなり、また大人がどのように子どもの気持ちを受信すればよいのかについて、臨床事例および研究知見に基づき考察する。",
     knowledge_badges_names: ["日本における発達障害、LDの定義と実態 (v1.0)","LDのある児童生徒の学校における環境整備 (v1.0)","ADHDのある児童生徒の実態とその支援 (v1.0)"],
-    invisible: true,
+    invisible: false,
   }
   data.push(work)
   return data
@@ -155,7 +155,7 @@ function makeTestData2(cosumerName: string): ConsumerBadges[] {
     wisdom_badges_name: "若手教員の育成 (v1.0)",
     wisdom_badges_description: "採用5年目までの若手教員を対象とします。 ・めざす教師像 ・教師に求められる意識 ・生活指導のあり方 を中心に、学び続ける教員をめざして、自己研鑽のあり方、協働意識のあり方を理解し、実践できることをめざします。",
     knowledge_badges_names: ["めざす教師像 教師に求められる意識 (v1.0)","生活指導のあり方 (v1.0)"],
-    invisible: true,
+    invisible: false,
   }
   data.push(work)
   return data
@@ -169,7 +169,7 @@ function makeTestData3(cosumerName: string): ConsumerBadges[] {
     wisdom_badges_name: "人権の尊重 (v1.0)",
     wisdom_badges_description: "学校の課題を把握し、学校の人権教育推進のため、経験年数の少ない教職員に助言することができる（対象：経験年数5～10年程度の教職員）。",
     knowledge_badges_names: ["人権教育の指導方法等の在り方について① (v1.0)","人権教育の指導方法等の在り方について② (v1.0)","人権教育をとりまく諸情勢について (v1.0)"],
-    invisible: false,
+    invisible: true,
   }
   data.push(work)
   work = {
@@ -178,7 +178,7 @@ function makeTestData3(cosumerName: string): ConsumerBadges[] {
     wisdom_badges_name: "若手教員の育成 (v1.0)",
     wisdom_badges_description: "採用5年目までの若手教員を対象とします。 ・めざす教師像 ・教師に求められる意識 ・生活指導のあり方 を中心に、学び続ける教員をめざして、自己研鑽のあり方、協働意識のあり方を理解し、実践できることをめざします。",
     knowledge_badges_names: ["めざす教師像 教師に求められる意識 (v1.0)","生活指導のあり方 (v1.0)"],
-    invisible: false,
+    invisible: true,
   }
   data.push(work)
   work = {
@@ -187,7 +187,7 @@ function makeTestData3(cosumerName: string): ConsumerBadges[] {
     wisdom_badges_name: "子どもの変化と教職について省察する (v1.0)",
     wisdom_badges_description: "本講習では、国の教育政策の変化や法の改正について説明するとともに、チーム学校を作るため考え方の提示と学校をモデルとした演習を行います。各種答申に示された教育改革の方向性、2017年改訂学習指導要領の実現を支える実践的知見、「日本型学校教育」の海外展開について知ることで、教育現場の内部から教育活動を改善し教師が学び続けることの重要性を認識する。",
     knowledge_badges_names: ["日本の教育政策動向 (v1.0)","教育実践の課題 (v1.0)","特別活動の可能性 (v1.0)","授業研究の可能性 (v1.0)"],
-    invisible: false,
+    invisible: true,
   }
   data.push(work)
   work = {
@@ -196,7 +196,7 @@ function makeTestData3(cosumerName: string): ConsumerBadges[] {
     wisdom_badges_name: "体育授業と子供の健康 (v1.0)",
     wisdom_badges_description: "健康・スポーツに関する課題と成果は日々更新されており、最新の情報で教育を行うことが必要であるものの、現場教員にとっては困難がある。本講習では、体育科・保健体育科の指導に関連する「教科内容」を、健康の観点から解説を通して、教科専門指導能力の向上を図る。",
     knowledge_badges_names: ["現代の子供の体力 (v1.0)","子供の運動時に多い疾患とケガ (v1.0)","体育と熱中症 (v1.0)","COVID-19の影響と保健体育 (v1.0)"],
-    invisible: false,
+    invisible: true,
   }
   data.push(work)
   work = {

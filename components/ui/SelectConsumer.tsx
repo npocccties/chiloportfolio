@@ -1,16 +1,17 @@
 import { Select } from "@chakra-ui/react";
 
 type Props = {
+  w: string,
   consumers: string[],
   handleChange: (event: React.ChangeEvent<HTMLSelectElement>) => void,
 }
 
-export const SelectConsumer = ({ consumers, handleChange }: Props) => {
+export const SelectConsumer = ({ w, consumers, handleChange }: Props) => {
   return (
     <div>
-      <Select  w={'270px'} placeholder="選択してください" onChange={handleChange}>
+      <Select w={w} placeholder="選択してください" onChange={handleChange}>
         {consumers.map((option, index) => (
-          <option key={index} value={option}>
+          <option key={index} value={option} >
             {option}
           </option>
         ))}
