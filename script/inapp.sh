@@ -1,2 +1,2 @@
 #!/bin/sh
-docker container exec -it chiloportfolio-app sh
+docker container exec -it chiloportfolio_app sh
