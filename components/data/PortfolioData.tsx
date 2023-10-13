@@ -1,7 +1,7 @@
 export type PortfolioBadgeData = {
   consumer_name: string
   framework_name: string
-  framework_invisible: boolean
+  stage_invisible: boolean
   stage_name: string
   field_name: string
   wisdom_badges_name: string

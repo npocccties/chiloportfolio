@@ -43,7 +43,7 @@ export const Portfolio = () => {
 
   const consumers = new Set<string>()
   portfolioBadges.map(v => {
-    if (!v.framework_invisible || (validPassword && v.framework_invisible)) {
+    if (!v.stage_invisible || (validPassword && v.stage_invisible)) {
       consumers.add(getKeyName(v))
     }
   })
