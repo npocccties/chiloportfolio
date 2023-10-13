@@ -5,20 +5,22 @@ import { PortfolioBadgeData } from "@/components/data/PortfolioData"
 export function mergeBadgeData(consumerBadges: ConsumerBadges[], walletBadges: WalletBadge[]): PortfolioBadgeData[] {
   var badgeDatas: PortfolioBadgeData[] = []
   for (const [i, consumerBadge] of consumerBadges.entries()) {
-    const targets = walletBadges.filter(v => v.wisdom_badge_name == consumerBadge.wisdom_badges_name)
-    if (targets.length == 0) {
-      continue
-    }
-    const walletBadge = targets[0]
-    const badgeData: PortfolioBadgeData = {
+    var badgeData: PortfolioBadgeData = {
       consumer_name: consumerBadge.consumer_name,
+      framework_name: consumerBadge.framework_name,
+      framework_invisible: consumerBadge.framework_invisible,
+      stage_name: consumerBadge.stage_name,
       field_name: consumerBadge.field_name,
       wisdom_badges_name: consumerBadge.wisdom_badges_name,
-      scheduled_badges_count: consumerBadge.knowledge_badges_names.length - walletBadge.knowledge_badge_names.length,
-      acquired_badges_count: walletBadge.knowledge_badge_names.length,
-      knowledge_badges_count: consumerBadge.knowledge_badges_names.length,
+      knowledge_badges_count: consumerBadge.knowledge_badges_count,
+      scheduled_badges_count: 0,//獲得予定のバッジ数については将来対応予定
+      acquired_badges_count: 0,
       wisdom_badges_description: consumerBadge.wisdom_badges_description,
-      special: consumerBadge.invisible,
+    }
+    const targets = walletBadges.filter(v => v.badge_class_id == consumerBadge.badge_class_id)
+    if (targets.length != 0) {
+      const walletBadge = targets[0]
+      badgeData.acquired_badges_count = consumerBadge.knowledge_badges_count
     }
     badgeDatas.push(badgeData)
   }

@@ -9,11 +9,13 @@ import { KeyInput, KeyInputForm } from "./KeyInput"
 import { useForm } from "react-hook-form"
 import jconv from "jconv"
 import { BiKey } from "react-icons/bi";
+import { PortfolioBadgeData } from "@/components/data/PortfolioData"
 
 export const Portfolio = () => {
 
+  const [validPassword, setValidPassword] = useState(false)
   // OKUTEPからバッジ情報の取得
-  const { consumerBadges, isLoading, isError } = useConsumerBadgesList()
+  const { consumerBadges, isLoading, isError } = useConsumerBadgesList(validPassword)
 
   // BadgeWalletからバッジ情報の取得
   const { walletBadges, isLoadingWB, isErrorWB } = useWalletBadgeList()
@@ -24,7 +26,7 @@ export const Portfolio = () => {
   // 教育指標のプルダウン選択時のハンドラ
   const [selectedConsumer, setSelectedConsumer] = useState('')
   const onChangeConsumer = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const consumerName = e.target.value
+    var consumerName = e.target.value.split(' ')[0]
     console.log('consumerName: ', consumerName)
     setSelectedConsumer(consumerName)
   }
@@ -37,15 +39,15 @@ export const Portfolio = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<KeyInputForm>()
-  const [validPassword, setValidPassword] = useState(false)
+
 
   const consumers = new Set<string>()
-  consumerBadges.map(v => {
-    if (!v.invisible || (validPassword && v.invisible)) {
-      consumers.add(v.consumer_name)
+  portfolioBadges.map(v => {
+    if (!v.framework_invisible || (validPassword && v.framework_invisible)) {
+      consumers.add(getKeyName(v))
     }
   })
-  console.log('consumerDatas: ', consumers)
+  console.log('consumers: ', consumers)
 
   // CSVダウンロード
   const onCsvDownload = () => {
@@ -80,7 +82,7 @@ export const Portfolio = () => {
             教育指標選択
           </FormLabel>
           <HStack>
-            <SelectConsumer w={"64"} consumers={Array.from(consumers)} handleChange={onChangeConsumer} />
+            <SelectConsumer consumers={Array.from(consumers)} handleChange={onChangeConsumer} />
             <Link onClick={onOpen}>
               <Text fontSize='40px'><BiKey/></Text>
             </Link>
@@ -104,7 +106,7 @@ export const Portfolio = () => {
             教育指標選択
           </FormLabel>
           <HStack>
-            <SelectConsumer w={"60"} consumers={Array.from(consumers)} handleChange={onChangeConsumer} />
+            <SelectConsumer consumers={Array.from(consumers)} handleChange={onChangeConsumer} />
             <Link onClick={onOpen}>
               <Text fontSize='40px'><BiKey/></Text>
             </Link>
@@ -128,4 +130,8 @@ export const Portfolio = () => {
       <BadgeList portfolioBadges={portfolioBadges} selectedConsumer={selectedConsumer} />
     </>
   )
+}
+
+function getKeyName(v: PortfolioBadgeData): string {
+  return `${v.consumer_name} ${v.framework_name} ${v.stage_name}`
 }

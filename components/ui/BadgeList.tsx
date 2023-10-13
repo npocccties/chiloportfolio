@@ -21,8 +21,8 @@ export const BadgeList = ({ portfolioBadges, selectedConsumer }: Props) => {
           <Table variant='simple'>
             <Thead position='sticky' top={-1} zIndex='docked'>
               <Tr bg='gray.100'>
-                <Th whiteSpace='nowrap' borderWidth='1px' bg='green.400' color='#262626' fontSize='md' textAlign='center'>指標</Th>
-                <Th whiteSpace='nowrap' borderWidth='1px' bg='green.400' color='#262626' fontSize='md' textAlign='center'>能力バッジ名</Th>
+                <Th whiteSpace='nowrap' w='52' borderWidth='1px' bg='green.400' color='#262626' fontSize='md' textAlign='center'>指標</Th>
+                <Th whiteSpace='nowrap' w='52' borderWidth='1px' bg='green.400' color='#262626' fontSize='md' textAlign='center'>能力バッジ名</Th>
                 <Th whiteSpace='nowrap' borderWidth='1px' bg='gray.200' color='#262626' fontSize='md' textAlign='center'>取得可能</Th>
                 <Th whiteSpace='nowrap' borderWidth='1px' bg='gray.200' color='#262626' fontSize='md' textAlign='center'>取得予定</Th>
                 <Th whiteSpace='nowrap' borderWidth='1px' bg='gray.200' color='#262626' fontSize='md' textAlign='center'>獲得済み</Th>
@@ -32,8 +32,8 @@ export const BadgeList = ({ portfolioBadges, selectedConsumer }: Props) => {
             <Tbody>
               {portfolioBadges.map((row, index) => (
                 <Tr key={index} display={selectedConsumer == row.consumer_name ? 'table-row' : 'none'}>
-                  <Td whiteSpace='nowrap' borderWidth='1px' borderColor='gray.200' bg='white'>
-                    {row.consumer_name}
+                  <Td borderWidth='1px' borderColor='gray.200' bg='white'>
+                    {row.field_name}
                   </Td>
                   <Td borderWidth='1px' borderColor='gray.200' bg='white'>
                     {row.wisdom_badges_name}
