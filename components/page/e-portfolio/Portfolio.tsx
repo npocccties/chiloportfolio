@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form"
 import jconv from "jconv"
 import { BiKey } from "react-icons/bi";
 import { PortfolioBadgeData } from "@/components/data/PortfolioData"
+const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string
 
 export const Portfolio = () => {
 
@@ -65,7 +66,7 @@ export const Portfolio = () => {
     const url = URL.createObjectURL(blob)
     const a = document.createElement("a")
     document.body.appendChild(a)
-    a.download = 'e-Portfolio.csv'
+    a.download = csvFileName
     a.href = url
     a.click()
     a.remove()
