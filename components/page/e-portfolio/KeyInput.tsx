@@ -19,7 +19,6 @@ export const KeyInput = ({register, watch, handleSubmit, onClose, setValidPasswo
     const outputHash = SHA256(data.password).toString().toLowerCase()
     if (outputHash != sha256Hash) {
       setErrorMessage('入力したキーが誤っております。')
-      setValidPassword(false)
     } else {
       setErrorMessage('')
       setValidPassword(true)
