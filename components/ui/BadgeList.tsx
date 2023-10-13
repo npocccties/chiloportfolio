@@ -4,9 +4,11 @@ import { PortfolioBadgeData } from '../data/PortfolioData'
 type Props = {
   portfolioBadges: PortfolioBadgeData[],
   selectedConsumer: string,
+  selectedFramework: string,
+  selectedStage: string,
 }
 
-export const BadgeList = ({ portfolioBadges, selectedConsumer }: Props) => {
+export const BadgeList = ({ portfolioBadges, selectedConsumer, selectedFramework, selectedStage }: Props) => {
   return (
     <>
       {/** desktop */}
@@ -31,9 +33,9 @@ export const BadgeList = ({ portfolioBadges, selectedConsumer }: Props) => {
             </Thead>
             <Tbody>
               {portfolioBadges.map((row, index) => (
-                <Tr key={index} display={selectedConsumer == row.consumer_name ? 'table-row' : 'none'}>
+                <Tr key={index} display={selectedConsumer == row.consumer_name && selectedFramework == row.framework_name && selectedStage == row.stage_name ? 'table-row' : 'none'}>
                   <Td borderWidth='1px' borderColor='gray.200' bg='white'>
-                    {row.field_name}
+                    {row.field1_name}
                   </Td>
                   <Td borderWidth='1px' borderColor='gray.200' bg='white'>
                     {row.wisdom_badges_name}
@@ -77,7 +79,7 @@ export const BadgeList = ({ portfolioBadges, selectedConsumer }: Props) => {
               {portfolioBadges.map((row, index) => (
                 <Tr key={index} display={selectedConsumer == row.consumer_name ? 'table-row' : 'none'}>
                   <Td whiteSpace='nowrap' borderWidth='1px' borderColor='gray.200' bg='white'>
-                    {row.consumer_name}
+                    {row.field1_name}
                   </Td>
                   <Td borderWidth='1px' borderColor='gray.200' bg='white'>
                     {row.wisdom_badges_name}

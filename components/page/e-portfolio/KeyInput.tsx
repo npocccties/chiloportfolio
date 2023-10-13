@@ -11,9 +11,10 @@ type Props = {
   handleSubmit: UseFormHandleSubmit<KeyInputForm, undefined>,
   onClose: () => void,
   setValidPassword: React.Dispatch<React.SetStateAction<boolean>>,
+  onKeyInputClosed: () => void,
 }
 
-export const KeyInput = ({register, watch, handleSubmit, onClose, setValidPassword}: Props) => {
+export const KeyInput = ({register, watch, handleSubmit, onClose, setValidPassword, onKeyInputClosed}: Props) => {
 
   const isValid = (data: KeyInputForm) => {
     const outputHash = SHA256(data.password).toString().toLowerCase()
@@ -22,6 +23,7 @@ export const KeyInput = ({register, watch, handleSubmit, onClose, setValidPasswo
     } else {
       setErrorMessage('')
       setValidPassword(true)
+      onKeyInputClosed()
       onClose()
     }
   };

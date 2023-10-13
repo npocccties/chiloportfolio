@@ -3,7 +3,7 @@ export type PortfolioBadgeData = {
   framework_name: string
   stage_invisible: boolean
   stage_name: string
-  field_name: string
+  field1_name: string
   wisdom_badges_name: string
   wisdom_badges_description: string
   knowledge_badges_count: number

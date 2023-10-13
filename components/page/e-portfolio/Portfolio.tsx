@@ -25,10 +25,17 @@ export const Portfolio = () => {
   
   // 教育指標のプルダウン選択時のハンドラ
   const [selectedConsumer, setSelectedConsumer] = useState('')
+  const [selectedFramework, setSelectedFramework] = useState('')
+  const [selectedStage, setSelectedStage] = useState('')
   const onChangeConsumer = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    var consumerName = e.target.value.split(' ')[0]
-    console.log('consumerName: ', consumerName)
+    const array = e.target.value.split(' ')
+    const consumerName = array[0]
+    const frameworkName = array[1]
+    const stageName = array[2]
+    console.log(`consumerName: ${consumerName} frameworkName: ${frameworkName} stageName: ${stageName}`)
     setSelectedConsumer(consumerName)
+    setSelectedFramework(frameworkName)
+    setSelectedStage(stageName)
   }
 
   // キー入力のダイアログとの連携
@@ -63,6 +70,18 @@ export const Portfolio = () => {
     a.click()
     a.remove()
     URL.revokeObjectURL(url)    
+  }
+
+  const onKeyInputClosed = () => {
+    // 教育指標のプルダウンを選択解除する
+    var elements = document.getElementsByName('consumer')
+    for (let i = 0; i < elements.length; i++){
+      var obj = elements[i] as HTMLSelectElement;
+      obj.selectedIndex = 0;
+    }
+    setSelectedConsumer('')
+    setSelectedFramework('')
+    setSelectedStage('')
   }
 
   if (isLoading || isLoadingWB) return <div>loading...</div>
@@ -122,12 +141,12 @@ export const Portfolio = () => {
         <ModalContent>
           <ModalHeader>取得キー入力</ModalHeader>
           <ModalBody>
-            <KeyInput register={register} watch={watch} handleSubmit={handleSubmit} onClose={onClose} setValidPassword={setValidPassword}/>
+            <KeyInput register={register} watch={watch} handleSubmit={handleSubmit} onClose={onClose} setValidPassword={setValidPassword} onKeyInputClosed={onKeyInputClosed}/>
           </ModalBody>
         </ModalContent>
       </Modal>
 
-      <BadgeList portfolioBadges={portfolioBadges} selectedConsumer={selectedConsumer} />
+      <BadgeList portfolioBadges={portfolioBadges} selectedConsumer={selectedConsumer} selectedFramework={selectedFramework} selectedStage={selectedStage}/>
     </>
   )
 }

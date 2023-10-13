@@ -4,13 +4,16 @@ import { PortfolioBadgeData } from "@/components/data/PortfolioData"
 
 export function mergeBadgeData(consumerBadges: ConsumerBadges[], walletBadges: WalletBadge[]): PortfolioBadgeData[] {
   var badgeDatas: PortfolioBadgeData[] = []
+  if (!consumerBadges || !walletBadges) {
+    return badgeDatas
+  }
   for (const [i, consumerBadge] of consumerBadges.entries()) {
     var badgeData: PortfolioBadgeData = {
       consumer_name: consumerBadge.consumer_name,
       framework_name: consumerBadge.framework_name,
       stage_invisible: consumerBadge.stage_invisible,
       stage_name: consumerBadge.stage_name,
-      field_name: consumerBadge.field_name,
+      field1_name: consumerBadge.field1_name,
       wisdom_badges_name: consumerBadge.wisdom_badges_name,
       knowledge_badges_count: consumerBadge.knowledge_badges_count,
       scheduled_badges_count: 0,//獲得予定のバッジ数については将来対応予定

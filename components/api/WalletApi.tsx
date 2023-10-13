@@ -25,58 +25,33 @@ export function useWalletBadgeList () {
 function makeTestData1(): WalletBadge[] {
   var data = []
   var work: WalletBadge = {
-    badge_name: "学校安全と危機管理 (v1.0)",
-    badge_class_id: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=301",
+    badge_name: "学校の危機管理と課題",
+    badge_class_id: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=158",
   }
   data.push(work)
   work = {
-    badge_name: "人権の尊重 (v1.0)",
-    badge_class_id: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=302",
+    badge_name: "子どもの変化と教職について省察する",
+    badge_class_id: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=151",
   }
   data.push(work)
   work = {
-    badge_name: "子どもの変化と教職について省察する (v1.0)",
-    badge_class_id: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=303",
+    badge_name: "子どもの心に耳をすます‐感情の社会化を促す関わり",
+    badge_class_id: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=156",
   }
   data.push(work)
   work = {
-    badge_name: "若手教員の育成 (v1.0)",
-    badge_class_id: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=304",
+    badge_name: "子ども理解の教育心理学",
+    badge_class_id: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=169",
   }
   data.push(work)
   work = {
-    badge_name: "特別支援教育の現状 (v1.0)",
-    badge_class_id: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=305",
+    badge_name: "学校の危機管理と課題",
+    badge_class_id: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=158",
   }
   data.push(work)
   work = {
-    badge_name: "配慮を要する子ども・特別な援助ニーズのある子どもへの指導、支援 (v1.0)",
-    badge_class_id: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=306",
-  }
-  data.push(work)
-  work = {
-    badge_name: "子どもの心に耳をすます‐感情の社会化を促す関わり (v1.0)",
-    badge_class_id: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=307",
-  }
-  data.push(work)
-  work = {
-    badge_name: "組織的対応の必要性とチーム学校づくり (v1.0)",
-    badge_class_id: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=308",
-  }
-  data.push(work)
-  work = {
-    badge_name: "地域や保護者との連携 (v1.0)",
-    badge_class_id: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=309",
-  }
-  data.push(work)
-  work = {
-    badge_name: "体育授業と子供の健康 (v1.0)",
-    badge_class_id: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=310",
-  }
-  data.push(work)
-  work = {
-    badge_name: "安全の視点からの保健体育授業 (v1.0)",
-    badge_class_id: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=311",
+    badge_name: "GIGAスクール時代におけるICT活用入門　〜授業実践から校務活用まで〜",
+    badge_class_id: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=147",
   }
   data.push(work)
   return data
