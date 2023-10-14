@@ -1,11 +1,11 @@
 import { Flex, Box, BoxProps, CloseButton, FlexProps } from "@chakra-ui/react";
 import React from "react";
 
+const walletUrl = process.env.NEXT_PUBLIC_WALLET_BASE_URL as string
 
 const LinkItems: Array<{ name: string; link?: string }> = [
-  { name: "マイウォレット", link: "/" },
-  { name: "バッジ取り込み", link: "/badge/list" },
-  { name: "分析" },
+  { name: "BadgeWallet", link: walletUrl },
+  { name: "e-Portfolio", link: "/e-portfolio" },
 ];
 
 interface SidebarProps extends BoxProps {
