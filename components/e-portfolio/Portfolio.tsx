@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { SelectConsumer } from "../../components/ui/SelectConsumer"
+import { SelectConsumer } from "../ui/SelectConsumer"
 import { useConsumerBadgesList } from "@/components/api/OkutepApi"
 import { useWalletBadgeList } from "@/components/api/WalletApi"
 import { getCsvText, mergeBadgeData } from "@/components/util/Converter"
@@ -22,8 +22,10 @@ export const Portfolio = () => {
   const { walletBadges, isLoadingWB, isErrorWB } = useWalletBadgeList()
 
   // OKUTEPとBadgeWalletのバッジ情報をマージ
-  const portfolioBadges = mergeBadgeData(consumerBadges, walletBadges)
-  
+  var portfolioBadges: PortfolioBadgeData[] = []
+  if (consumerBadges && walletBadges) {
+    portfolioBadges = mergeBadgeData(consumerBadges, walletBadges)
+  }
   // 教育指標のプルダウン選択時のハンドラ
   const [selectedConsumer, setSelectedConsumer] = useState('')
   const [selectedFramework, setSelectedFramework] = useState('')

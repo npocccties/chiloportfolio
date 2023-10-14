@@ -1,11 +1,5 @@
 {
-  "extends": [
-    "eslint:recommended",
-    // "plugin:@typescript-eslint/recommended",
-    // "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "prettier",
-    "next/core-web-vitals"
-  ],
+  "extends": "next",
   "plugins": [
     // "@typescript-eslint",
     "import",
@@ -27,7 +21,9 @@
     // TODO: no-unused-vars no-irregular-whitespace はOSSからの移行中はオフ
     "no-unused-vars": "off",
     "no-irregular-whitespace": "off",
-    "unused-imports/no-unused-imports": "warn"
+    "unused-imports/no-unused-imports": "warn",
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off"
     // "import/order": [
     //   "error",
     //   {

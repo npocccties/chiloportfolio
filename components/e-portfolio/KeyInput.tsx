@@ -38,7 +38,7 @@ export const KeyInput = ({register, watch, handleSubmit, onClose, setValidPasswo
    <VStack>
     <form onSubmit={handleSubmit(isValid, isInvalid)}>
       <Box p='3'>
-        <Input name="password" type="password" {...register("password", { required: "キーを入力してください。" })}/>
+        <Input type="password" {...register("password", { required: "キーを入力してください。" })} name="password" />
         <Text color='red'>{errorMessage}</Text>
       </Box>
       <Box p='3'>

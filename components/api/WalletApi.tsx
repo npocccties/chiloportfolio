@@ -23,7 +23,7 @@ export function useWalletBadgeList () {
 }
 
 function makeTestData1(): WalletBadge[] {
-  var data = []
+  var data:WalletBadge[] = []
   var work: WalletBadge = {
     badge_name: "学校の危機管理と課題",
     badge_class_id: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=158",
