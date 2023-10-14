@@ -1,7 +1,6 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { Box, Flex, Link, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
-import Head from "next/head"
 
 import React from "react";
 

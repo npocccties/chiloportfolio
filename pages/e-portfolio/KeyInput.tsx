@@ -1,6 +1,6 @@
 import { Input, Box, Button, VStack, Text, Grid, GridItem } from "@chakra-ui/react";
 import { useState } from "react";
-import { UseFormHandleSubmit, UseFormRegister, UseFormWatch, useForm } from "react-hook-form";
+import { UseFormHandleSubmit, UseFormRegister, UseFormWatch } from "react-hook-form";
 import SHA256 from "crypto-js/sha256"
 
 const sha256Hash = process.env.NEXT_PUBLIC_KEY_SHA256_HASH as string
