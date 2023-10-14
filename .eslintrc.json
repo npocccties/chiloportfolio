@@ -3,7 +3,8 @@
     "eslint:recommended",
     // "plugin:@typescript-eslint/recommended",
     // "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "prettier"
+    "prettier",
+    "next/core-web-vitals"
   ],
   "plugins": [
     // "@typescript-eslint",
