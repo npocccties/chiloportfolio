@@ -1,8 +1,6 @@
 services:
-  app:
+  chiloportfolio_app:
     tty: true
-    networks:
-      - chiloportfolio_app
     build:
       context: .
       dockerfile: Dockerfile.dev-local
@@ -13,10 +11,6 @@ services:
     volumes:
       - ./:/app
       - node_modules:/app/node_modules
-    container_name: chiloportfolio_app
 
-networks:
-  chiloportfolio_app:
-    driver: bridge
 volumes:
   node_modules:

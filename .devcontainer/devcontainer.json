@@ -1,7 +1,7 @@
 {
   "name": "${localWorkspaceFolderBasename}",
   "dockerComposeFile": ["../docker-compose.dev-local.yml"],
-  "service": "app",
+  "service": "chiloportfolio_app",
   "workspaceFolder": "/app",
   "remoteEnv": {
     "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}",
