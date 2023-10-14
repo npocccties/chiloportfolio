@@ -20,7 +20,8 @@
     "react-hook-form": "^7.47.0",
     "react-icons": "^4.11.0",
     "recoil": "^0.7.7",
-    "swr": "^2.2.4"
+    "swr": "^2.2.4",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.1.0",
