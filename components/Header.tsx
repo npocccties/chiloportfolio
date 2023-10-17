@@ -22,7 +22,7 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
           <HamburgerIcon w={6} h={6} cursor={"pointer"} onClick={() => onOpen()} />
         </Box>
         <NextLink href="/e-portfolio">
-          <Text fontSize={"2xl"} fontWeight={"bold"}>e-Portfolio</Text>
+          <Text fontSize={"2xl"} fontWeight={"bold"}>e-ポートフォリオ</Text>
         </NextLink>
         <Flex gap={"16px"}></Flex>
       </Flex>

@@ -4,8 +4,9 @@ import React from "react";
 const walletUrl = process.env.NEXT_PUBLIC_WALLET_BASE_URL as string
 
 const LinkItems: Array<{ name: string; link?: string }> = [
-  { name: "BadgeWallet", link: walletUrl },
-  { name: "e-Portfolio", link: "/e-portfolio" },
+  { name: "バッジ一覧", link: walletUrl },
+  { name: "バッジ取り込み", link: walletUrl },
+  { name: "分析", link: "/e-portfolio" },
 ];
 
 interface SidebarProps extends BoxProps {

@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form"
 import jconv from "jconv"
 import { BiKey } from "react-icons/bi";
 import { PortfolioBadgeData } from "@/components/data/PortfolioData"
+import { Loading } from "../Loading"
 const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string
 
 export const Portfolio = () => {
@@ -87,7 +88,7 @@ export const Portfolio = () => {
     setSelectedStage('')
   }
 
-  if (isLoading || isLoadingWB) return <Spinner/>
+  if (isLoading || isLoadingWB) return <Loading/>
   if (isError || isErrorWB) return <div>failed to load</div>
   return (
     <>
