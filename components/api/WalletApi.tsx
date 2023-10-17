@@ -3,13 +3,13 @@ import useSWR from 'swr'
 const baseUrl = process.env.NEXT_PUBLIC_WALLET_BASE_URL as string
 
 export function useWalletBadgeList () {
-  const apiPath = '/api/v1/user_badgelist/'
-  const url = `${baseUrl}${apiPath}`
-  async function fetcher(key: string, init?: RequestInit) {
-    return fetch(key, init).then((res) => res.json() as Promise<WalletBadge[] | null>)
-  }
   //test
-  //const { data, error, isLoading } = useSWR(`${url}`, fetcher)
+  // const apiPath = '/api/v1/user_badgelist/'
+  // const url = `${baseUrl}${apiPath}`
+  // async function fetcher(key: string, init?: RequestInit) {
+  //   return fetch(key, init).then((res) => res.json() as Promise<WalletBadge[] | null>)
+  // }
+  // const { data, error, isLoading } = useSWR(`${url}`, fetcher)
   const error = false
   const isLoading = false
   var data = makeTestData1()
