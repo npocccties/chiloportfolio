@@ -1,9 +1,9 @@
-const isProd = process.env.NODE_ENV === 'production'
+const urlPrefix = `/e-portfolio`
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  assetPrefix: `/e-portfolio`,
-  basePath: `/e-portfolio`,
+  assetPrefix: urlPrefix,
+  basePath: urlPrefix,
   reactStrictMode: true,
   experimental: {
     outputStandalone: true,
