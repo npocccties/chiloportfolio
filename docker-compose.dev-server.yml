@@ -1,15 +1,15 @@
 version: "3.9"
 
 services:
-  chiloportfolio_app:
+  app2:
     build:
       context: .
       dockerfile: Dockerfile.dev-server
     ports:
-      - "3001:3000"
+      - "3000:3000"
     networks:
       - app_network
-    container_name: chiloportfolio_app
+    container_name: chiloportfolio
     restart: "no"
 
 networks:
