@@ -3,7 +3,7 @@ import { SelectConsumer } from "../ui/SelectConsumer"
 import { useConsumerBadgesList } from "@/components/api/OkutepApi"
 import { useWalletBadgeList } from "@/components/api/WalletApi"
 import { getCsvText, mergeBadgeData } from "@/components/util/Converter"
-import { Button, FormLabel, Link, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure, Box, Flex, HStack } from "@chakra-ui/react"
+import { Button, FormLabel, Link, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure, Box, Flex, HStack, Spinner } from "@chakra-ui/react"
 import { BadgeList } from "@/components/ui/BadgeList"
 import { KeyInput, KeyInputForm } from "./KeyInput"
 import { useForm } from "react-hook-form"
@@ -87,7 +87,7 @@ export const Portfolio = () => {
     setSelectedStage('')
   }
 
-  if (isLoading || isLoadingWB) return <div>loading...</div>
+  if (isLoading || isLoadingWB) return <Spinner/>
   if (isError || isErrorWB) return <div>failed to load</div>
   return (
     <>
