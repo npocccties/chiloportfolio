@@ -26,7 +26,7 @@ export const Portfolio = () => {
   if (consumerBadges && walletBadges) {
     portfolioBadges = mergeBadgeData(consumerBadges, walletBadges)
   }
-  // 教育指標のプルダウン選択時のハンドラ
+  // 教員育成指標のプルダウン選択時のハンドラ
   const [selectedConsumer, setSelectedConsumer] = useState('')
   const [selectedFramework, setSelectedFramework] = useState('')
   const [selectedStage, setSelectedStage] = useState('')
@@ -76,7 +76,7 @@ export const Portfolio = () => {
   }
 
   const onKeyInputClosed = () => {
-    // 教育指標のプルダウンを選択解除する
+    // 教員育成指標のプルダウンを選択解除する
     var elements = document.getElementsByName('consumer')
     for (let i = 0; i < elements.length; i++){
       var obj = elements[i] as HTMLSelectElement;
@@ -101,7 +101,7 @@ export const Portfolio = () => {
       >
         <Box mt={4}>
           <FormLabel mb={2} fontSize={"md"}>
-            教育指標選択
+            教員育成指標選択
           </FormLabel>
           <HStack>
             <SelectConsumer consumers={Array.from(consumers)} handleChange={onChangeConsumer} />
@@ -125,7 +125,7 @@ export const Portfolio = () => {
       >
         <Box w={"full"} mt={7}>
           <FormLabel mb={2} fontSize={"md"}>
-            教育指標選択
+            教員育成指標選択
           </FormLabel>
           <HStack>
             <SelectConsumer consumers={Array.from(consumers)} handleChange={onChangeConsumer} />
