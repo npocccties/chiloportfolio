@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { SelectConsumer } from "../ui/SelectConsumer"
+import { getJSON, useConsumerBadgesList } from "@/components/api/OkutepApi"
 import { useWalletBadgeList } from "@/components/api/WalletApi"
 import { getCsvText, mergeBadgeData } from "@/components/util/Converter"
 import { Button, FormLabel, Link, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure, Box, Flex, HStack, Spinner } from "@chakra-ui/react"
