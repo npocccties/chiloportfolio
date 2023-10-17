@@ -16,3 +16,17 @@ export function useConsumerBadgesList (invisible: boolean) {
     isError: error
   }
 }
+
+export function useTest () {
+  const url = `https://yesno.wtf/api`
+  console.log(url)
+  async function fetcher(key: string, init?: RequestInit) {
+    return fetch(key, init).then((res) => res.json() as Promise<{} | null>)
+  }
+  const { data, error, isLoading } = useSWR(`${url}`, fetcher)
+  return {
+    testData: data,
+    isTestLoading: isLoading,
+    isTestError: error
+  }
+}
