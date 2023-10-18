@@ -1,8 +1,7 @@
-const isProd = process.env.NODE_ENV === 'production'
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  assetPrefix: isProd ? '../' : undefined,
+  assetPrefix: '/e-portfolio/', // assetPrefix requires the trailing slash
+  basePath: '/e-portfolio',
   reactStrictMode: true,
   experimental: {
     outputStandalone: true,
