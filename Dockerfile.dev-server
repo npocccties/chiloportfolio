@@ -40,8 +40,8 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/styles ./styles
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=builder /app/.env.production ./
-# COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /e-portfolio/app/.next/standalone ./e-portfolio/
+COPY --from=builder --chown=nextjs:nodejs /e-portfolio/app/.next/static ./e-portfolio/.next/static
 
 # EXPOSE 3000
 
