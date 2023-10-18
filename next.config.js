@@ -4,7 +4,6 @@ const urlPrefix = `/e-portfolio`
 const nextConfig = {
   assetPrefix: urlPrefix,
   basePath: urlPrefix,
-  distDir: `${urlPrefix}/.next`,
   reactStrictMode: true,
   experimental: {
     outputStandalone: true,
