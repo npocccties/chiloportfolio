@@ -42,8 +42,6 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY --from=builder /app/.env.production ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone .
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-RUN mkdir -p ./public/e-portfolio/_next/
-COPY --from=builder --chown=nextjs:nodejs /app/.next/ ./public/e-portfolio/_next
 
 # EXPOSE 3000
 
