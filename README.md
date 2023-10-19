@@ -74,7 +74,6 @@ npm run dev
 1. 環境変数を定義した `.env` をルートディレクトリに配置
    * 開発サーバー：
       * ルートディレクトリで、`script/setup.sh` を実行する
-      * .envの`ALLOWED_HOSTS`に記載されているドメインを、デプロイ先のドメインに設定する
 
 1. デプロイ
   - 開発サーバー
@@ -89,12 +88,11 @@ npm run dev
 
 # 環境変数
 
-## DB, ビルド時用
+## ビルド時用
 .env
 | 変数名                               | 説明                                        | デフォルト値         |
 | :----------------------------------- | :------------------------------------------ | :------------------- |
-|SSL_CERTS_DIR|サーバー証明書の配置ディレクトリ|・ディレクトリの末尾には `/` は付与しないこと<br>・本番環境では下記の命名でファイルを配置しておくこと<br>　`signed.crt`: サーバー証明書<br>　`domain.key`: サーバー証明書の秘密鍵|
-|ALLOWED_HOSTS|公開ホスト名|本番リリースする際は本番サーバーのホスト名を設定してください|
+|-|-|-|
 
 ## Next.jsアプリケーション用
 Next.jsアプリケーションでは、環境毎に以下のパターンで.envファイルを参照します。
@@ -115,9 +113,11 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 
 | 変数名                               | 説明                                        | デフォルト値         |
 | :----------------------------------- | :------------------------------------------ | :------------------- |
-|baseURL|アプリケーション起動時のURL|http://localhost:3000|
-|clientName|アプリケーションの名称|chiloportfolio|
-|vcApp_client_id|AzureクライアントID|-|
-|vcApp_azTenantId|AzureテナントID|-|
-|vcApp_client_secret|Azureクライアントシークレット|-|
-|vcApp_scope|AzureへVC発行要求するためのスコープ配列|-|
+|NEXT_PUBLIC_SERVICE_NAME|サービス名|e-ポートフォリオ|
+|NEXT_PUBLIC_SERVICE_DESCRIPTION|サービスの説明<br>metaタグに設定される説明です。|e-Portfolioは、教育指標毎のオープンバッジの取得状況を確認するサイトです。|
+|NEXT_PUBLIC_OKUTEP_BASE_URL|OKUTEPのURL|-|
+|NEXT_PUBLIC_WALLET_BASE_URL|バッジウォレットのURL|-|
+|NEXT_PUBLIC_COPYRIGHT_LINK|フッターに表示するコピーライトのリンク|-|
+|NEXT_PUBLIC_COPYRIGHT|フッターに表示するコピーライト|-|
+|NEXT_PUBLIC_KEY_SHA256_HASH|キー入力で使用するパスワードのSHA256のハッシュ値|-|
+|NEXT_PUBLIC_CSV_FILE_NAME|CSVダウンロードで指定するファイル名|e-Portfolio.csv|
