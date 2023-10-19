@@ -69,7 +69,7 @@ export const Portfolio = () => {
     const url = URL.createObjectURL(blob)
     const a = document.createElement("a")
     document.body.appendChild(a)
-    a.download = csvFileName
+    a.download = `${csvFileName}_${targets[0].consumer_name}_${targets[0].framework_name}_${targets[0].stage_name}.csv`
     a.href = url
     a.click()
     a.remove()

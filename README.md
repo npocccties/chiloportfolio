@@ -120,4 +120,4 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 |NEXT_PUBLIC_COPYRIGHT_LINK|フッターに表示するコピーライトのリンク|-|
 |NEXT_PUBLIC_COPYRIGHT|フッターに表示するコピーライト|-|
 |NEXT_PUBLIC_KEY_SHA256_HASH|キー入力で使用するパスワードのSHA256のハッシュ値|-|
-|NEXT_PUBLIC_CSV_FILE_NAME|CSVダウンロードで指定するファイル名|e-Portfolio.csv|
+|NEXT_PUBLIC_CSV_FILE_NAME|CSVダウンロードで指定するファイル名|e-Portfolio|
