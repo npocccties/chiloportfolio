@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  app2:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev-server
+    ports:
+      - "3000:3000"
+    networks:
+      - app_network
+    container_name: chiloportfolio
+    restart: "no"
+
+networks:
+  app_network:
+    driver: bridge
+    external: true
