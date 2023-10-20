@@ -114,7 +114,7 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 | 変数名                               | 説明                                        | デフォルト値         |
 | :----------------------------------- | :------------------------------------------ | :------------------- |
 |NEXT_PUBLIC_SERVICE_NAME|サービス名|e-ポートフォリオ|
-|NEXT_PUBLIC_SERVICE_DESCRIPTION|サービスの説明<br>metaタグに設定される説明です。|e-Portfolioは、教育指標毎のオープンバッジの取得状況を確認するサイトです。|
+|NEXT_PUBLIC_SERVICE_DESCRIPTION|サービスの説明<br>metaタグに設定される説明です。|e-ポートフォリオは、教育指標毎のオープンバッジの取得状況を確認するサイトです。|
 |NEXT_PUBLIC_OKUTEP_BASE_URL|OKUTEPのURL|-|
 |NEXT_PUBLIC_WALLET_BASE_URL|バッジウォレットのURL|-|
 |NEXT_PUBLIC_COPYRIGHT_LINK|フッターに表示するコピーライトのリンク|-|
