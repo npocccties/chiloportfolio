@@ -18,6 +18,7 @@ export const Portfolio = () => {
   const [validPassword, setValidPassword] = useState(false)
   // OKUTEPからバッジ情報の取得
   const { consumerBadges, isLoading, isError } = useConsumerBadgesList(validPassword)
+  console.log(consumerBadges)
 
   // BadgeWalletからバッジ情報の取得
   const { walletBadges, isLoadingWB, isErrorWB } = useWalletBadgeList()
