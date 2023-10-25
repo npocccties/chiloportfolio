@@ -1,10 +1,38 @@
-import { ConsumerBadges } from "@/components/data/OkutepData"
+import { ConsumerBadges, PortalCategory, PortalCategoryBadges } from "@/components/data/OkutepData"
 import { WalletBadge } from "@/components/data/WalletData"
 import { PortfolioBadgeData } from "@/components/data/PortfolioData"
 
-export function mergeBadgeData(consumerBadges: ConsumerBadges[], walletBadges: WalletBadge[]): PortfolioBadgeData[] {
+export function mergeBadgeDataWithCategory(portalCategory: PortalCategory, portalCategoryBadges: PortalCategoryBadges, walletBadges: WalletBadge[]): PortfolioBadgeData[] {
   var badgeDatas: PortfolioBadgeData[] = []
-  if (!consumerBadges || !walletBadges) {
+  if (!portalCategoryBadges || !walletBadges || walletBadges.length == 0) {
+    return badgeDatas
+  }
+  for (const [i, wisdomBadge] of portalCategoryBadges.badges.entries()) {
+    var badgeData: PortfolioBadgeData = {
+      consumer_name: "",
+      framework_name: "",
+      stage_invisible: false,
+      stage_name: "",
+      field1_name: portalCategory.name,
+      wisdom_badges_name: wisdomBadge.name,
+      knowledge_badges_count: wisdomBadge.detail.knowledge_badges_list.length,
+      scheduled_badges_count: 0,//獲得予定のバッジ数については将来対応予定
+      acquired_badges_count: 0,
+      wisdom_badges_description: wisdomBadge.description,
+    }
+    const targets = walletBadges.filter(v => v.badge_class_id == wisdomBadge.digital_badge_class_id)
+    if (targets.length != 0) {
+      const walletBadge = targets[0]
+      badgeData.acquired_badges_count = wisdomBadge.detail.knowledge_badges_list.length
+    }
+    badgeDatas.push(badgeData)
+  }
+  return badgeDatas
+}
+
+export function mergeBadgeDataWithConsumer(consumerBadges: ConsumerBadges[], walletBadges: WalletBadge[]): PortfolioBadgeData[] {
+  var badgeDatas: PortfolioBadgeData[] = []
+  if (!consumerBadges || !walletBadges || walletBadges.length == 0) {
     return badgeDatas
   }
   for (const [i, consumerBadge] of consumerBadges.entries()) {

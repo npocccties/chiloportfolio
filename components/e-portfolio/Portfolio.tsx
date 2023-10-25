@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import { SelectConsumer } from "../ui/SelectConsumer"
-import { useConsumerBadgesList } from "@/components/api/OkutepApi"
+import { useConsumerBadgesList, usePortalCategoryBadges, usePortalCategoryList } from "@/components/api/OkutepApi"
 import { useWalletBadgeList } from "@/components/api/WalletApi"
-import { getCsvText, mergeBadgeData } from "@/components/util/Converter"
+import { getCsvText, mergeBadgeDataWithCategory, mergeBadgeDataWithConsumer } from "@/components/util/Converter"
 import { Button, FormLabel, Link, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure, Box, Flex, HStack } from "@chakra-ui/react"
 import { BadgeList } from "@/components/ui/BadgeList"
 import { KeyInput, KeyInputForm } from "./KeyInput"
@@ -11,9 +11,16 @@ import jconv from "jconv"
 import { BiKey } from "react-icons/bi";
 import { PortfolioBadgeData } from "@/components/data/PortfolioData"
 import { Loading } from "../Loading"
+import { PortalCategory, PortalCategoryBadges } from "../data/OkutepData"
 const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string
 
 export const Portfolio = () => {
+
+  const [portalCategory, setPortalCategory] = useState<PortalCategory>()
+  // OKUTEPからポータルカテゴリ一覧取得
+  const { portalCategories, isLoadingPCL, isErrorPCL } = usePortalCategoryList()
+  // OKUTEPからポータルカテゴリに紐づくバッジ一覧取得
+  const { portalCategoryBadges, isLoadingPCBL, isErrorPCBL } = usePortalCategoryBadges(portalCategory ? portalCategory.portal_category_id : 0)
 
   const [validPassword, setValidPassword] = useState(false)
   // OKUTEPからバッジ情報の取得
@@ -25,8 +32,11 @@ export const Portfolio = () => {
 
   // OKUTEPとBadgeWalletのバッジ情報をマージ
   var portfolioBadges: PortfolioBadgeData[] = []
+  if (portalCategoryBadges && walletBadges && portalCategory && portalCategories) {
+    portfolioBadges = mergeBadgeDataWithCategory(portalCategory, portalCategoryBadges, walletBadges)
+  }
   if (consumerBadges && walletBadges) {
-    portfolioBadges = mergeBadgeData(consumerBadges, walletBadges)
+    portfolioBadges = mergeBadgeDataWithConsumer(consumerBadges, walletBadges)
   }
   // 教員育成指標のプルダウン選択時のハンドラ
   const [selectedConsumer, setSelectedConsumer] = useState('')
@@ -34,13 +44,22 @@ export const Portfolio = () => {
   const [selectedStage, setSelectedStage] = useState('')
   const onChangeConsumer = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const array = e.target.value.split(' ')
-    const consumerName = array[0]
-    const frameworkName = array[1]
-    const stageName = array[2]
-    console.log(`consumerName: ${consumerName} frameworkName: ${frameworkName} stageName: ${stageName}`)
-    setSelectedConsumer(consumerName)
-    setSelectedFramework(frameworkName)
-    setSelectedStage(stageName)
+    if (array.length == 1) {
+      const targets = portalCategories?.filter(v => v.name == array[0])
+      if (targets) {
+        const portalCategoryId = targets[0].portal_category_id
+        console.log('portalCategoryId: ', portalCategoryId)
+        setPortalCategory(targets[0])
+      }
+    } else {
+      const consumerName = array[0]
+      const frameworkName = array[1]
+      const stageName = array[2]
+      console.log(`consumerName: ${consumerName} frameworkName: ${frameworkName} stageName: ${stageName}`)
+      setSelectedConsumer(consumerName)
+      setSelectedFramework(frameworkName)
+      setSelectedStage(stageName)
+    }
   }
 
   // キー入力のダイアログとの連携
@@ -52,12 +71,14 @@ export const Portfolio = () => {
     formState: { errors },
   } = useForm<KeyInputForm>()
 
-
   const consumers = new Set<string>()
   portfolioBadges.map(v => {
     if (!v.stage_invisible || (validPassword && v.stage_invisible)) {
       consumers.add(getKeyName(v))
     }
+  })
+  portalCategories?.map(v => {
+    consumers.add(v.name)
   })
   console.log('consumers: ', consumers)
 
@@ -89,8 +110,8 @@ export const Portfolio = () => {
     setSelectedStage('')
   }
 
-  if (isLoading || isLoadingWB) return <Loading/>
-  if (isError || isErrorWB) return <div>failed to load</div>
+  if (isLoading || isLoadingWB || isLoadingPCL || isLoadingPCBL) return <Loading/>
+  if (isError || isErrorWB || isErrorPCL || isErrorPCBL) return <div>failed to load</div>
   return (
     <>
       {/** desktop */}

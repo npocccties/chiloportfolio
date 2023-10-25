@@ -5,7 +5,7 @@ const walletUrl = process.env.NEXT_PUBLIC_WALLET_BASE_URL as string
 
 const LinkItems: Array<{ name: string; link?: string }> = [
   { name: "バッジ一覧", link: walletUrl },
-  { name: "バッジ取り込み", link: walletUrl },
+  { name: "バッジインポート", link: walletUrl },//TODO:バッジインポートのURLを指定すること
   { name: "分析", link: "/" },
 ];
 
