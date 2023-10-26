@@ -12,6 +12,7 @@ import { BiKey } from "react-icons/bi";
 import { PortfolioBadgeData } from "@/components/data/PortfolioData"
 import { Loading } from "../Loading"
 import { PortalCategory, PortalCategoryBadges } from "../data/OkutepData"
+import { usePassword } from "../api/PortfolioApi"
 const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string
 
 export const Portfolio = () => {
@@ -23,9 +24,14 @@ export const Portfolio = () => {
   const { portalCategoryBadges, isLoadingPCBL, isErrorPCBL } = usePortalCategoryBadges(portalCategory ? portalCategory.portal_category_id : 0)
 
   const [validPassword, setValidPassword] = useState(false)
+  const [password, setPassword] = useState('')
   // OKUTEPからバッジ情報の取得
   const { consumerBadges, isLoading, isError } = useConsumerBadgesList(validPassword)
   console.log(consumerBadges)
+
+  // 入力キーの照合
+  var { passwordResult, isLoadingPass, isErrorPass } = usePassword(password)
+  console.log('passwordResult: ', passwordResult)
 
   // BadgeWalletからバッジ情報の取得
   const { walletBadges, isLoadingWB, isErrorWB } = useWalletBadgeList()
@@ -126,6 +132,7 @@ export const Portfolio = () => {
 
   if (isLoading || isLoadingWB || isLoadingPCL || isLoadingPCBL) return <Loading/>
   if (isError || isErrorWB || isErrorPCL || isErrorPCBL) return <div>failed to load</div>
+
   return (
     <>
       {/** desktop */}
@@ -176,12 +183,13 @@ export const Portfolio = () => {
         </Box>
       </Flex>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal id='modal-dlg' isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>取得キー入力</ModalHeader>
           <ModalBody>
-            <KeyInput register={register} watch={watch} handleSubmit={handleSubmit} onClose={onClose} setValidPassword={setValidPassword} onKeyInputClosed={onKeyInputClosed}/>
+            <KeyInput register={register} watch={watch} handleSubmit={handleSubmit} onClose={onClose} setPassword={setPassword} 
+              setValidPassword={setValidPassword} onKeyInputClosed={onKeyInputClosed} passwordResult={passwordResult}/>
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -213,4 +221,11 @@ function getCsvFileName(cosumerName: string, frameworkName: string, stageName: s
    // 禁則文字の削除
   var newFileName = fileName.replace(/[\\\/:\*\?\"<>\|]/g, "")
   return newFileName
+}
+
+function setErrorMessage(errorMessage: string) {
+  var element = document.getElementById('input-error-message') as HTMLElement
+  if (element) {
+    element.innerText = errorMessage
+  }
 }

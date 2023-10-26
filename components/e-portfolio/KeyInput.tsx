@@ -1,9 +1,7 @@
 import { Input, Box, Button, VStack, Text, Grid, GridItem } from "@chakra-ui/react";
 import { useState } from "react";
 import { UseFormHandleSubmit, UseFormRegister, UseFormWatch } from "react-hook-form";
-import SHA256 from "crypto-js/sha256"
-
-const sha256Hash = process.env.NEXT_PUBLIC_KEY_SHA256_HASH as string
+import { PasswordResult } from "../data/PortfolioData";
 
 type Props = {
   register: UseFormRegister<KeyInputForm>,
@@ -11,23 +9,31 @@ type Props = {
   handleSubmit: UseFormHandleSubmit<KeyInputForm, undefined>,
   onClose: () => void,
   setValidPassword: React.Dispatch<React.SetStateAction<boolean>>,
+  setPassword: React.Dispatch<React.SetStateAction<string>>,
   onKeyInputClosed: () => void,
+  passwordResult: PasswordResult | null | undefined,
 }
 
-export const KeyInput = ({register, watch, handleSubmit, onClose, setValidPassword, onKeyInputClosed}: Props) => {
+export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, setValidPassword, onKeyInputClosed, passwordResult}: Props) => {
 
   const isValid = (data: KeyInputForm) => {
-    const outputHash = SHA256(data.password).toString().toLowerCase()
-    if (outputHash != sha256Hash) {
-      setErrorMessage('入力したキーが誤っております。')
-    } else {
-      setErrorMessage('')
-      setValidPassword(true)
-      onKeyInputClosed()
-      onClose()
+    if (passwordResult && passwordResult.result != -1) {
+      if (passwordResult.result == 0) {
+        setErrorMessage('入力したキーが誤っております。')
+      } else {
+        passwordResult = null
+        setErrorMessage('')
+        onKeyInputClosed()
+        setValidPassword(true)
+        onClose()
+      }
     }
   };
-  
+
+  const onChangePassword = (event): void => {
+    setPassword(event.target.value);
+  }
+
   const isInvalid = (errors: any) => {
     setErrorMessage(errors.password.message)
   };
@@ -38,8 +44,8 @@ export const KeyInput = ({register, watch, handleSubmit, onClose, setValidPasswo
    <VStack>
     <form onSubmit={handleSubmit(isValid, isInvalid)}>
       <Box p='3'>
-        <Input type="password" {...register("password", { required: "キーを入力してください。" })} name="password" />
-        <Text color='red'>{errorMessage}</Text>
+        <Input type="password" {...register("password", { required: "キーを入力してください。" })} onChange={onChangePassword} name="password" />
+        <Text id='input-error-message' color='red'>{errorMessage}</Text>
       </Box>
       <Box p='3'>
         <Grid templateColumns='repeat(4, 1fr)' gap={6}>
@@ -65,3 +71,4 @@ export const KeyInput = ({register, watch, handleSubmit, onClose, setValidPasswo
 export interface KeyInputForm {
   password: string;
 }
+

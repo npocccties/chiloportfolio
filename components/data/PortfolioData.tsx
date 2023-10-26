@@ -10,3 +10,7 @@ export type PortfolioBadgeData = {
   scheduled_badges_count: number
   acquired_badges_count: number
 }
+
+export type PasswordResult = {
+  result: number
+}

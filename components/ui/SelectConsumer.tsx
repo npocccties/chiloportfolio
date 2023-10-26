@@ -21,4 +21,3 @@ export const SelectConsumer = ({ selectedConsumer, consumers, handleChange }: Pr
     </div>
   )
 }
-
