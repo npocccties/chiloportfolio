@@ -9,14 +9,14 @@ export function mergeBadgeDataWithCategory(portalCategory: PortalCategory, porta
   }
   for (const [i, wisdomBadge] of portalCategoryBadges.badges.entries()) {
     var badgeData: PortfolioBadgeData = {
-      consumer_name: "",
+      consumer_name: portalCategory.name, // 一覧表示の際の突き合わせ条件で使用
       framework_name: "",
       stage_invisible: false,
       stage_name: "",
       field1_name: portalCategory.name,
       wisdom_badges_name: wisdomBadge.name,
       knowledge_badges_count: wisdomBadge.detail.knowledge_badges_list.length,
-      scheduled_badges_count: 0,//獲得予定のバッジ数については将来対応予定
+      scheduled_badges_count: 0,//TODO：獲得予定のバッジ数については将来対応予定
       acquired_badges_count: 0,
       wisdom_badges_description: wisdomBadge.description,
     }

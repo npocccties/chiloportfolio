@@ -34,9 +34,12 @@ export const Portfolio = () => {
   var portfolioBadges: PortfolioBadgeData[] = []
   if (portalCategoryBadges && walletBadges && portalCategory && portalCategories) {
     portfolioBadges = mergeBadgeDataWithCategory(portalCategory, portalCategoryBadges, walletBadges)
+    console.log('mergeBadgeDataWithCategory: ', portfolioBadges)
   }
   if (consumerBadges && walletBadges) {
-    portfolioBadges = mergeBadgeDataWithConsumer(consumerBadges, walletBadges)
+    const results = mergeBadgeDataWithConsumer(consumerBadges, walletBadges)
+    portfolioBadges = portfolioBadges.concat(results)
+    console.log('mergeBadgeDataWithConsumer: ', portfolioBadges)
   }
   // 教員育成指標のプルダウン選択時のハンドラ
   const [selectedConsumer, setSelectedConsumer] = useState('')
@@ -47,10 +50,14 @@ export const Portfolio = () => {
     if (array.length == 1) {
       const targets = portalCategories?.filter(v => v.name == array[0])
       if (targets) {
-        const portalCategoryId = targets[0].portal_category_id
+        const portalCategory = targets[0]
+        const portalCategoryId = portalCategory.portal_category_id
         console.log('portalCategoryId: ', portalCategoryId)
-        setPortalCategory(targets[0])
+        setPortalCategory(portalCategory)
+        setSelectedConsumer(portalCategory.name)
       }
+      setSelectedFramework('')
+      setSelectedStage('')
     } else {
       const consumerName = array[0]
       const frameworkName = array[1]
@@ -71,14 +78,18 @@ export const Portfolio = () => {
     formState: { errors },
   } = useForm<KeyInputForm>()
 
+  // 教員育成指標選択のプルダウンの要素を収集
   const consumers = new Set<string>()
   portfolioBadges.map(v => {
     if (!v.stage_invisible || (validPassword && v.stage_invisible)) {
-      consumers.add(getKeyName(v))
+      const key = getKeyName(v)
+      if (key) {
+        consumers.add(key)
+      }
     }
   })
   portalCategories?.map(v => {
-    consumers.add(v.name)
+    consumers.add(v.name?.trim())
   })
   console.log('consumers: ', consumers)
 
@@ -91,7 +102,7 @@ export const Portfolio = () => {
     const url = URL.createObjectURL(blob)
     const a = document.createElement("a")
     document.body.appendChild(a)
-    a.download = `${csvFileName}_${targets[0].consumer_name}_${targets[0].framework_name}_${targets[0].stage_name}.csv`
+    a.download = getCsvFileName(targets[0].consumer_name, targets[0].framework_name, targets[0].stage_name)
     a.href = url
     a.click()
     a.remove()
@@ -109,6 +120,9 @@ export const Portfolio = () => {
     setSelectedFramework('')
     setSelectedStage('')
   }
+  console.log('selectedConsumer: ', selectedConsumer)
+  console.log('selectedFramework: ', selectedFramework)
+  console.log('selectedStage: ', selectedStage)
 
   if (isLoading || isLoadingWB || isLoadingPCL || isLoadingPCBL) return <Loading/>
   if (isError || isErrorWB || isErrorPCL || isErrorPCBL) return <div>failed to load</div>
@@ -127,7 +141,7 @@ export const Portfolio = () => {
             教員育成指標選択
           </FormLabel>
           <HStack>
-            <SelectConsumer consumers={Array.from(consumers)} handleChange={onChangeConsumer} />
+            <SelectConsumer selectedConsumer={selectedConsumer} consumers={Array.from(consumers)} handleChange={onChangeConsumer} />
             <Link onClick={onOpen}>
               <Text fontSize='40px'><BiKey/></Text>
             </Link>
@@ -151,7 +165,7 @@ export const Portfolio = () => {
             教員育成指標選択
           </FormLabel>
           <HStack>
-            <SelectConsumer consumers={Array.from(consumers)} handleChange={onChangeConsumer} />
+            <SelectConsumer selectedConsumer={selectedConsumer} consumers={Array.from(consumers)} handleChange={onChangeConsumer} />
             <Link onClick={onOpen}>
               <Text fontSize='40px'><BiKey/></Text>
             </Link>
@@ -178,5 +192,25 @@ export const Portfolio = () => {
 }
 
 function getKeyName(v: PortfolioBadgeData): string {
-  return `${v.consumer_name} ${v.framework_name} ${v.stage_name}`
+  if (v.consumer_name && v.framework_name && v.stage_name) {
+    return `${v.consumer_name} ${v.framework_name} ${v.stage_name}`
+  }
+  return ""
+}
+
+function getCsvFileName(cosumerName: string, frameworkName: string, stageName: string): string {
+  var fileName = csvFileName
+  if (cosumerName?.trim()) {
+    fileName += `_${cosumerName.trim()}`
+  }
+  if (frameworkName?.trim()) {
+    fileName += `_${frameworkName.trim()}`
+  }
+  if (stageName?.trim()) {
+    fileName += `_${stageName.trim()}`
+  }
+  fileName += '.csv'
+   // 禁則文字の削除
+  var newFileName = fileName.replace(/[\\\/:\*\?\"<>\|]/g, "")
+  return newFileName
 }
