@@ -3,7 +3,7 @@ export type ConsumerBadges = {
   consumer_name: string
   framework_id: number
   framework_name: string
-  stage_invisible: boolean
+  stage_password: string
   stage_id: number
   stage_name: string
   field1_name: string

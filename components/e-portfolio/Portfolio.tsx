@@ -23,7 +23,7 @@ export const Portfolio = () => {
   // OKUTEPからポータルカテゴリに紐づくバッジ一覧取得
   const { portalCategoryBadges, isLoadingPCBL, isErrorPCBL } = usePortalCategoryBadges(portalCategory ? portalCategory.portal_category_id : 0)
 
-  const [validPassword, setValidPassword] = useState(false)
+  const [validPassword, setValidPassword] = useState('')
   const [password, setPassword] = useState('')
   // OKUTEPからバッジ情報の取得
   const { consumerBadges, isLoading, isError } = useConsumerBadgesList(validPassword)
@@ -87,7 +87,7 @@ export const Portfolio = () => {
   // 教員育成指標選択のプルダウンの要素を収集
   const consumers = new Set<string>()
   portfolioBadges.map(v => {
-    if (!v.stage_invisible || (validPassword && v.stage_invisible)) {
+    if (!v.stage_password || (validPassword && v.stage_password)) {
       const key = getKeyName(v)
       if (key) {
         consumers.add(key)
@@ -188,7 +188,7 @@ export const Portfolio = () => {
         <ModalContent>
           <ModalHeader>取得キー入力</ModalHeader>
           <ModalBody>
-            <KeyInput register={register} watch={watch} handleSubmit={handleSubmit} onClose={onClose} setPassword={setPassword} 
+            <KeyInput register={register} watch={watch} handleSubmit={handleSubmit} onClose={onClose} setPassword={setPassword} password={password}
               setValidPassword={setValidPassword} onKeyInputClosed={onKeyInputClosed} passwordResult={passwordResult}/>
           </ModalBody>
         </ModalContent>

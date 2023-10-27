@@ -8,13 +8,14 @@ type Props = {
   watch: UseFormWatch<KeyInputForm>,
   handleSubmit: UseFormHandleSubmit<KeyInputForm, undefined>,
   onClose: () => void,
-  setValidPassword: React.Dispatch<React.SetStateAction<boolean>>,
+  setValidPassword: React.Dispatch<React.SetStateAction<string>>,
   setPassword: React.Dispatch<React.SetStateAction<string>>,
+  password: string,
   onKeyInputClosed: () => void,
   passwordResult: PasswordResult | null | undefined,
 }
 
-export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, setValidPassword, onKeyInputClosed, passwordResult}: Props) => {
+export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, setValidPassword, password, onKeyInputClosed, passwordResult}: Props) => {
 
   const isValid = (data: KeyInputForm) => {
     if (passwordResult && passwordResult.result != -1) {
@@ -24,7 +25,7 @@ export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, s
         passwordResult = null
         setErrorMessage('')
         onKeyInputClosed()
-        setValidPassword(true)
+        setValidPassword(password)
         onClose()
       }
     }

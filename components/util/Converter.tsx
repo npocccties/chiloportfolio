@@ -11,7 +11,7 @@ export function mergeBadgeDataWithCategory(portalCategory: PortalCategory, porta
     var badgeData: PortfolioBadgeData = {
       consumer_name: portalCategory.name, // 一覧表示の際の突き合わせ条件で使用
       framework_name: "",
-      stage_invisible: false,
+      stage_password: "",
       stage_name: "",
       field1_name: portalCategory.name,
       wisdom_badges_name: wisdomBadge.name,
@@ -39,7 +39,7 @@ export function mergeBadgeDataWithConsumer(consumerBadges: ConsumerBadges[], wal
     var badgeData: PortfolioBadgeData = {
       consumer_name: consumerBadge.consumer_name,
       framework_name: consumerBadge.framework_name,
-      stage_invisible: consumerBadge.stage_invisible,
+      stage_password: consumerBadge.stage_password,
       stage_name: consumerBadge.stage_name,
       field1_name: consumerBadge.field1_name,
       wisdom_badges_name: consumerBadge.wisdom_badges_name,
