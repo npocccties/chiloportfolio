@@ -1,6 +1,7 @@
 import "../styles/global.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { RecoilRoot, RecoilEnv } from "recoil";
+import { SessionProvider} from "next-auth/react"
 
 import type { AppProps } from "next/app";
 
@@ -10,11 +11,13 @@ RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider>
-      <RecoilRoot>
-        <Component {...pageProps} />
-      </RecoilRoot>
-    </ChakraProvider>
+    <SessionProvider session={pageProps.session}>
+      <ChakraProvider>
+        <RecoilRoot>
+          <Component {...pageProps} />
+        </RecoilRoot>
+      </ChakraProvider>
+    </SessionProvider>
   );
 }
 
