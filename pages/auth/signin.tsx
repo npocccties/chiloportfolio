@@ -20,7 +20,7 @@ export default function SignIn({ csrfToken }: SignInProps) {
           <FormLabel htmlFor="password">パスワード</FormLabel>
           <Input type="password" name="password" placeholder="********" variant="filled" mb={6} />
           <Button type="submit" mb={6} colorScheme="teal">ログインする</Button>
-          {error && <div>パスワードが間違っております。</div>}
+          {error && <div>パスワードが正しくありません。</div>}
         </Flex>
       </Flex>
     </form>
