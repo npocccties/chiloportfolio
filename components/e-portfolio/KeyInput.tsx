@@ -2,6 +2,7 @@ import { Input, Box, Button, VStack, Text, Grid, GridItem } from "@chakra-ui/rea
 import { useState } from "react";
 import { UseFormHandleSubmit, UseFormRegister, UseFormWatch } from "react-hook-form";
 import { PasswordResult } from "../data/PortfolioData";
+import { TriggerWithArgs } from "swr/mutation";
 
 type Props = {
   register: UseFormRegister<KeyInputForm>,
@@ -13,9 +14,10 @@ type Props = {
   password: string,
   onKeyInputClosed: () => void,
   passwordResult: PasswordResult | null | undefined,
+  trigger: TriggerWithArgs<PasswordResult | null, any, "/api/password", string>,
 }
 
-export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, setValidPassword, password, onKeyInputClosed, passwordResult}: Props) => {
+export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, setValidPassword, password, onKeyInputClosed, passwordResult, trigger}: Props) => {
 
   const isValid = (data: KeyInputForm) => {
     if (passwordResult && passwordResult.result != -1) {
@@ -33,6 +35,7 @@ export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, s
 
   const onChangePassword = (event): void => {
     setPassword(event.target.value);
+    trigger(event.target.value)
   }
 
   const isInvalid = (errors: any) => {

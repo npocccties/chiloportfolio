@@ -1,17 +1,24 @@
 import { PasswordResult } from "../data/PortfolioData"
 import useSWR from 'swr'
+import useSWRMutation from 'swr/mutation'
 
-export function usePassword (hashPass: string) {
-  const apiPath = `/api/password?pass=${hashPass}`
+export function usePassword () {
+  const apiPath = `/api/password`
   const url = `${apiPath}`
   console.log(url)
-  async function fetcher(key: string, init?: RequestInit) {
-    return fetch(key, init).then((res) => res.json() as Promise<PasswordResult | null>)
-  }
-  const { data, error, isLoading } = useSWR(`${url}`, fetcher)
+
+  async function fetcher(url, { arg }: { arg: string }) {
+    return await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: arg
+      }
+    }).then((res) => res.json() as Promise<PasswordResult | null>)
+  }    
+  const { trigger, data, isMutating } = useSWRMutation(`${url}`, fetcher)
   return {
+    trigger,
     passwordResult: data,
-    isLoadingPass: isLoading,
-    isErrorPass: error
+    isMutating
   }
 }

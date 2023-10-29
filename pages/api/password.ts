@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 const hashPass = process.env.BCRYPT_HASH as string
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { pass } = req.query
+  const pass = req.headers['authorization'] ?? ''
   if (pass) {
     const result = await isSamePass(pass as string, hashPass)
     res.setHeader("content-type", "application/json");

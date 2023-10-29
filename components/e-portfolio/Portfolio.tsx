@@ -30,7 +30,7 @@ export const Portfolio = () => {
   console.log(consumerBadges)
 
   // 入力キーの照合
-  var { passwordResult, isLoadingPass, isErrorPass } = usePassword(password)
+  var { trigger, passwordResult, isMutating } = usePassword()
   console.log('passwordResult: ', passwordResult)
 
   // BadgeWalletからバッジ情報の取得
@@ -189,7 +189,7 @@ export const Portfolio = () => {
           <ModalHeader>取得キー入力</ModalHeader>
           <ModalBody>
             <KeyInput register={register} watch={watch} handleSubmit={handleSubmit} onClose={onClose} setPassword={setPassword} password={password}
-              setValidPassword={setValidPassword} onKeyInputClosed={onKeyInputClosed} passwordResult={passwordResult}/>
+              setValidPassword={setValidPassword} onKeyInputClosed={onKeyInputClosed} passwordResult={passwordResult} trigger={trigger}/>
           </ModalBody>
         </ModalContent>
       </Modal>
