@@ -26,8 +26,8 @@ export const Portfolio = () => {
   const [validPassword, setValidPassword] = useState('')
   const [password, setPassword] = useState('')
   // OKUTEPからバッジ情報の取得
-  const { consumerBadges, isLoading, isError } = useConsumerBadgesList(validPassword)
-  console.log(consumerBadges)
+  const { triggerConsumerBadges, consumerBadges, isMutatingConsumerBadges } = useConsumerBadgesList()
+  triggerConsumerBadges(validPassword)
 
   // 入力キーの照合
   var { trigger, passwordResult, isMutating } = usePassword()
@@ -130,8 +130,8 @@ export const Portfolio = () => {
   console.log('selectedFramework: ', selectedFramework)
   console.log('selectedStage: ', selectedStage)
 
-  if (isLoading || isLoadingWB || isLoadingPCL || isLoadingPCBL) return <Loading/>
-  if (isError || isErrorWB || isErrorPCL || isErrorPCBL) return <div>failed to load</div>
+  if (isLoadingWB || isLoadingPCL || isLoadingPCBL) return <Loading/>
+  if (isErrorWB || isErrorPCL || isErrorPCBL) return <div>failed to load</div>
 
   return (
     <>
