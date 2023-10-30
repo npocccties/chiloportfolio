@@ -55,7 +55,7 @@ export const Portfolio = () => {
     const array = e.target.value.split(' ')
     if (array.length == 1) {
       const targets = portalCategories?.filter(v => v.name == array[0])
-      if (targets) {
+      if (targets && targets.length != 0) {
         const portalCategory = targets[0]
         const portalCategoryId = portalCategory.portal_category_id
         console.log('portalCategoryId: ', portalCategoryId)
