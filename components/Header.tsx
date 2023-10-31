@@ -19,7 +19,6 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
         p={{ base: 8 }}
       >
         <Box>
-          <HamburgerIcon w={6} h={6} cursor={"pointer"} onClick={() => onOpen()} />
         </Box>
         <NextLink href="/e-portfolio">
           <Text fontSize={"2xl"} fontWeight={"bold"}>e-ポートフォリオ</Text>
