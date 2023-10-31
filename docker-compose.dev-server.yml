@@ -10,7 +10,7 @@ services:
     networks:
       - app_network
     container_name: chiloportfolio
-    restart: "no"
+    restart: always
 
 networks:
   app_network:
