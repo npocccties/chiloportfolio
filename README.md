@@ -119,5 +119,10 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 |NEXT_PUBLIC_WALLET_BASE_URL|バッジウォレットのURL|-|
 |NEXT_PUBLIC_COPYRIGHT_LINK|フッターに表示するコピーライトのリンク|-|
 |NEXT_PUBLIC_COPYRIGHT|フッターに表示するコピーライト|-|
-|BCRYPT_HASH|キー入力で使用するパスワードのBCryptのハッシュ値|-|
 |NEXT_PUBLIC_CSV_FILE_NAME|CSVダウンロードで指定するファイル名|e-Portfolio|
+|INPUT_KEY|キー入力で使用するパスワード|-|
+|NEXTAUTH_URL|e-ポートフォリオで認証後に遷移するURL|-|
+|NEXTAUTH_USERNAME|e-ポートフォリオのログイン画面で入力するユーザ名|-|
+|NEXTAUTH_PASSWORD|e-ポートフォリオのログイン画面で入力するパスワード|-|
+|NEXTAUTH_SECRET|認証後のJWTトークンの暗号化するためのシークレット|-|
+|SESSION_MAX_AGE_HOUR|ログインセッションの有効時間（単位：時）|-|

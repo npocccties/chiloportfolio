@@ -17,6 +17,8 @@ export default function SignIn({ csrfToken }: SignInProps) {
         <Flex direction="column" rounded={6}>
           <Input name="csrfToken" type="hidden" defaultValue={csrfToken} />
           <Heading mb={6}>ログイン</Heading>
+          <FormLabel htmlFor="username">ユーザ名</FormLabel>
+          <Input type="text" name="username" variant="filled" mb={6} />
           <FormLabel htmlFor="password">パスワード</FormLabel>
           <Input type="password" name="password" placeholder="********" variant="filled" mb={6} />
           <Button type="submit" mb={6} colorScheme="teal">ログインする</Button>

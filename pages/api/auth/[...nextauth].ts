@@ -1,17 +1,19 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
-const maxAgeHour = Number(process.env.NEXT_PUBLIC_SESSION_MAX_AGE_HOUR as string)
+const maxAgeHour = Number(process.env.SESSION_MAX_AGE_HOUR as string)
 
 export default NextAuth({
   providers: [
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
+        username: { label: 'ユーザ名', type: 'text' },
         password: { label: 'パスワード', type: 'password' }
       },
       async authorize(credentials: any, req) {
-        if (credentials.password != process.env.NEXTAUTH_PASSWORD) {
+        if (credentials.username != process.env.NEXTAUTH_USERNAME ||
+            credentials.password != process.env.NEXTAUTH_PASSWORD) {
           console.log(`Credentials not valid`);
           return null;
         }
