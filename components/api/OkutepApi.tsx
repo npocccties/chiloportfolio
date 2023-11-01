@@ -1,9 +1,25 @@
 import useSWRMutation from "swr/mutation"
 import { ConsumerBadges, PortalCategory, PortalCategoryBadges } from "../data/OkutepData"
 import useSWR from 'swr'
+import { PasswordResult } from "../data/PortfolioData"
 const baseUrl = process.env.NEXT_PUBLIC_OKUTEP_BASE_URL as string
 
-export function useConsumerBadgesList () {
+export function useConsumerBadges () {
+  const apiPath = `/api/v1/consumer/badges/list/`
+  const url = `${baseUrl}${apiPath}`
+  console.log(url)
+  async function fetcher(key: string, init?: RequestInit) {
+    return fetch(key, init).then((res) => res.json() as Promise<ConsumerBadges[] | null>)
+  }
+  const { data, error, isLoading } = useSWR(`${url}`, fetcher)
+  return {
+    consumerBadges: data,
+    isLoading,
+    isError: error,
+  }
+}
+
+export function useConsumerBadgesWithTrigger (setPasswordResult: React.Dispatch<React.SetStateAction<number>>) {
   const apiPath = `/api/v1/consumer/badges/list/`
   const url = `${baseUrl}${apiPath}`
   console.log(url)
@@ -13,12 +29,15 @@ export function useConsumerBadgesList () {
       headers: {
         Authorization: arg
       }
-    }).then((res) => res.json() as Promise<ConsumerBadges[] | null>)
-  }    
+    }).then((res) => {
+      setPasswordResult(res.status == 200 ? 1 : 0)
+      return res.json() as Promise<ConsumerBadges[] | null>
+    })
+  }
   const { trigger, data, isMutating } = useSWRMutation(`${url}`, fetcher)
   return {
     triggerConsumerBadges: trigger,
-    consumerBadges: data,
+    consumerBadgesEx: data,
     isMutatingConsumerBadges: isMutating
   }
 }

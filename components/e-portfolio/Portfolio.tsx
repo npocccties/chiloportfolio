@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { SelectConsumer } from "./SelectConsumer"
-import { useConsumerBadgesList, usePortalCategoryBadges, usePortalCategoryList } from "@/components/api/OkutepApi"
+import { useConsumerBadges, useConsumerBadgesWithTrigger, usePortalCategoryBadges, usePortalCategoryList } from "@/components/api/OkutepApi"
 import { useWalletBadgeList } from "@/components/api/WalletApi"
 import { getCsvText, mergeBadgeDataWithCategory, mergeBadgeDataWithConsumer } from "@/components/util/Converter"
 import { Button, FormLabel, Link, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure, Box, Flex, HStack } from "@chakra-ui/react"
@@ -11,8 +11,7 @@ import jconv from "jconv"
 import { BiKey } from "react-icons/bi";
 import { PortfolioBadgeData } from "@/components/data/PortfolioData"
 import { Loading } from "../Loading"
-import { PortalCategory, PortalCategoryBadges } from "../data/OkutepData"
-import { usePassword } from "../api/PortfolioApi"
+import { PortalCategory } from "../data/OkutepData"
 const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string
 
 export const Portfolio = () => {
@@ -26,11 +25,11 @@ export const Portfolio = () => {
   const [validPassword, setValidPassword] = useState('')
   const [password, setPassword] = useState('')
   // OKUTEPからバッジ情報の取得
-  const { triggerConsumerBadges, consumerBadges, isMutatingConsumerBadges } = useConsumerBadgesList()
-  triggerConsumerBadges(validPassword)
-
-  // 入力キーの照合
-  var { trigger, passwordResult, isMutating } = usePassword()
+  const { consumerBadges, isLoading, isError } = useConsumerBadges()
+  // OKUTEPからバッジ情報の取得（パスワード指定時）
+  const [passwordResult, setPasswordResult] = useState(-1)
+  const { triggerConsumerBadges, consumerBadgesEx, isMutatingConsumerBadges } = useConsumerBadgesWithTrigger(setPasswordResult)
+  console.log('consumerBadgesEx: ', consumerBadgesEx)
   console.log('passwordResult: ', passwordResult)
 
   // BadgeWalletからバッジ情報の取得
@@ -42,10 +41,17 @@ export const Portfolio = () => {
     portfolioBadges = mergeBadgeDataWithCategory(portalCategory, portalCategoryBadges, walletBadges)
     console.log('mergeBadgeDataWithCategory: ', portfolioBadges)
   }
-  if (consumerBadges && walletBadges) {
-    const results = mergeBadgeDataWithConsumer(consumerBadges, walletBadges)
+  // パスワードが一致していればパスワードを含むOKUTEPのバッジ情報をマージ
+  if (validPassword == password && consumerBadgesEx && walletBadges) {
+    const results = mergeBadgeDataWithConsumer(consumerBadgesEx, walletBadges)
     portfolioBadges = portfolioBadges.concat(results)
-    console.log('mergeBadgeDataWithConsumer: ', portfolioBadges)
+    console.log('mergeBadgeDataWithConsumer1: ', portfolioBadges)
+  } else {
+    if (consumerBadges && walletBadges) {
+      const results = mergeBadgeDataWithConsumer(consumerBadges, walletBadges)
+      portfolioBadges = portfolioBadges.concat(results)
+      console.log('mergeBadgeDataWithConsumer2: ', portfolioBadges)
+    }
   }
   // 教員育成指標のプルダウン選択時のハンドラ
   const [selectedConsumer, setSelectedConsumer] = useState('')
@@ -130,8 +136,8 @@ export const Portfolio = () => {
   console.log('selectedFramework: ', selectedFramework)
   console.log('selectedStage: ', selectedStage)
 
-  if (isLoadingWB || isLoadingPCL || isLoadingPCBL) return <Loading/>
-  if (isErrorWB || isErrorPCL || isErrorPCBL) return <div>failed to load</div>
+  if (isLoading || isLoadingWB || isLoadingPCL || isLoadingPCBL) return <Loading/>
+  if (isError || isErrorWB || isErrorPCL || isErrorPCBL) return <div>failed to load</div>
 
   return (
     <>
@@ -189,7 +195,7 @@ export const Portfolio = () => {
           <ModalHeader>取得キー入力</ModalHeader>
           <ModalBody>
             <KeyInput register={register} watch={watch} handleSubmit={handleSubmit} onClose={onClose} setPassword={setPassword} password={password}
-              setValidPassword={setValidPassword} onKeyInputClosed={onKeyInputClosed} passwordResult={passwordResult} trigger={trigger}/>
+              setValidPassword={setValidPassword} onKeyInputClosed={onKeyInputClosed} passwordResult={passwordResult} triggerConsumerBadges={triggerConsumerBadges}/>
           </ModalBody>
         </ModalContent>
       </Modal>
