@@ -11,6 +11,8 @@ services:
       - app_network
     container_name: chiloportfolio
     restart: always
+    environment:
+      - LOG_LEVEL=$LOG_LEVEL
     logging:
       driver: json-file
       options:

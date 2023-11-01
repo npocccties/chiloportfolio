@@ -1,6 +1,7 @@
 import pino from 'pino';
 
 const pinoConfig = {
+  level: process.env.LOG_LEVEL,
   formatters: {
     level: (label: string) => {
       return {
