@@ -125,3 +125,4 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 |NEXTAUTH_PASSWORD|e-ポートフォリオのログイン画面で入力するパスワード|-|
 |NEXTAUTH_SECRET|認証後のJWTトークンの暗号化するためのシークレット|-|
 |SESSION_MAX_AGE_HOUR|ログインセッションの有効時間（単位：時）|-|
+|LOG_LEVEL|ログレベル<br>'fatal', 'error', 'warn', 'info', 'debug', 'trace' or 'silent'|-|
