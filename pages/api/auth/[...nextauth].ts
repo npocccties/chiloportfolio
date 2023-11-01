@@ -20,7 +20,7 @@ export default NextAuth({
         }
         const user = {
           id: '1',
-          name: credentials.username
+          name: 'admin'
         }
         return user
       }
