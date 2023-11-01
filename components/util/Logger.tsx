@@ -18,17 +18,17 @@ const pinoConfig = {
 const logger = pino(pinoConfig);
 
 export const loggerError = (message: string, ...args: any[]) => {
-  return logger.error(message, args);
+  return logger.error(args, message);
 };
 
 export const loggerWarn = (message: string, ...args: any[]) => {
-  return logger.warn(message, args);
+  return logger.warn(args, message);
 };
 
 export const loggerInfo = (message: string, ...args: any[]) => {
-  return logger.info(message, args);
+  return logger.info(args, message);
 };
 
 export const loggerDebug = (message: string, ...args: any[]) => {
-  return logger.debug(message, args);
+  return logger.debug(args, message);
 };
