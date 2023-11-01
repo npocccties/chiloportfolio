@@ -9,7 +9,7 @@ const pinoConfig = {
       };
     },
   },
-  timestamp: pino.stdTimeFunctions.isoTime,
+  timestamp: () => `,"timestamp":"${new Date(Date.now()).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo'})}"`,
   browser: {
     asObject: true,
   },
