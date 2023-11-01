@@ -1,7 +1,10 @@
+import { loggerDebug, loggerInfo } from '@/components/util/Logger';
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 const maxAgeHour = Number(process.env.SESSION_MAX_AGE_HOUR as string)
+
+loggerInfo('************** start NextAuth **************')
 
 export default NextAuth({
   providers: [
