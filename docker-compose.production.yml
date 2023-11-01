@@ -11,6 +11,11 @@ services:
       - app_network
     container_name: chiloportfolio
     restart: always
+    logging:
+      driver: json-file
+      options:
+        max-size: 100m
+        max-file: '7'
 
 networks:
   app_network:
