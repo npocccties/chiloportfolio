@@ -16,13 +16,11 @@ export default function SignIn({ csrfToken }: SignInProps) {
       <Flex height="100vh" alignItems="center" justifyContent="center">
         <Flex direction="column" rounded={6}>
           <Input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-          <Heading mb={6}>ログイン</Heading>
-          <FormLabel htmlFor="username">ユーザ名</FormLabel>
-          <Input type="text" name="username" variant="filled" mb={6} />
-          <FormLabel htmlFor="password">パスワード</FormLabel>
+          <Heading mb={6}>アクティベーション</Heading>
+          <FormLabel htmlFor="password">利用キー</FormLabel>
           <Input type="password" name="password" placeholder="********" variant="filled" mb={6} />
-          <Button type="submit" mb={6} colorScheme="teal">ログインする</Button>
-          {error && <Text color="red">ユーザ名またはパスワードが正しくありません。</Text>}
+          <Button type="submit" mb={6} colorScheme="teal">アクティベーションを行う</Button>
+          {error && <Text color="red">利用キーが正しくありません。</Text>}
         </Flex>
       </Flex>
     </form>

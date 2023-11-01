@@ -8,12 +8,10 @@ export default NextAuth({
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        username: { label: 'ユーザ名', type: 'text' },
         password: { label: 'パスワード', type: 'password' }
       },
       async authorize(credentials: any, req) {
-        if (credentials.username != process.env.NEXTAUTH_USERNAME ||
-            credentials.password != process.env.NEXTAUTH_PASSWORD) {
+        if (credentials.password != process.env.NEXTAUTH_PASSWORD) {
           console.log(`Credentials not valid`);
           return null;
         }
