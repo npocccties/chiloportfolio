@@ -14,15 +14,20 @@ export default NextAuth({
         password: { label: 'パスワード', type: 'password' }
       },
       async authorize(credentials: any, req) {
-        if (credentials.password != process.env.NEXTAUTH_PASSWORD) {
-          console.log(`Credentials not valid`);
-          return null;
+        const passArray = process.env.NEXTAUTH_PASSWORD?.split(',')
+        for (var i = 0; passArray && i < passArray.length; i++) {
+          const pass = passArray[i]
+          if (credentials.password != pass) {
+            console.log(`Credentials not valid`);
+            return null;
+          }
+          const user = {
+            id: `${i + 1}`,
+            name: `admin${i + 1}`
+          }
+          return user
         }
-        const user = {
-          id: '1',
-          name: 'admin'
-        }
-        return user
+        return null
       }
     })
   ],
