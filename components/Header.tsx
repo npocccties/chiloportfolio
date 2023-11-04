@@ -1,17 +1,23 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Link, Spacer, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { FaUserAlt } from "react-icons/fa";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
 
 type Props = {
   onOpen: () => void;
 };
 
 export const Header: React.FC<Props> = ({ onOpen }) => {
-  // TODO: ログインユーザーの情報を取得する
-  const userName = "○○太郎";
+  const [userName, setUserName] = useState('')
+
+  useEffect(() => {
+    const userName = window.localStorage.getItem('userName');
+    setUserName(userName ?? '')
+  }, [])
+
   return (
     <Box>
       <Flex
@@ -21,14 +27,18 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
         backgroundColor={"gray.200"}
         p={{ base: 8 }}
       >
-        <Box>
+        <Box >
         </Box>
-        <NextLink href="/e-portfolio">
-          <Text fontSize={"2xl"} fontWeight={"bold"}>e-ポートフォリオ</Text>
+        <NextLink href="/">
+          <Link fontSize={"2xl"} fontWeight={"bold"} style={{ textDecoration: "none" }}>
+            {serviceName}
+          </Link>
         </NextLink>
         <Flex gap={"16px"} alignItems={"center"} display={{ base: "none", sm: "flex" }}>
           <FaUserAlt />
           <Text fontSize={"xl"}>{userName}</Text>
+        </Flex>
+        <Flex gap={"16px"} alignItems={"center"} display={{ base: "flex", sm: "none" }}>
         </Flex>
       </Flex>
     </Box>
