@@ -10,13 +10,11 @@ export const SelectConsumer = ({ selectedConsumer, consumers, handleChange }: Pr
   return (
     <div>
       <Select name='consumer' placeholder="選択してください" onChange={handleChange}>
-        <optgroup>
-          {consumers.map((option, index) => (
-            <option key={index} value={option} selected={option == selectedConsumer ? true : undefined}>
-              {option}
-            </option>
-          ))}
-        </optgroup>
+        {consumers.map((option, index) => (
+          <option key={index} value={option} selected={option == selectedConsumer ? true : undefined}>
+            {option}
+          </option>
+        ))}
       </Select>
     </div>
   )
