@@ -16,7 +16,7 @@ const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string
 
 export const Portfolio = () => {
 
-  const [portalCategory, setPortalCategory] = useState<PortalCategory>()
+  const [portalCategory, setPortalCategory] = useState<PortalCategory | null>()
   // OKUTEPからポータルカテゴリ一覧取得
   const { portalCategories, isLoadingPCL, isErrorPCL } = usePortalCategoryList()
   // OKUTEPからポータルカテゴリに紐づくバッジ一覧取得
@@ -67,6 +67,9 @@ export const Portfolio = () => {
         console.log('portalCategoryId: ', portalCategoryId)
         setPortalCategory(portalCategory)
         setSelectedConsumer(portalCategory.name)
+      } else {
+        setPortalCategory(null)
+        setSelectedConsumer('')
       }
       setSelectedFramework('')
       setSelectedStage('')
@@ -114,7 +117,7 @@ export const Portfolio = () => {
     const url = URL.createObjectURL(blob)
     const a = document.createElement("a")
     document.body.appendChild(a)
-    a.download = getCsvFileName(targets[0].consumer_name, targets[0].framework_name, targets[0].stage_name)
+    a.download = getCsvFileName(selectedConsumer, selectedFramework, selectedStage)
     a.href = url
     a.click()
     a.remove()
@@ -161,7 +164,7 @@ export const Portfolio = () => {
           </HStack>
         </Box>
         <Box mt={4}>
-          <Button colorScheme='blue' onClick={onCsvDownload}>CSVダウンロード</Button>
+          <Button colorScheme='blue' onClick={onCsvDownload} isDisabled={selectedConsumer == ''}>CSVダウンロード</Button>
         </Box>
       </Flex>
 
@@ -185,7 +188,7 @@ export const Portfolio = () => {
           </HStack>
         </Box>
         <Box w={"full"} mt={8}>
-          <Button w={"full"} colorScheme='blue' onClick={onCsvDownload}>CSVダウンロード</Button>
+          <Button w={"full"} colorScheme='blue' onClick={onCsvDownload} isDisabled={selectedConsumer == ''}>CSVダウンロード</Button>
         </Box>
       </Flex>
 
