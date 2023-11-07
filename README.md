@@ -125,3 +125,5 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 |NEXTAUTH_SECRET|認証後のJWTトークンを暗号化するためのシークレット|-|
 |SESSION_MAX_AGE_HOUR|ログインセッションの有効時間（単位：時）|-|
 |LOG_LEVEL|ログレベル<br>'fatal', 'error', 'warn', 'info', 'debug', 'trace' or 'silent'|-|
+|LOG_MAX_SIZE|ログファイルサイズ<br>単位には k / m / g のいずれか指定|100m|
+|LOG_MAX_FILE|ログファイルの世代数|7|
