@@ -16,17 +16,17 @@ const Home: NextPage = () => {
   if (loading) {
       return <Loading/>
   }
-  if (session) {
+  // if (session) {
     return (
       <Layout maxW="6xl">
         <Metatag title={serviceName} description={serviceDescription} />
         <Portfolio />
       </Layout>
     );
-  }
-  return (
-    <SignIn/>
-  )
+  // }
+  // return (
+  //   <SignIn/>
+  // )
 };
 
 export default Home;
