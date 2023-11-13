@@ -4,23 +4,14 @@ const nextConfig = {
   experimental: {
     outputStandalone: true,
   },
-  basePath: "/portfolio",
-  assetPrefix: "/portfolio",
   async rewrites() {
     return [
       {
-        source: "/portfolio/api/:path*",
-        destination: "/api/:path*",
-      },
-      {
-        source: "/portfolio/images/:query*",
-        destination: '/_next/image/:query*'
-      },
-      {
-        source: "/portfolio/_next/:path*",
-        destination: "/_next/:path*",
+        source: "/portfolio",
+        destination: "/",
       },
     ]
-  }  };
+  }
+};
 
 module.exports = nextConfig;
