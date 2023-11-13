@@ -30,9 +30,9 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
         <Box >
         </Box>
         <NextLink href="/">
-          <Link fontSize={"2xl"} fontWeight={"bold"} style={{ textDecoration: "none" }}>
+          <Text fontSize={"2xl"} fontWeight={"bold"} style={{ textDecoration: "none" }}>
             {serviceName}
-          </Link>
+          </Text>
         </NextLink>
         <Flex gap={"16px"} alignItems={"center"} display={{ base: "none", sm: "flex" }}>
           <FaUserAlt />
