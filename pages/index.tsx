@@ -11,11 +11,11 @@ const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
 const serviceDescription = process.env.NEXT_PUBLIC_SERVICE_DESCRIPTION as string
 
 const Home: NextPage = () => {
-  const { data: session, status } = useSession()
-  const loading = status === "loading"
-  if (loading) {
-      return <Loading/>
-  }
+  // const { data: session, status } = useSession()
+  // const loading = status === "loading"
+  // if (loading) {
+  //     return <Loading/>
+  // }
   // if (session) {
     return (
       <Layout maxW="6xl">
