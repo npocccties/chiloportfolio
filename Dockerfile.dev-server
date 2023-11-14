@@ -10,7 +10,7 @@ COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY package.json ./
-COPY yarn.lock ./
+COPY package-lock.lock ./
 RUN yarn install --frozen-lockfile --production=true
 CMD ["yarn", "start"]
 
