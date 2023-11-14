@@ -1,62 +1,17 @@
 /** @type {import('next').NextConfig} */
-
-const { PHASE_DEVELOPMENT_SERVER } = require('next/constants');
-
-const commonConfig = {
+const nextConfig = {
   reactStrictMode: true,
-  basePath: "/portfolio",
-  assetPrefix: "/portfolio",
-  webpack(config) {
-    config.experiments = { ...config.experiments, topLevelAwait: true }
-    return config
-  },
   experimental: {
     outputStandalone: true,
   },
-}
-
-const devConfig = {
-  async headers() {
+  async rewrites() {
     return [
       {
-        source: '/',
-        headers: [
-          {
-            key: 'Cross-Origin-Opener-Policy',
-            value: 'same-origin',
-          },
-          {
-            key: 'Cross-Origin-Embedder-Policy',
-            value: 'require-corp',
-          },
-        ],
+        source: "/portfolio",
+        destination: "/",
       },
     ]
-  },
-  async rewrites() {
-    return {
-      fallback: [
-        {
-          basePath: false,
-          source: '/:path*',
-          destination: 'http://localhost:3000/:path*',
-        }
-      ]
-    };
-  },
-}
-
-module.exports = (phase, { defaultConfig }) => {
-  if (phase === PHASE_DEVELOPMENT_SERVER) {
-    return {
-      ...commonConfig,
-      ...devConfig,
-    };
-  }
-
-  return {
-    ...commonConfig,
-    output: 'export',
-    // distDir: 'dist',
   }
 };
+
+module.exports = nextConfig;
