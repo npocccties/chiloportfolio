@@ -48,4 +48,4 @@ COPY --from=builder /app/public ./public
 # ENV PORT 3000
 # ENV HOSTNAME localhost
 
-CMD ["yarn", "cmd:start:dev"]
+CMD ["yarn", "start"]
