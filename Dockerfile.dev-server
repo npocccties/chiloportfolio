@@ -17,4 +17,4 @@ RUN yarn install --frozen-lockfile --production=true
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
-CMD ["yarn", "start"]
+CMD ["yarn", "cmd:start:dev"]
