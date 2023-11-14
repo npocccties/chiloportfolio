@@ -5,6 +5,7 @@
     "dev": "next dev",
     "build": "npm build",
     "start": "npm start",
+    "install": "npm install",
     "lint": "next lint",
     "lint:fix": "eslint --fix \"pages/**/*.{ts,tsx}\" \"share/**/*.{ts,tsx}\" \"components/**/*.{ts,tsx}\"",
     "cmd:start:dev": "node server.js"
