@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "npm start",
+    "start": "npm run start",
     "lint": "next lint",
     "lint:fix": "eslint --fix \"pages/**/*.{ts,tsx}\" \"share/**/*.{ts,tsx}\" \"components/**/*.{ts,tsx}\"",
     "cmd:start:dev": "node server.js"
