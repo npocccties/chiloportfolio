@@ -5,6 +5,7 @@ const { PHASE_DEVELOPMENT_SERVER } = require('next/constants');
 const commonConfig = {
   reactStrictMode: true,
   basePath: "/portfolio",
+  assetPrefix: "/portfolio",
   webpack(config) {
     config.experiments = { ...config.experiments, topLevelAwait: true }
     return config
