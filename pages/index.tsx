@@ -5,7 +5,7 @@ import { Metatag } from "@/components/Metatag";
 import { Portfolio } from "../components/e-portfolio/Portfolio";
 import { useSession, signIn, signOut } from "next-auth/react"
 import { Loading } from "@/components/Loading";
-import SignIn from "./auth/signin";
+// import SignIn from "./auth/signin";
 
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
 const serviceDescription = process.env.NEXT_PUBLIC_SERVICE_DESCRIPTION as string
