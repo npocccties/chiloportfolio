@@ -1,10 +1,10 @@
-FROM node:18 AS builder
+FROM node:18-alpine3.17 AS builder
 WORKDIR /app
 COPY . .
 RUN yarn install --frozen-lockfile --production=false
 RUN yarn build
 
-FROM node:18 AS runner
+FROM node:18-alpine3.17 AS runner
 WORKDIR /app
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/.next ./.next
@@ -12,11 +12,4 @@ COPY --from=builder /app/public ./public
 COPY package.json ./
 COPY package-lock.json ./
 RUN yarn install --frozen-lockfile --production=true
-CMD ["yarn", "start"]
-
-# EXPOSE 3000
-
-# ENV PORT 3000
-# ENV HOSTNAME localhost
-
 CMD ["yarn", "start"]
