@@ -9,9 +9,7 @@ const commonConfig = {
     config.experiments = { ...config.experiments, topLevelAwait: true }
     return config
   },
-  experimental: {
-    outputStandalone: true,
-  },
+  output: 'standalone'
 }
 
 const devConfig = {
