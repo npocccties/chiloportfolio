@@ -55,7 +55,7 @@ module.exports = (phase, { defaultConfig }) => {
 
   return {
     ...commonConfig,
-    // output: 'export',
+    output: 'export',
     // distDir: 'dist',
   }
 };
