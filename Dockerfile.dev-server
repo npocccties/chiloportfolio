@@ -36,12 +36,12 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder /app/portfolio/public ./portfolio/public
-COPY --from=builder /app/portfolio/styles ./portfolio/styles
+COPY --from=builder /app/public ./portfolio/public
+COPY --from=builder /app/styles ./portfolio/styles
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=builder /app/.env.production ./
-COPY --from=builder --chown=nextjs:nodejs /app/portfolio/.next/standalone ./portfolio
-COPY --from=builder --chown=nextjs:nodejs /app/portfolio/.next/static ./portfolio/.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./portfolio/.next/static
 
 # EXPOSE 3000
 
