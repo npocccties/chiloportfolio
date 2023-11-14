@@ -7,9 +7,6 @@ services:
       dockerfile: Dockerfile.dev-server
     ports:
       - "3000:3000"
-    volumes:
-      - ./app:/app
-    command: sh -c "npm run dev"
     networks:
       - app_network
     container_name: chiloportfolio
