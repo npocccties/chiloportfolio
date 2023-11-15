@@ -4,6 +4,8 @@ const nextConfig = {
   experimental: {
     outputStandalone: true,
   },
+  basePath: "/portfolio",
+  // distDir: "dist"
 };
 
 module.exports = nextConfig;
