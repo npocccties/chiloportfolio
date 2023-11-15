@@ -4,7 +4,7 @@ const nextConfig = {
   experimental: {
     outputStandalone: true,
   },
-  basePath: "/portfolio",
+  // basePath: "/portfolio",
   // distDir: "dist"
 };
 
