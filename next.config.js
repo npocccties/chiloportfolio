@@ -53,7 +53,7 @@ module.exports = (phase, { defaultConfig }) => {
 
   return {
     ...commonConfig,
-    // output: 'standalone',
+    output: 'standalone',
     // distDir: 'dist',
   }
 };
