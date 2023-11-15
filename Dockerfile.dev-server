@@ -7,6 +7,11 @@ RUN yarn build
 FROM node:18-alpine3.17 AS runner
 WORKDIR /app
 
+ENV NODE_ENV=production
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
 COPY package.json ./
 COPY package-lock.json ./
 RUN npm ci
