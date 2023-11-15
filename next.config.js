@@ -10,6 +10,9 @@ const commonConfig = {
     config.experiments = { ...config.experiments, topLevelAwait: true }
     return config
   },
+  experimental: {
+    outputStandalone: true,
+  },
 }
 
 const devConfig = {
@@ -53,7 +56,7 @@ module.exports = (phase, { defaultConfig }) => {
 
   return {
     ...commonConfig,
-    output: 'standalone',
+    // output: 'standalone',
     // distDir: 'dist',
   }
 };
