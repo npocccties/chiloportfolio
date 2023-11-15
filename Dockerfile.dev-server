@@ -7,10 +7,13 @@ RUN yarn build
 FROM node:18-alpine3.17 AS runner
 WORKDIR /app
 
+RUN npm ci
+COPY package.json ./
+COPY package-lock.json ./
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm ci
+
 # CMD ["yarn", "start"]
+
+
