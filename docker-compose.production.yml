@@ -10,7 +10,7 @@ services:
     networks:
       - app_network
     container_name: chiloportfolio
-    command: sh -c "npm run dev"
+    # command: sh -c "npm run dev"
     restart: always
     environment:
       - LOG_LEVEL=$LOG_LEVEL
