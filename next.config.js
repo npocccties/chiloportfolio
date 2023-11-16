@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-const isDevelopment = process.env.NODE_ENV == 'production'
+const isProduction = process.env.NODE_ENV == 'production'
 
 const nextConfig = {
   reactStrictMode: true,
@@ -9,8 +9,8 @@ const nextConfig = {
   },
   // basePath: "/portfolio",
   // distDir: "dist"
-  output: isDevelopment ? "portfolio" : "",
-  assetPrefix: isDevelopment ? "/portfolio" : ""
+  output: isProduction ? "portfolio" : "",
+  assetPrefix: isProduction ? "/portfolio" : ""
 };
 
 module.exports = nextConfig;
