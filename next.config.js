@@ -6,6 +6,8 @@ const nextConfig = {
   },
   // basePath: "/portfolio",
   // distDir: "dist"
+  output: "portfolio",
+  assetPrefix: "/portfolio"
 };
 
 module.exports = nextConfig;
