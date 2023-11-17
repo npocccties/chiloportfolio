@@ -1,14 +1,13 @@
 /** @type {import('next').NextConfig} */
 
-const isProduction = process.env.NODE_ENV == 'production'
-
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
     outputStandalone: true,
   },
-  output: isProduction ? "portfolio" : "",
-  assetPrefix: isProduction ? "/portfolio" : ""
+  basePath: "/portfolio",
+  assetPrefix: "/portfolio",
+  output: "portfolio",
 };
 
 module.exports = nextConfig;
