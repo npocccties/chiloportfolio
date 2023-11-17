@@ -1,27 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
+export { default } from "next-auth/middleware";
 
 export const config = {
-  matcher: ["/((?!portfolio).*)"],
+  matcher: ["/((?!auth).*)"],
 };
-
-export default function middleware(req: NextRequest) {
-  const basicAuth = req.headers.get('authorization');
-
-  if (basicAuth) {
-    const authValue = basicAuth.split(' ')[1];
-    const [user, password] = atob(authValue).split(':');
-    const passArray = process.env.PASSWORD?.split(',')
-    for (var i = 0; passArray && i < passArray.length; i++) {
-      if (password === passArray[i]) {
-        return NextResponse.next();
-      }
-    }
-  }
-
-  return new NextResponse('Unauthorized.', {
-    status: 401,
-    headers: {
-      'WWW-authenticate': 'Basic realm="Secure Area"'
-    }
-  });
-}

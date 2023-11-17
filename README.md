@@ -121,7 +121,7 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 |NEXT_PUBLIC_COPYRIGHT|フッターに表示するコピーライト|-|
 |NEXT_PUBLIC_CSV_FILE_NAME|CSVダウンロードで指定するファイル名|e-Portfolio|
 |NEXTAUTH_URL|e-ポートフォリオで認証後に遷移するURL|-|
-|PASSWORD|e-ポートフォリオのアクティベーション画面で入力する利用キー<br>※複数指定時はカンマ区切り|-|
+|NEXTAUTH_PASSWORD|e-ポートフォリオのアクティベーション画面で入力する利用キー<br>※複数指定時はカンマ区切り|-|
 |NEXTAUTH_SECRET|認証後のJWTトークンを暗号化するためのシークレット|-|
 |SESSION_MAX_AGE_HOUR|ログインセッションの有効時間（単位：時）|-|
 |LOG_LEVEL|ログレベル<br>'fatal', 'error', 'warn', 'info', 'debug', 'trace' or 'silent'|-|
