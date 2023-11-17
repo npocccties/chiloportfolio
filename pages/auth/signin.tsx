@@ -23,7 +23,7 @@ export default function SignIn({ csrfToken, userName }: SignInProps) {
   
   return (
     <Layout maxW="6xl">
-      <form method="post" action="/portfolio/api/auth/callback/credentials">
+      <form method="post" action="/api/auth/callback/credentials">
         <VStack spacing='5'>
           <Input name="csrfToken" type="hidden" defaultValue={csrfToken} />
           <Heading mb={6}>アクティベーション</Heading>

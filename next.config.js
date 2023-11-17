@@ -5,9 +5,6 @@ const nextConfig = {
   experimental: {
     outputStandalone: true,
   },
-  basePath: "/portfolio",
-  assetPrefix: "/portfolio",
-  output: "portfolio",
 };
 
 module.exports = nextConfig;
