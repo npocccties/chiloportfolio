@@ -11,13 +11,11 @@ RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <SessionProvider session={pageProps.session} basePath="/portfolio/api/auth">
-      <ChakraProvider>
-        <RecoilRoot>
-          <Component {...pageProps} />
-        </RecoilRoot>
-      </ChakraProvider>
-    </SessionProvider>
+    <ChakraProvider>
+      <RecoilRoot>
+        <Component {...pageProps} />
+      </RecoilRoot>
+    </ChakraProvider>
   );
 }
 
