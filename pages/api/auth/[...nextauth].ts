@@ -37,6 +37,6 @@ export default NextAuth({
     maxAge: maxAgeHour * 60 * 60,
   },
   pages: {
-    signIn: '/auth/signin',
+    signIn: '/portfolio/auth/signin',
   },
 });
