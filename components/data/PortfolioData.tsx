@@ -1,7 +1,9 @@
 export type PortfolioBadgeData = {
+  consumer_id: number
   consumer_name: string
+  framework_id: number
   framework_name: string
-  stage_password: string
+  stage_id: number
   stage_name: string
   field1_name: string
   wisdom_badges_name: string
@@ -13,4 +15,10 @@ export type PortfolioBadgeData = {
 
 export type PasswordResult = {
   result: number
+}
+
+export type ConsumerBadgesRequest = {
+  framework_id: number
+  stage_id: number
+  password: string
 }

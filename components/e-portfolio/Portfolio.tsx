@@ -1,87 +1,98 @@
 import React, { useState } from "react"
 import { SelectConsumer } from "./SelectConsumer"
-import { useConsumerBadges, useConsumerBadgesWithTrigger, usePortalCategoryBadges, usePortalCategoryList } from "@/components/api/OkutepApi"
 import { useWalletBadgeList } from "@/components/api/WalletApi"
-import { getCsvText, mergeBadgeDataWithCategory, mergeBadgeDataWithConsumer } from "@/components/util/Converter"
+import { getCsvText, mergeBadgeDataWithConsumer } from "@/components/util/Converter"
 import { Button, FormLabel, Link, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure, Box, Flex, HStack } from "@chakra-ui/react"
 import { BadgeList } from "@/components/e-portfolio/BadgeList"
 import { KeyInput, KeyInputForm } from "./KeyInput"
 import { useForm } from "react-hook-form"
 import jconv from "jconv"
 import { BiKey } from "react-icons/bi";
-import { PortfolioBadgeData } from "@/components/data/PortfolioData"
+import { ConsumerBadgesRequest, PortfolioBadgeData } from "@/components/data/PortfolioData"
 import { Loading } from "../Loading"
-import { PortalCategory } from "../data/OkutepData"
+import { useConsumerBadgesWithTrigger, useConsumerGoals, useConsumerGoalsWithTrigger, usePasswordCheckWithTrigger } from "../api/OkutepApi"
+import { ConsumerGoal } from "../data/OkutepData"
 const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string
 
 export const Portfolio = () => {
 
-  const [portalCategory, setPortalCategory] = useState<PortalCategory | null>()
-  // OKUTEPからポータルカテゴリ一覧取得
-  const { portalCategories, isLoadingPCL, isErrorPCL } = usePortalCategoryList()
-  // OKUTEPからポータルカテゴリに紐づくバッジ一覧取得
-  const { portalCategoryBadges, isLoadingPCBL, isErrorPCBL } = usePortalCategoryBadges(portalCategory ? portalCategory.portal_category_id : 0)
-
   const [validPassword, setValidPassword] = useState('')
   const [password, setPassword] = useState('')
-  // OKUTEPからバッジ情報の取得
-  const { consumerBadges, isLoading, isError } = useConsumerBadges()
-  // OKUTEPからバッジ情報の取得（パスワード指定時）
   const [passwordResult, setPasswordResult] = useState(-1)
-  const { triggerConsumerBadges, consumerBadgesEx, isMutatingConsumerBadges } = useConsumerBadgesWithTrigger(setPasswordResult)
+  const [selectedConsumerId, setSelectedConsumerId] = useState(0)
+  const [selectedFrameworkId, setSelectedFrameworkId] = useState(0)
+  const [selectedStageId, setSelectedStageId] = useState(0)
+
+  // OKUTEPから教員育成指標のプルダウン表示用のデータ取得
+  var { consumerGoals, isLoadingConsumerGoals, isErrorConsumerGoals} = useConsumerGoals()
+
+  // イベントに応じて呼び出されるOKUTEPへのリクエスト群
+  const { triggerConsumerGoals, consumerGoalsEx, isMutatingConsumerGoals } = useConsumerGoalsWithTrigger()
+  var { triggerConsumerBadges, consumerBadgesEx, isMutatingConsumerBadges } = useConsumerBadgesWithTrigger()
+  const { triggerPasswordCheck, isMutatingPasswordCheck } = usePasswordCheckWithTrigger(setPasswordResult)
+
+  console.log('consumerGoalsEx: ', consumerGoalsEx)
   console.log('consumerBadgesEx: ', consumerBadgesEx)
   console.log('passwordResult: ', passwordResult)
+
+  // トリガー指定のリクエスト結果があれば、それを優先する
+  consumerGoals = consumerGoalsEx ? consumerGoalsEx : consumerGoals
 
   // BadgeWalletからバッジ情報の取得
   const { walletBadges, isLoadingWB, isErrorWB } = useWalletBadgeList()
 
-  // OKUTEPとBadgeWalletのバッジ情報をマージ
   var portfolioBadges: PortfolioBadgeData[] = []
-  if (portalCategoryBadges && walletBadges && portalCategory && portalCategories) {
-    portfolioBadges = mergeBadgeDataWithCategory(portalCategory, portalCategoryBadges, walletBadges)
-    console.log('mergeBadgeDataWithCategory: ', portfolioBadges)
+  // ウォレットのバッジ情報とOKUTEPのバッジ情報をマージ
+  if (consumerBadgesEx && walletBadges && walletBadges.length != 0) {
+    portfolioBadges = mergeBadgeDataWithConsumer(consumerBadgesEx, walletBadges)
+    console.log('portfolioBadges: ', portfolioBadges)
   }
-  // パスワードが一致していればパスワードを含むOKUTEPのバッジ情報をマージ
-  if (validPassword == password && consumerBadgesEx && walletBadges) {
-    const results = mergeBadgeDataWithConsumer(consumerBadgesEx, walletBadges)
-    portfolioBadges = portfolioBadges.concat(results)
-    console.log('mergeBadgeDataWithConsumer1: ', portfolioBadges)
-  } else {
-    if (consumerBadges && walletBadges) {
-      const results = mergeBadgeDataWithConsumer(consumerBadges, walletBadges)
-      portfolioBadges = portfolioBadges.concat(results)
-      console.log('mergeBadgeDataWithConsumer2: ', portfolioBadges)
-    }
-  }
-  // 教員育成指標のプルダウン選択時のハンドラ
-  const [selectedConsumer, setSelectedConsumer] = useState('')
-  const [selectedFramework, setSelectedFramework] = useState('')
-  const [selectedStage, setSelectedStage] = useState('')
-  const onChangeConsumer = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const array = e.target.value.split(' ')
-    if (array.length == 1) {
-      const targets = portalCategories?.filter(v => v.name == array[0])
-      if (targets && targets.length != 0) {
-        const portalCategory = targets[0]
-        const portalCategoryId = portalCategory.portal_category_id
-        console.log('portalCategoryId: ', portalCategoryId)
-        setPortalCategory(portalCategory)
-        setSelectedConsumer(portalCategory.name)
-      } else {
-        setPortalCategory(null)
-        setSelectedConsumer('')
+
+  // 教員育成指標のプルダウン表示用のデータ作成
+  var consumers: ConsumerGoal[] = []
+  if (consumerGoals) {
+    for (const [i, v] of consumerGoals.entries()) {
+      const targets = consumers.filter(v2 => v.consumer_id == v2.consumer_id && v.framework_id == v2.framework_id && v.stage_id == v2.stage_id)
+      if (targets.length != 0) {
+        continue
       }
-      setSelectedFramework('')
-      setSelectedStage('')
-    } else {
-      const consumerName = array[0]
-      const frameworkName = array[1]
-      const stageName = array[2]
-      console.log(`consumerName: ${consumerName} frameworkName: ${frameworkName} stageName: ${stageName}`)
-      setSelectedConsumer(consumerName)
-      setSelectedFramework(frameworkName)
-      setSelectedStage(stageName)
+      consumers.push(v)
     }
+  }
+  console.log('consumers: ', consumers)
+
+  // 教員育成指標のプルダウン選択時のハンドラ
+  const onChangeConsumer = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const array = e.target.value.split(',')
+    if (array.length == 1) {
+      // テーブルの内容をクリアする
+      var tb = document.getElementById('badge-list') as HTMLTableElement
+      console.log('tb.rows.length', tb.rows.length)
+      while(tb.rows.length > 1) {
+        tb.deleteRow(1);
+      }
+      return
+    }
+    const consumerId = Number(array[0])
+    const frameworkId = Number(array[1])
+    const stageId = Number(array[2])
+    console.log(`consumerId: ${consumerId} frameworkId: ${frameworkId} stageId: ${stageId}`)
+
+    const pass = getPassword(validPassword, password)
+    console.log('pass:', pass)
+    // OKUTEPから教員育成指標のプルダウン表示用のデータ取得（トリガー指定）
+    triggerConsumerGoals(pass)
+    const consumerBadgesRequest: ConsumerBadgesRequest = {
+      password: pass,
+      framework_id: frameworkId,
+      stage_id: stageId,
+    }
+    // OKUTEPからテーブル表示用のデータ取得（トリガー指定）
+    triggerConsumerBadges(consumerBadgesRequest)
+
+    setSelectedConsumerId(consumerId)
+    setSelectedFrameworkId(frameworkId)
+    setSelectedStageId(stageId)
   }
 
   // キー入力のダイアログとの連携
@@ -93,31 +104,20 @@ export const Portfolio = () => {
     formState: { errors },
   } = useForm<KeyInputForm>()
 
-  // 教員育成指標選択のプルダウンの要素を収集
-  const consumers = new Set<string>()
-  portfolioBadges.map(v => {
-    if (!v.stage_password || (validPassword && v.stage_password)) {
-      const key = getKeyName(v)
-      if (key) {
-        consumers.add(key)
-      }
-    }
-  })
-  portalCategories?.map(v => {
-    consumers.add(v.name?.trim())
-  })
-  console.log('consumers: ', consumers)
-
   // CSVダウンロード
   const onCsvDownload = () => {
-    var targets = portfolioBadges.filter(v => v.consumer_name == selectedConsumer)
-    var text = getCsvText(targets)
+    const targets = portfolioBadges.filter(v => v.consumer_id == selectedConsumerId && v.framework_id == selectedFrameworkId && v.stage_id == selectedStageId)
+    if (targets.length == 0 || consumers.length == 0) {
+      return
+    }
+    const v = targets[0]
+    var text = getCsvText(consumers, targets)
     text = jconv(text, "UTF8", "Shift_JIS")
     const blob = new Blob([text], {type: 'text/csv'})
     const url = URL.createObjectURL(blob)
     const a = document.createElement("a")
     document.body.appendChild(a)
-    a.download = getCsvFileName(selectedConsumer, selectedFramework, selectedStage)
+    a.download = getCsvFileName(v.consumer_name, v.framework_name, v.stage_name)
     a.href = url
     a.click()
     a.remove()
@@ -125,22 +125,13 @@ export const Portfolio = () => {
   }
 
   const onKeyInputClosed = () => {
-    // 教員育成指標のプルダウンを選択解除する
-    var elements = document.getElementsByName('consumer')
-    for (let i = 0; i < elements.length; i++){
-      var obj = elements[i] as HTMLSelectElement;
-      obj.selectedIndex = 0;
-    }
-    setSelectedConsumer('')
-    setSelectedFramework('')
-    setSelectedStage('')
   }
-  console.log('selectedConsumer: ', selectedConsumer)
-  console.log('selectedFramework: ', selectedFramework)
-  console.log('selectedStage: ', selectedStage)
+  console.log('selectedConsumerId: ', selectedConsumerId)
+  console.log('selectedFrameworkId: ', selectedFrameworkId)
+  console.log('selectedStageId: ', selectedStageId)
 
-  if (isLoading || isLoadingWB || isLoadingPCL || isLoadingPCBL) return <Loading/>
-  if (isError || isErrorWB || isErrorPCL || isErrorPCBL) return <div>failed to load</div>
+  if (isLoadingConsumerGoals || isLoadingWB || isMutatingConsumerBadges || isMutatingConsumerGoals) return <Loading/>
+  if (isErrorConsumerGoals || isErrorWB) return <div>failed to load</div>
 
   return (
     <>
@@ -157,14 +148,14 @@ export const Portfolio = () => {
             教員育成指標選択
           </FormLabel>
           <HStack>
-            <SelectConsumer selectedConsumer={selectedConsumer} consumers={Array.from(consumers)} handleChange={onChangeConsumer} />
+            <SelectConsumer selectedConsumerId={selectedConsumerId} selectedFrameworkId={selectedFrameworkId} selectedStageId={selectedStageId} consumers={consumers} handleChange={onChangeConsumer} />
             <Link onClick={onOpen}>
               <Text fontSize='40px'><BiKey/></Text>
             </Link>
           </HStack>
         </Box>
         <Box mt={4}>
-          <Button colorScheme='blue' onClick={onCsvDownload} isDisabled={selectedConsumer == ''}>CSVダウンロード</Button>
+          <Button colorScheme='blue' onClick={onCsvDownload} isDisabled={selectedConsumerId == 0}>CSVダウンロード</Button>
         </Box>
       </Flex>
 
@@ -181,14 +172,14 @@ export const Portfolio = () => {
             教員育成指標選択
           </FormLabel>
           <HStack>
-            <SelectConsumer selectedConsumer={selectedConsumer} consumers={Array.from(consumers)} handleChange={onChangeConsumer} />
+            <SelectConsumer selectedConsumerId={selectedConsumerId} selectedFrameworkId={selectedFrameworkId} selectedStageId={selectedStageId} consumers={consumers} handleChange={onChangeConsumer} />
             <Link onClick={onOpen}>
               <Text fontSize='40px'><BiKey/></Text>
             </Link>
           </HStack>
         </Box>
         <Box w={"full"} mt={8}>
-          <Button w={"full"} colorScheme='blue' onClick={onCsvDownload} isDisabled={selectedConsumer == ''}>CSVダウンロード</Button>
+          <Button w={"full"} colorScheme='blue' onClick={onCsvDownload} isDisabled={selectedConsumerId == 0}>CSVダウンロード</Button>
         </Box>
       </Flex>
 
@@ -198,21 +189,15 @@ export const Portfolio = () => {
           <ModalHeader>取得キー入力</ModalHeader>
           <ModalBody>
             <KeyInput register={register} watch={watch} handleSubmit={handleSubmit} onClose={onClose} setPassword={setPassword} password={password}
-              setValidPassword={setValidPassword} onKeyInputClosed={onKeyInputClosed} passwordResult={passwordResult} triggerConsumerBadges={triggerConsumerBadges}/>
+              setValidPassword={setValidPassword} onKeyInputClosed={onKeyInputClosed} passwordResult={passwordResult} triggerPasswordCheck={triggerPasswordCheck}
+              triggerConsumerGoals={triggerConsumerGoals}/>
           </ModalBody>
         </ModalContent>
       </Modal>
 
-      <BadgeList portfolioBadges={portfolioBadges} selectedConsumer={selectedConsumer} selectedFramework={selectedFramework} selectedStage={selectedStage}/>
+      <BadgeList portfolioBadges={portfolioBadges}/>
     </>
   )
-}
-
-function getKeyName(v: PortfolioBadgeData): string {
-  if (v.consumer_name && v.framework_name && v.stage_name) {
-    return `${v.consumer_name} ${v.framework_name} ${v.stage_name}`
-  }
-  return ""
 }
 
 function getCsvFileName(cosumerName: string, frameworkName: string, stageName: string): string {
@@ -237,4 +222,8 @@ function setErrorMessage(errorMessage: string) {
   if (element) {
     element.innerText = errorMessage
   }
+}
+
+function getPassword(validPassword: string, password: string): string {
+  return validPassword && password == validPassword ? validPassword : ''
 }

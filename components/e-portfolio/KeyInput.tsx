@@ -2,7 +2,7 @@ import { Input, Box, Button, VStack, Text, Grid, GridItem } from "@chakra-ui/rea
 import { useState } from "react";
 import { UseFormHandleSubmit, UseFormRegister, UseFormWatch } from "react-hook-form";
 import { TriggerWithArgs } from "swr/mutation";
-import { ConsumerBadges } from "../data/OkutepData";
+import { ConsumerBadge, ConsumerGoal } from "../data/OkutepData";
 
 type Props = {
   register: UseFormRegister<KeyInputForm>,
@@ -14,10 +14,11 @@ type Props = {
   password: string,
   onKeyInputClosed: () => void,
   passwordResult: number,
-  triggerConsumerBadges: TriggerWithArgs<ConsumerBadges[] | null, any, string, string>,
+  triggerPasswordCheck: TriggerWithArgs<void, any, string, string>,
+  triggerConsumerGoals: TriggerWithArgs<ConsumerGoal[] | null, any, string, string>,
 }
 
-export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, setValidPassword, password, onKeyInputClosed, passwordResult, triggerConsumerBadges}: Props) => {
+export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, setValidPassword, password, onKeyInputClosed, passwordResult, triggerPasswordCheck, triggerConsumerGoals}: Props) => {
 
   const isValid = (data: KeyInputForm) => {
     if (passwordResult != -1) {
@@ -27,6 +28,8 @@ export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, s
         passwordResult = -1
         setErrorMessage('')
         onKeyInputClosed()
+        // OKUTEPから教員育成指標のプルダウン表示用のデータ取得（トリガー指定）
+        triggerConsumerGoals(password)
         setValidPassword(password)
         onClose()
       }
@@ -35,8 +38,8 @@ export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, s
 
   const onChangePassword = (event): void => {
     setPassword(event.target.value);
-    if (triggerConsumerBadges) {
-      triggerConsumerBadges(event.target.value)
+    if (triggerPasswordCheck) {
+      triggerPasswordCheck(event.target.value)
     }
   }
 

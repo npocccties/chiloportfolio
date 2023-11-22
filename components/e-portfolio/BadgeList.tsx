@@ -3,12 +3,9 @@ import { PortfolioBadgeData } from '../data/PortfolioData'
 
 type Props = {
   portfolioBadges: PortfolioBadgeData[],
-  selectedConsumer: string,
-  selectedFramework: string,
-  selectedStage: string,
 }
 
-export const BadgeList = ({ portfolioBadges, selectedConsumer, selectedFramework, selectedStage }: Props) => {
+export const BadgeList = ({ portfolioBadges}: Props) => {
   return (
     <>
       {/** desktop */}
@@ -20,7 +17,7 @@ export const BadgeList = ({ portfolioBadges, selectedConsumer, selectedFramework
         alignItems={"flex-end"}
       >
         <Box borderWidth='1px' rounded='md' bg='white'>
-          <Table variant='simple'>
+          <Table id='badge-list' variant='simple'>
             <Thead position='sticky' top={-1} zIndex='docked'>
               <Tr bg='gray.100'>
                 <Th whiteSpace='nowrap' w='52' borderWidth='1px' bg='green.400' color='#262626' fontSize='md' textAlign='center'>指標</Th>
@@ -33,7 +30,7 @@ export const BadgeList = ({ portfolioBadges, selectedConsumer, selectedFramework
             </Thead>
             <Tbody>
               {portfolioBadges.map((row, index) => (
-                <Tr key={index} display={selectedConsumer == row.consumer_name && selectedFramework == row.framework_name && selectedStage == row.stage_name ? 'table-row' : 'none'}>
+                <Tr key={index}>
                   <Td borderWidth='1px' borderColor='gray.200' bg='white'>
                     {row.field1_name}
                   </Td>
@@ -68,7 +65,7 @@ export const BadgeList = ({ portfolioBadges, selectedConsumer, selectedFramework
         alignItems={"center"}
       >
         <Box borderWidth='1px' rounded='md' bg='white'>
-          <Table variant='simple'>
+          <Table id='badge-list' variant='simple'>
             <Thead position='sticky' top={-1} zIndex='docked'>
               <Tr bg='gray.100'>
                 <Th whiteSpace='nowrap' borderWidth='1px' bg='green.400' color='#262626' fontSize='md' textAlign='center'>指標</Th>
@@ -77,7 +74,7 @@ export const BadgeList = ({ portfolioBadges, selectedConsumer, selectedFramework
             </Thead>
             <Tbody>
               {portfolioBadges.map((row, index) => (
-                <Tr key={index} display={selectedConsumer == row.consumer_name ? 'table-row' : 'none'}>
+                <Tr key={index}>
                   <Td whiteSpace='nowrap' borderWidth='1px' borderColor='gray.200' bg='white'>
                     {row.field1_name}
                   </Td>

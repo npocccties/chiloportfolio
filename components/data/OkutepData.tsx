@@ -1,9 +1,18 @@
-export type ConsumerBadges = {
+export type ConsumerGoal = {
   consumer_id: number
   consumer_name: string
   framework_id: number
   framework_name: string
-  stage_password: string
+  stage_id: number
+  stage_name: string
+  field1_name: string
+}
+
+export type ConsumerBadge = {
+  consumer_id: number
+  consumer_name: string
+  framework_id: number
+  framework_name: string
   stage_id: number
   stage_name: string
   field1_name: string
@@ -11,18 +20,6 @@ export type ConsumerBadges = {
   digital_badge_class_id: string
   wisdom_badges_description: string
   knowledge_badges_count: number
-}
-
-export type PortalCategory = {
-  portal_category_id: number
-  name: string
-  description: string
-  image_url_path: string
-  badges_count: number
-}
-
-export type PortalCategoryBadges = {
-  badges: WisdomBadge[]
 }
 
 export type WisdomBadge = {
