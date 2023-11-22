@@ -107,11 +107,11 @@ export const Portfolio = () => {
   // CSVダウンロード
   const onCsvDownload = () => {
     const targets = portfolioBadges.filter(v => v.consumer_id == selectedConsumerId && v.framework_id == selectedFrameworkId && v.stage_id == selectedStageId)
-    if (targets.length == 0 || consumers.length == 0) {
+    if (targets.length == 0 || !consumerGoals || consumerGoals.length == 0) {
       return
     }
     const v = targets[0]
-    var text = getCsvText(consumers, targets)
+    var text = getCsvText(consumerGoals, targets)
     text = jconv(text, "UTF8", "Shift_JIS")
     const blob = new Blob([text], {type: 'text/csv'})
     const url = URL.createObjectURL(blob)
