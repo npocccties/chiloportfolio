@@ -120,7 +120,7 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 |NEXT_PUBLIC_COPYRIGHT_LINK|フッターに表示するコピーライトのリンク|-|
 |NEXT_PUBLIC_COPYRIGHT|フッターに表示するコピーライト|-|
 |NEXT_PUBLIC_CSV_FILE_NAME|CSVダウンロードで指定するファイル名|e-Portfolio|
-|NEXTAUTH_URL|e-ポートフォリオで認証後に遷移するURL|-|
+|NEXTAUTH_URL|e-ポートフォリオで認証後に遷移するURL<br>オルトロス認証後の遷移先と分ける必要あり|-|
 |NEXTAUTH_PASSWORD|e-ポートフォリオのアクティベーション画面で入力する利用キー<br>※複数指定時はカンマ区切り|-|
 |NEXTAUTH_SECRET|認証後のJWTトークンを暗号化するためのシークレット|-|
 |SESSION_MAX_AGE_HOUR|ログインセッションの有効時間（単位：時）|-|
