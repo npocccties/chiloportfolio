@@ -127,4 +127,3 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 |LOG_LEVEL|ログレベル<br>'fatal', 'error', 'warn', 'info', 'debug', 'trace' or 'silent'|-|
 |LOG_MAX_SIZE|ログファイルサイズ<br>単位には k / m / g のいずれか指定|100m|
 |LOG_MAX_FILE|ログファイルの世代数|7|
-|orthros_login_key_base64|Orthrosから発行されるJWTの署名に対応した公開鍵のbase64エンコード形式|-|
