@@ -18,11 +18,11 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
   var displayName = 'Unknown'
   if (process.browser) {
     var errorDetail = ''
-    const session_cookie = getCookieValue("session_cookie");
-    if (!session_cookie) {
-      errorDetail = 'Not found session_cookie.'
+    const jwt = getCookieValue("jwt");
+    if (!jwt) {
+      errorDetail = 'Not found jwt.'
     } else {
-      const userInfo = getUserInfoFormJwt(session_cookie);
+      const userInfo = getUserInfoFormJwt(jwt);
       if (!userInfo) {
         errorDetail = 'Failed to decode.'
       } else {
@@ -30,7 +30,11 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
       }
     }
     if (errorDetail) {
-      console.log(errorDetail)
+      //window.alert('ユーザー情報の取得に失敗しました。タブを閉じます。\n詳細: '+ errorDetail)
+      window.close()
+      return (
+        <></>
+      )
     }
   }
 

@@ -29,7 +29,7 @@ export const verifyOrthrosJwt = async (jwt: string) => {
 
 const getCryptKey = async () => {
   try {
-    const publicKey = atob(pubKey!).toString();
+    const publicKey = window.atob(pubKey!).toString();
     const cryptKey = await importSPKI(publicKey, "RS256");
 
     return cryptKey;
