@@ -46,7 +46,7 @@ export function getCsvText(consumers: ConsumerGoal[], badgeDatas: PortfolioBadge
   text += `"指標","能力バッジ名","取得可能","取得予定","獲得済み","能力バッジ概要"`
   text += "\r\n"
   for (const [i, v] of badgeDatas.entries()) {
-    text += `"${v.consumer_name}",`
+    text += `"${v.field1_name}",`
     text += `"${v.wisdom_badges_name}",`
     text += `"${v.knowledge_badges_count}",`
     text += `"${v.scheduled_badges_count}",`
