@@ -1,7 +1,7 @@
 import { jwtVerify } from "jose/jwt/verify";
 import { importSPKI } from "jose/key/import";
 
-import { loggerMWError, loggerMWInfo } from "../util/Logger";
+import { loggerError, loggerInfo } from "../util/Logger";
 
 const pubKey = process.env.orthros_login_key_base64;
 
@@ -16,13 +16,13 @@ export const verifyOrthrosJwt = async (jwt: string) => {
   try {
     const result = await jwtVerify(jwt, cryptKey, { algorithms: ["RS256"] });
 
-    loggerMWInfo("verifyResult------------start");
+    loggerInfo("verifyResult------------start");
     console.log(JSON.stringify(result));
-    loggerMWInfo("verifyResult------------end");
+    loggerInfo("verifyResult------------end");
 
     return true;
   } catch (e) {
-    loggerMWError("error! invalid jwt", e);
+    loggerError("error! invalid jwt", e);
     return false;
   }
 };
@@ -36,6 +36,6 @@ const getCryptKey = async () => {
   } catch (e) {
     console.log("error", e);
 
-    loggerMWError("error! get public key");
+    loggerError("error! get public key");
   }
 };
