@@ -2,8 +2,10 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { Box, Center, Flex, Link, Spacer, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { FaUserAlt } from "react-icons/fa";
-
+import { getCookieValue } from "./lib/cookie";
+import { getUserInfoFormJwt } from "./lib/userInfo";
 import React, { useEffect, useState } from "react";
+
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
 
 type Props = {
@@ -11,11 +13,24 @@ type Props = {
 };
 
 export const Header: React.FC<Props> = ({ onOpen }) => {
-  const [userName, setUserName] = useState('')
+  const [userName, setUserName] = useState('Unknown')
 
   useEffect(() => {
-    const userName = window.localStorage.getItem('userName');
-    setUserName(userName ?? '')
+    var errorDetail = ''
+    const session_cookie = getCookieValue("session_cookie");
+    if (!session_cookie) {
+      errorDetail = 'Not found session_cookie.'
+    } else {
+      const userInfo = getUserInfoFormJwt(session_cookie);
+      if (!userInfo) {
+        errorDetail = 'Failed to decode.'
+      } else {
+        setUserName(userInfo.displayName)
+      }
+    }
+    if (errorDetail) {
+      console.log(errorDetail)
+    }
   }, [])
 
   return (
