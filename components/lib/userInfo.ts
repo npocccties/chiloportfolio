@@ -5,10 +5,9 @@ type UserInfo = {
   displayName: string;
 };
 
-export const getUserInfoFormJwt = (jwt: string): UserInfo | null => {
+export const getUserInfoFormJwt = (session_cookie: string): UserInfo | null => {
   try {
-    const decodeJwt = <UserInfo>jsonwebtoken.decode(jwt);
-    jsonwebtoken.verify(jwt, )
+    const decodeJwt = <UserInfo>jsonwebtoken.decode(session_cookie);
 
     if (!decodeJwt) {
       return null
