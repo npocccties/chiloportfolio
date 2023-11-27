@@ -2,11 +2,13 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { Box, Center, Flex, Link, Spacer, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { FaUserAlt } from "react-icons/fa";
+import { MdHelp } from "react-icons/md";
 import { getCookieValue } from "./lib/cookie";
 import { getUserInfoFormJwt } from "./lib/userInfo";
 import React, { useEffect, useState } from "react";
 
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
+const helpLink = process.env.NEXT_PUBLIC_HELP_LINK as string
 
 type Props = {
   onOpen: () => void;
@@ -50,6 +52,8 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
           </Text>
         </NextLink>
         <Flex gap={"16px"} alignItems={"center"} display={{ base: "none", sm: "flex" }}>
+          <MdHelp size="24" />
+          <NextLink href={helpLink}>ヘルプ</NextLink>
           <FaUserAlt />
           <Text fontSize={"xl"}>{userName}</Text>
         </Flex>
