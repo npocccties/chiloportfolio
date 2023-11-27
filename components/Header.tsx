@@ -4,6 +4,9 @@ import NextLink from "next/link";
 import { FaUserAlt } from "react-icons/fa";
 
 import React, { useEffect, useState } from "react";
+import { getCookieValue } from "./lib/cookie";
+import { getUserInfoFormJwt } from "./lib/userInfo";
+
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
 
 type Props = {
@@ -11,12 +14,29 @@ type Props = {
 };
 
 export const Header: React.FC<Props> = ({ onOpen }) => {
-  const [userName, setUserName] = useState('')
 
-  useEffect(() => {
-    const userName = window.localStorage.getItem('userName');
-    setUserName(userName ?? '')
-  }, [])
+  var displayName = 'Unknown'
+  if (process.browser) {
+    var errorDetail = ''
+    const jwt = getCookieValue("jwt");
+    if (!jwt) {
+      errorDetail = 'Not found jwt.'
+    } else {
+      const userInfo = getUserInfoFormJwt(jwt);
+      if (!userInfo) {
+        errorDetail = 'Failed to decode.'
+      } else {
+        displayName = userInfo.displayName
+      }
+    }
+    if (errorDetail) {
+      //window.alert('ユーザー情報の取得に失敗しました。タブを閉じます。\n詳細: '+ errorDetail)
+      window.close()
+      return (
+        <></>
+      )
+    }
+  }
 
   return (
     <Box>
@@ -36,7 +56,7 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
         </NextLink>
         <Flex gap={"16px"} alignItems={"center"} display={{ base: "none", sm: "flex" }}>
           <FaUserAlt />
-          <Text fontSize={"xl"}>{userName}</Text>
+          <Text fontSize={"xl"}>{displayName}</Text>
         </Flex>
         <Flex gap={"16px"} alignItems={"center"} display={{ base: "flex", sm: "none" }}>
         </Flex>
