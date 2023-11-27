@@ -4,6 +4,9 @@ import NextLink from "next/link";
 import { FaUserAlt } from "react-icons/fa";
 
 import React, { useEffect, useState } from "react";
+import { getCookieValue } from "./lib/cookie";
+import { getUserInfoFormJwt } from "./lib/userInfo";
+
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
 
 type Props = {
@@ -11,12 +14,25 @@ type Props = {
 };
 
 export const Header: React.FC<Props> = ({ onOpen }) => {
-  const [userName, setUserName] = useState('')
 
-  useEffect(() => {
-    const userName = window.localStorage.getItem('userName');
-    setUserName(userName ?? '')
-  }, [])
+  var displayName = 'Unknown'
+  if (process.browser) {
+    var errorDetail = ''
+    const session_cookie = getCookieValue("session_cookie");
+    if (!session_cookie) {
+      errorDetail = 'Not found session_cookie.'
+    } else {
+      const userInfo = getUserInfoFormJwt(session_cookie);
+      if (!userInfo) {
+        errorDetail = 'Failed to decode.'
+      } else {
+        displayName = userInfo.displayName
+      }
+    }
+    if (errorDetail) {
+      console.log(errorDetail)
+    }
+  }
 
   return (
     <Box>
@@ -36,7 +52,7 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
         </NextLink>
         <Flex gap={"16px"} alignItems={"center"} display={{ base: "none", sm: "flex" }}>
           <FaUserAlt />
-          <Text fontSize={"xl"}>{userName}</Text>
+          <Text fontSize={"xl"}>{displayName}</Text>
         </Flex>
         <Flex gap={"16px"} alignItems={"center"} display={{ base: "flex", sm: "none" }}>
         </Flex>

@@ -4,22 +4,14 @@ import { GetServerSideProps } from "next";
 import { getCsrfToken } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { parseCookies } from 'nookies'
 
 type SignInProps = {
   csrfToken?: string
-  userName?: string
 };
 
-export default function SignIn({ csrfToken, userName }: SignInProps) {
+export default function SignIn({ csrfToken }: SignInProps) {
   const router = useRouter();
   const { error } = router.query;
-  const [savedUserName, setSavedUserName] = useState('')
-
-  useEffect(() => {
-    localStorage.setItem('userName', userName ?? '')
-    setSavedUserName(userName ?? '')
-  }, [])
   
   return (
     <Layout maxW="6xl">
@@ -39,13 +31,3 @@ export default function SignIn({ csrfToken, userName }: SignInProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const cookie = parseCookies(context)
-  const userName = cookie['eppn'] ?? 'Unknown'
-  return {
-    props: {
-      csrfToken: await getCsrfToken(context),
-      userName: userName,
-    },
-  };
-};
