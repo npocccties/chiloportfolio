@@ -25,15 +25,19 @@ export const SelectConsumer = ({ selectedConsumerId, selectedFrameworkId, select
 }
 
 function makeOptionValue(v: ConsumerGoal): string {
-  if (v.framework_id && v.stage_id) {
-    return `${v.consumer_id},${v.framework_id},${v.stage_id}`
-  }
-  return ""
+  return `${v.consumer_id},${v.framework_id},${v.stage_id}`
 }
 
 function makeDisplayValue(v: ConsumerGoal): string {
-  if (v.consumer_name && v.framework_name && v.stage_name) {
-    return `${v.consumer_name} ${v.framework_name} ${v.stage_name}`
+  var displayValue = ''
+  if (v.consumer_name) {
+    displayValue += `${v.consumer_name}`
   }
-  return ""
+  if (v.framework_name) {
+    displayValue += ` ${v.framework_name}`
+  }
+  if (v.stage_name) {
+    displayValue += ` ${v.stage_name}`
+  }
+  return displayValue
 }

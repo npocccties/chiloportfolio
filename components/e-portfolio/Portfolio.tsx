@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { SelectConsumer } from "./SelectConsumer"
 import { useWalletBadgeList } from "@/components/api/WalletApi"
-import { getCsvText, mergeBadgeDataWithConsumer } from "@/components/util/Converter"
+import { getCsvText, mergeBadgeDataWithConsumer, toConsumerBadges } from "@/components/util/Converter"
 import { Button, FormLabel, Link, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure, Box, Flex, HStack } from "@chakra-ui/react"
 import { BadgeList } from "@/components/e-portfolio/BadgeList"
 import { KeyInput, KeyInputForm } from "./KeyInput"
@@ -10,7 +10,7 @@ import jconv from "jconv"
 import { BiKey } from "react-icons/bi";
 import { ConsumerBadgesRequest, PortfolioBadgeData } from "@/components/data/PortfolioData"
 import { Loading } from "../Loading"
-import { useConsumerBadgesWithTrigger, useConsumerGoals, useConsumerGoalsWithTrigger, usePasswordCheckWithTrigger } from "../api/OkutepApi"
+import { useConsumerBadgesWithTrigger, useConsumerGoals, useConsumerGoalsWithTrigger, usePasswordCheckWithTrigger, usePortalCategoryBadgesWithTrigger } from "../api/OkutepApi"
 import { ConsumerGoal } from "../data/OkutepData"
 const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string
 
@@ -19,9 +19,9 @@ export const Portfolio = () => {
   const [validPassword, setValidPassword] = useState('')
   const [password, setPassword] = useState('')
   const [passwordResult, setPasswordResult] = useState(-1)
-  const [selectedConsumerId, setSelectedConsumerId] = useState(0)
-  const [selectedFrameworkId, setSelectedFrameworkId] = useState(0)
-  const [selectedStageId, setSelectedStageId] = useState(0)
+  const [selectedConsumerId, setSelectedConsumerId] = useState(-1)
+  const [selectedFrameworkId, setSelectedFrameworkId] = useState(-1)
+  const [selectedStageId, setSelectedStageId] = useState(-1)
 
   // OKUTEPから教員育成指標のプルダウン表示用のデータ取得
   var { consumerGoals, isLoadingConsumerGoals, isErrorConsumerGoals} = useConsumerGoals()
@@ -30,6 +30,7 @@ export const Portfolio = () => {
   const { triggerConsumerGoals, consumerGoalsEx, isMutatingConsumerGoals } = useConsumerGoalsWithTrigger()
   var { triggerConsumerBadges, consumerBadgesEx, isMutatingConsumerBadges } = useConsumerBadgesWithTrigger()
   const { triggerPasswordCheck, isMutatingPasswordCheck } = usePasswordCheckWithTrigger(setPasswordResult)
+  const { triggerPortalCategoryBadges, portalCategoryBadges, isMutatingPortalCategoryBadges } = usePortalCategoryBadgesWithTrigger()
 
   console.log('consumerGoalsEx: ', consumerGoalsEx)
   console.log('consumerBadgesEx: ', consumerBadgesEx)
@@ -42,10 +43,20 @@ export const Portfolio = () => {
   const { walletBadges, isLoadingWB, isErrorWB } = useWalletBadgeList()
 
   var portfolioBadges: PortfolioBadgeData[] = []
-  // ウォレットのバッジ情報とOKUTEPのバッジ情報をマージ
-  if (consumerBadgesEx && walletBadges && walletBadges.length != 0) {
-    portfolioBadges = mergeBadgeDataWithConsumer(consumerBadgesEx, walletBadges)
-    console.log('portfolioBadges: ', portfolioBadges)
+  if (selectedConsumerId != -1) {
+    if (selectedConsumerId != 0) {
+      // ウォレットのバッジ情報とOKUTEPのバッジ情報をマージ
+      if (consumerBadgesEx && walletBadges && walletBadges.length != 0) {
+        portfolioBadges = mergeBadgeDataWithConsumer(consumerBadgesEx, walletBadges)
+        console.log('portfolioBadges: ', portfolioBadges)
+      }
+    } else {
+      // OKUTEPのポータルカテゴリに紐づくバッジ情報をマージ
+      if (portalCategoryBadges && walletBadges && walletBadges.length != 0) {
+        portfolioBadges = mergeBadgeDataWithConsumer(toConsumerBadges(portalCategoryBadges.badges), walletBadges)
+        console.log('portfolioBadges: ', portfolioBadges)
+      }
+    }
   }
 
   // 教員育成指標のプルダウン表示用のデータ作成
@@ -59,6 +70,16 @@ export const Portfolio = () => {
       consumers.push(v)
     }
   }
+  var categoryGoal: ConsumerGoal = {
+    consumer_id: 0,
+    consumer_name: 'カテゴリ',
+    framework_id: 0,
+    framework_name: '',
+    stage_id: 0,
+    stage_name: '',
+    field1_name: ''
+  }
+  consumers.push(categoryGoal)
   console.log('consumers: ', consumers)
 
   // 教員育成指標のプルダウン選択時のハンドラ
@@ -73,22 +94,27 @@ export const Portfolio = () => {
       }
       return
     }
-    const consumerId = Number(array[0])
-    const frameworkId = Number(array[1])
-    const stageId = Number(array[2])
+    var consumerId = Number(array[0])
+    var frameworkId = Number(array[1])
+    var stageId = Number(array[2])
     console.log(`consumerId: ${consumerId} frameworkId: ${frameworkId} stageId: ${stageId}`)
 
     const pass = getPassword(validPassword, password)
     console.log('pass:', pass)
-    // OKUTEPから教員育成指標のプルダウン表示用のデータ取得（トリガー指定）
-    triggerConsumerGoals(pass)
-    const consumerBadgesRequest: ConsumerBadgesRequest = {
-      password: pass,
-      framework_id: frameworkId,
-      stage_id: stageId,
+    if (consumerId == 0 && frameworkId == 0 && stageId == 0) {
+      // OKUTEPからポータルカテゴリに紐づくバッジ情報の取得
+      triggerPortalCategoryBadges()
+    } else {
+      // OKUTEPから教員育成指標のプルダウン表示用のデータ取得（トリガー指定）
+      triggerConsumerGoals(pass)
+      const consumerBadgesRequest: ConsumerBadgesRequest = {
+        password: pass,
+        framework_id: frameworkId,
+        stage_id: stageId,
+      }
+      // OKUTEPからテーブル表示用のデータ取得（トリガー指定）
+      triggerConsumerBadges(consumerBadgesRequest)
     }
-    // OKUTEPからテーブル表示用のデータ取得（トリガー指定）
-    triggerConsumerBadges(consumerBadgesRequest)
 
     setSelectedConsumerId(consumerId)
     setSelectedFrameworkId(frameworkId)
@@ -154,7 +180,7 @@ export const Portfolio = () => {
           </HStack>
         </Box>
         <Box mt={4}>
-          <Button colorScheme='blue' onClick={onCsvDownload} isDisabled={selectedConsumerId == 0}>CSVダウンロード</Button>
+          <Button colorScheme='blue' onClick={onCsvDownload} isDisabled={selectedConsumerId == -1}>CSVダウンロード</Button>
         </Box>
       </Flex>
 
@@ -178,7 +204,7 @@ export const Portfolio = () => {
           </HStack>
         </Box>
         <Box w={"full"} mt={8}>
-          <Button w={"full"} colorScheme='blue' onClick={onCsvDownload} isDisabled={selectedConsumerId == 0}>CSVダウンロード</Button>
+          <Button w={"full"} colorScheme='blue' onClick={onCsvDownload} isDisabled={selectedConsumerId == -1}>CSVダウンロード</Button>
         </Box>
       </Flex>
 

@@ -1,6 +1,27 @@
-import { ConsumerBadge, ConsumerGoal } from "@/components/data/OkutepData"
+import { ConsumerBadge, ConsumerGoal, WisdomBadge } from "@/components/data/OkutepData"
 import { WalletBadge } from "@/components/data/WalletData"
 import { PortfolioBadgeData } from "@/components/data/PortfolioData"
+
+export function toConsumerBadges(wisdomBadges: WisdomBadge[]): ConsumerBadge[] {
+  var consumerBadges: ConsumerBadge[] = []
+  for (const [i, wisdomBadge] of wisdomBadges.entries()) {
+    var consumerBadge: ConsumerBadge = {
+      consumer_id: 0,
+      consumer_name: '',
+      framework_id: 0,
+      framework_name: '',
+      stage_id: 0,
+      stage_name: '',
+      field1_name: wisdomBadge.portal_category_name,
+      wisdom_badges_name: wisdomBadge.name,
+      digital_badge_class_id: wisdomBadge.digital_badge_class_id,
+      wisdom_badges_description: wisdomBadge.description,
+      knowledge_badges_count: wisdomBadge.detail.knowledge_badges_list.length
+    }
+    consumerBadges.push(consumerBadge)
+  }
+  return consumerBadges
+}
 
 export function mergeBadgeDataWithConsumer(consumerBadges: ConsumerBadge[], walletBadges: WalletBadge[]): PortfolioBadgeData[] {
   var badgeDatas: PortfolioBadgeData[] = []

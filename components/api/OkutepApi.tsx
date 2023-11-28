@@ -1,5 +1,5 @@
 import useSWRMutation from "swr/mutation"
-import { ConsumerGoal, ConsumerBadge } from "../data/OkutepData"
+import { ConsumerGoal, ConsumerBadge, PortalCategoryBadges, PortalCategory } from "../data/OkutepData"
 import { ConsumerBadgesRequest } from "../data/PortfolioData"
 import useSWR from "swr"
 const baseUrl = process.env.NEXT_PUBLIC_OKUTEP_BASE_URL as string
@@ -83,5 +83,22 @@ export function useConsumerBadgesWithTrigger () {
     triggerConsumerBadges: trigger,
     consumerBadgesEx: data,
     isMutatingConsumerBadges: isMutating
+  }
+}
+
+export function usePortalCategoryBadgesWithTrigger () {
+  const apiPath = `/api/v1/portalCategory/badges/list/`
+  const url = `${baseUrl}${apiPath}`
+  console.log(url)
+  async function fetcher(url) {
+    return await fetch(url).then((res) => {
+      return res.json() as Promise<PortalCategoryBadges | null>
+    })
+  }
+  const { trigger, data, isMutating } = useSWRMutation(`${url}`, fetcher)
+  return {
+    triggerPortalCategoryBadges: trigger,
+    portalCategoryBadges: data,
+    isMutatingPortalCategoryBadges: isMutating
   }
 }

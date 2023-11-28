@@ -22,6 +22,10 @@ export type ConsumerBadge = {
   knowledge_badges_count: number
 }
 
+export type PortalCategoryBadges = {
+  badges: WisdomBadge[]
+}
+
 export type WisdomBadge = {
   badges_id: number
   type: string
@@ -35,6 +39,8 @@ export type WisdomBadge = {
   issuer_email: string
   digital_badge_class_id: string
   detail: BadgeDetail
+  portal_category_id: number
+  portal_category_name: string
 }
 
 export type BadgeDetail = {
