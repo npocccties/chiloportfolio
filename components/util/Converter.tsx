@@ -9,6 +9,7 @@ export function mergeBadgeDataWithConsumer(consumerBadges: ConsumerBadge[], wall
   }
   for (const [i, consumerBadge] of consumerBadges.entries()) {
     var badgeData: PortfolioBadgeData = {
+      badge_class_id: consumerBadge.digital_badge_class_id,
       consumer_id: consumerBadge.consumer_id,
       consumer_name: consumerBadge.consumer_name,
       framework_name: consumerBadge.framework_name,
@@ -22,12 +23,33 @@ export function mergeBadgeDataWithConsumer(consumerBadges: ConsumerBadge[], wall
       acquired_badges_count: 0,
       wisdom_badges_description: consumerBadge.wisdom_badges_description,
     }
-    const targets = walletBadges.filter(v => v.badge_class_id == consumerBadge.digital_badge_class_id)
+    const targets = walletBadges.filter(v => v.badge_class == consumerBadge.digital_badge_class_id)
     if (targets.length != 0) {
       const walletBadge = targets[0]
       badgeData.acquired_badges_count = consumerBadge.knowledge_badges_count
     }
     badgeDatas.push(badgeData)
+  }
+  for (const [i, walletBadge] of walletBadges.entries()) {
+    const targets = badgeDatas.filter(v => v.badge_class_id == walletBadge.badge_class)
+    if (targets.length == 0) {
+      var badgeData: PortfolioBadgeData = {
+        badge_class_id: walletBadge.badge_class,
+        consumer_id: 0,
+        consumer_name: '',
+        framework_name: '',
+        framework_id: 0,
+        stage_id: 0,
+        stage_name: '',
+        field1_name: '',
+        wisdom_badges_name: walletBadge.badge_name,
+        knowledge_badges_count: 0,
+        scheduled_badges_count: 0,
+        acquired_badges_count: 0,
+        wisdom_badges_description: '',
+      }
+      badgeDatas.push(badgeData)
+    }
   }
   return badgeDatas
 }

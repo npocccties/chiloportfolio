@@ -1,4 +1,5 @@
 export type PortfolioBadgeData = {
+  badge_class_id: string
   consumer_id: number
   consumer_name: string
   framework_id: number

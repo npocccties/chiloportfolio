@@ -106,12 +106,11 @@ export const Portfolio = () => {
 
   // CSVダウンロード
   const onCsvDownload = () => {
-    const targets = portfolioBadges.filter(v => v.consumer_id == selectedConsumerId && v.framework_id == selectedFrameworkId && v.stage_id == selectedStageId)
-    if (targets.length == 0 || !consumerGoals || consumerGoals.length == 0) {
+    if (!consumerGoals || consumerGoals.length == 0) {
       return
     }
-    const v = targets[0]
-    var text = getCsvText(consumerGoals, targets)
+    const v = portfolioBadges[0]
+    var text = getCsvText(consumerGoals, portfolioBadges)
     var bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
     const blob = new Blob([bom, text], {type: 'text/csv'})
     const url = URL.createObjectURL(blob)
