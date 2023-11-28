@@ -112,8 +112,8 @@ export const Portfolio = () => {
     }
     const v = targets[0]
     var text = getCsvText(consumerGoals, targets)
-    text = jconv(text, "UTF8", "Shift_JIS")
-    const blob = new Blob([text], {type: 'text/csv'})
+    var bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+    const blob = new Blob([bom, text], {type: 'text/csv'})
     const url = URL.createObjectURL(blob)
     const a = document.createElement("a")
     document.body.appendChild(a)
