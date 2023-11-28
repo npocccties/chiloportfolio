@@ -46,19 +46,27 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
       >
         <Box >
         </Box>
-        <NextLink href="/">
-          <Text fontSize={"2xl"} fontWeight={"bold"} style={{ textDecoration: "none" }}>
-            {serviceName}
-          </Text>
-        </NextLink>
-        <Flex gap={"16px"} alignItems={"center"} display={{ base: "none", sm: "flex" }}>
-          <MdHelp size="24" />
-          <NextLink href={helpLink}>ヘルプ</NextLink>
-          <FaUserAlt />
-          <Text fontSize={"xl"}>{userName}</Text>
-        </Flex>
-        <Flex gap={"16px"} alignItems={"center"} display={{ base: "flex", sm: "none" }}>
-        </Flex>
+        <Box
+          style={{
+            position: "absolute",
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        >
+          <NextLink href="/">
+            <Text fontSize={"2xl"} fontWeight={"bold"} style={{ textDecoration: "none" }}>
+              {serviceName}
+            </Text>
+          </NextLink>
+        </Box>
+        <Box >
+          <Flex gap={"16px"} alignItems={"center"} display={{ base: "none", sm: "flex" }}>
+            <MdHelp size="24" />
+            <NextLink href={helpLink}>ヘルプ</NextLink>
+            <FaUserAlt />
+            <Text fontSize={"xl"}>{userName}</Text>
+          </Flex>
+        </Box>
       </Flex>
     </Box>
   );
