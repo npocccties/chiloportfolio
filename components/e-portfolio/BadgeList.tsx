@@ -3,9 +3,10 @@ import { PortfolioBadgeData } from '../data/PortfolioData'
 
 type Props = {
   portfolioBadges: PortfolioBadgeData[],
+  columnName1: string,
 }
 
-export const BadgeList = ({ portfolioBadges}: Props) => {
+export const BadgeList = ({ columnName1, portfolioBadges}: Props) => {
   return (
     <>
       {/** desktop */}
@@ -20,7 +21,7 @@ export const BadgeList = ({ portfolioBadges}: Props) => {
           <Table id='badge-list' variant='simple'>
             <Thead position='sticky' top={-1} zIndex='docked'>
               <Tr bg='gray.100'>
-                <Th whiteSpace='nowrap' w='52' borderWidth='1px' bg='green.400' color='#262626' fontSize='md' textAlign='center'>指標</Th>
+                <Th whiteSpace='nowrap' w='52' borderWidth='1px' bg='green.400' color='#262626' fontSize='md' textAlign='center'>{columnName1}</Th>
                 <Th whiteSpace='nowrap' w='52' borderWidth='1px' bg='green.400' color='#262626' fontSize='md' textAlign='center'>能力バッジ名</Th>
                 <Th whiteSpace='nowrap' borderWidth='1px' bg='gray.200' color='#262626' fontSize='md' textAlign='center'>取得可能</Th>
                 <Th whiteSpace='nowrap' borderWidth='1px' bg='gray.200' color='#262626' fontSize='md' textAlign='center'>取得予定</Th>

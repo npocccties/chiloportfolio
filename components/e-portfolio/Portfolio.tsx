@@ -11,6 +11,7 @@ import { ConsumerBadgesRequest, PortfolioBadgeData } from "@/components/data/Por
 import { Loading } from "../Loading"
 import { useConsumerBadgesWithTrigger, useConsumerGoals, useConsumerGoalsWithTrigger, usePasswordCheckWithTrigger, usePortalCategoryBadgesWithTrigger } from "../api/OkutepApi"
 import { ConsumerGoal } from "../data/OkutepData"
+import { categoryColumnName, fieldColumnName } from "@/constants/e-portfolio"
 const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string
 
 export const Portfolio = () => {
@@ -21,6 +22,7 @@ export const Portfolio = () => {
   const [selectedConsumerId, setSelectedConsumerId] = useState(-1)
   const [selectedFrameworkId, setSelectedFrameworkId] = useState(-1)
   const [selectedStageId, setSelectedStageId] = useState(-1)
+  const [columnName1, setColumnName1] = useState(fieldColumnName)
 
   // OKUTEPから教員育成指標のプルダウン表示用のデータ取得
   var { consumerGoals, isLoadingConsumerGoals, isErrorConsumerGoals} = useConsumerGoals()
@@ -71,7 +73,7 @@ export const Portfolio = () => {
   }
   var categoryGoal: ConsumerGoal = {
     consumer_id: 0,
-    consumer_name: 'カテゴリ',
+    consumer_name: categoryColumnName,
     framework_id: 0,
     framework_name: '',
     stage_id: 0,
@@ -103,6 +105,7 @@ export const Portfolio = () => {
     if (consumerId == 0 && frameworkId == 0 && stageId == 0) {
       // OKUTEPからポータルカテゴリに紐づくバッジ情報の取得
       triggerPortalCategoryBadges()
+      setColumnName1(categoryColumnName)
     } else {
       // OKUTEPから教員育成指標のプルダウン表示用のデータ取得（トリガー指定）
       triggerConsumerGoals(pass)
@@ -113,6 +116,7 @@ export const Portfolio = () => {
       }
       // OKUTEPからテーブル表示用のデータ取得（トリガー指定）
       triggerConsumerBadges(consumerBadgesRequest)
+      setColumnName1(fieldColumnName)
     }
 
     setSelectedConsumerId(consumerId)
@@ -219,7 +223,7 @@ export const Portfolio = () => {
         </ModalContent>
       </Modal>
 
-      <BadgeList portfolioBadges={portfolioBadges}/>
+      <BadgeList columnName1={columnName1} portfolioBadges={portfolioBadges}/>
     </>
   )
 }
