@@ -46,3 +46,7 @@ export type WisdomBadge = {
 export type BadgeDetail = {
   knowledge_badges_list: number[]
 }
+
+export type AuthResult = {
+  result: string
+}
