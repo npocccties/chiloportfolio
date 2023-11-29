@@ -1,4 +1,4 @@
 export type WalletBadge = {
-  badge_name: string
-  badge_class: string
+  badgeName: string
+  badgeClassId: string
 }

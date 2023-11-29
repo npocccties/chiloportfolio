@@ -44,7 +44,7 @@ export function mergeBadgeDataWithConsumer(consumerBadges: ConsumerBadge[], wall
       acquired_badges_count: 0,
       wisdom_badges_description: consumerBadge.wisdom_badges_description,
     }
-    const targets = walletBadges.filter(v => v.badge_class == consumerBadge.digital_badge_class_id)
+    const targets = walletBadges.filter(v => v.badgeClassId == consumerBadge.digital_badge_class_id)
     if (targets.length != 0) {
       const walletBadge = targets[0]
       badgeData.acquired_badges_count = consumerBadge.knowledge_badges_count
@@ -52,10 +52,10 @@ export function mergeBadgeDataWithConsumer(consumerBadges: ConsumerBadge[], wall
     badgeDatas.push(badgeData)
   }
   for (const [i, walletBadge] of walletBadges.entries()) {
-    const targets = badgeDatas.filter(v => v.badge_class_id == walletBadge.badge_class)
+    const targets = badgeDatas.filter(v => v.badge_class_id == walletBadge.badgeClassId)
     if (targets.length == 0) {
       var badgeData: PortfolioBadgeData = {
-        badge_class_id: walletBadge.badge_class,
+        badge_class_id: walletBadge.badgeClassId,
         consumer_id: 0,
         consumer_name: '',
         framework_name: '',
@@ -63,7 +63,7 @@ export function mergeBadgeDataWithConsumer(consumerBadges: ConsumerBadge[], wall
         stage_id: 0,
         stage_name: '',
         field1_name: '',
-        wisdom_badges_name: walletBadge.badge_name,
+        wisdom_badges_name: walletBadge.badgeName,
         knowledge_badges_count: 0,
         scheduled_badges_count: 0,
         acquired_badges_count: 0,
