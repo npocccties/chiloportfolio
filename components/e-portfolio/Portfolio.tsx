@@ -6,7 +6,6 @@ import { Button, FormLabel, Link, Modal, ModalBody, ModalContent, ModalHeader, M
 import { BadgeList } from "@/components/e-portfolio/BadgeList"
 import { KeyInput, KeyInputForm } from "./KeyInput"
 import { useForm } from "react-hook-form"
-import jconv from "jconv"
 import { BiKey } from "react-icons/bi";
 import { ConsumerBadgesRequest, PortfolioBadgeData } from "@/components/data/PortfolioData"
 import { Loading } from "../Loading"
