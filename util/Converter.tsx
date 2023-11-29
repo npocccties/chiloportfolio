@@ -1,6 +1,6 @@
-import { ConsumerBadge, ConsumerGoal, WisdomBadge } from "@/components/data/OkutepData"
-import { WalletBadge } from "@/components/data/WalletData"
-import { PortfolioBadgeData } from "@/components/data/PortfolioData"
+import { ConsumerBadge, ConsumerGoal, WisdomBadge } from "@/models/OkutepData"
+import { WalletBadge } from "@/models/WalletData"
+import { PortfolioBadgeData } from "@/models/PortfolioData"
 
 export function toConsumerBadges(wisdomBadges: WisdomBadge[]): ConsumerBadge[] {
   var consumerBadges: ConsumerBadge[] = []

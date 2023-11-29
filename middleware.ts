@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { loggerMWInfo } from "./components/util/Logger";
-import { logEndForOther, logStartForOther } from "./components/util/log";
-import { verifyOrthrosJwt } from "./components/lib/verifyJwt";
+import { loggerMWInfo } from "./util/Logger";
+import { logEndForOther, logStartForOther } from "./util/log";
+import { verifyOrthrosJwt } from "./lib/verifyJwt";
 
 export async function middleware(req: NextRequest) {
   loggerMWInfo(logStartForOther("middleware"));

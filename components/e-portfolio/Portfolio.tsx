@@ -1,16 +1,16 @@
 import React, { useState } from "react"
 import { SelectConsumer } from "./SelectConsumer"
 import { useWalletBadgeList } from "@/components/api/WalletApi"
-import { getCsvText, mergeBadgeDataWithConsumer, toConsumerBadges } from "@/components/util/Converter"
+import { getCsvText, mergeBadgeDataWithConsumer, toConsumerBadges } from "@/util/Converter"
 import { Button, FormLabel, Link, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure, Box, Flex, HStack } from "@chakra-ui/react"
 import { BadgeList } from "@/components/e-portfolio/BadgeList"
 import { KeyInput, KeyInputForm } from "./KeyInput"
 import { useForm } from "react-hook-form"
 import { BiKey } from "react-icons/bi";
-import { ConsumerBadgesRequest, PortfolioBadgeData } from "@/components/data/PortfolioData"
+import { ConsumerBadgesRequest, PortfolioBadgeData } from "@/models/PortfolioData"
 import { Loading } from "../Loading"
 import { useConsumerBadgesWithTrigger, useConsumerGoals, useConsumerGoalsWithTrigger, usePasswordCheckWithTrigger, usePortalCategoryBadgesWithTrigger } from "../api/OkutepApi"
-import { ConsumerGoal } from "../data/OkutepData"
+import { ConsumerGoal } from "../../models/OkutepData"
 import { categoryColumnName, fieldColumnName } from "@/constants/e-portfolio"
 const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string
 

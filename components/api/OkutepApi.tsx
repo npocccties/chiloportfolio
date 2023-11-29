@@ -1,6 +1,6 @@
 import useSWRMutation from "swr/mutation"
-import { ConsumerGoal, ConsumerBadge, PortalCategoryBadges } from "../data/OkutepData"
-import { ConsumerBadgesRequest } from "../data/PortfolioData"
+import { ConsumerGoal, ConsumerBadge, PortalCategoryBadges } from "../../models/OkutepData"
+import { ConsumerBadgesRequest } from "../../models/PortfolioData"
 import useSWR from "swr"
 const baseUrl = process.env.NEXT_PUBLIC_OKUTEP_BASE_URL as string
 

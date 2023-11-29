@@ -1,10 +1,9 @@
-import { HamburgerIcon } from "@chakra-ui/icons";
-import { Box, Center, Flex, Link, Spacer, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { FaUserAlt } from "react-icons/fa";
 import { MdHelp } from "react-icons/md";
-import { getCookieValue } from "./lib/cookie";
-import { getUserInfoFormJwt } from "./lib/userInfo";
+import { getCookieValue } from "@/lib/cookie";
+import { getUserInfoFormJwt } from "@/lib/userInfo";
 import React, { useEffect, useState } from "react";
 
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string

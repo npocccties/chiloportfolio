@@ -4,7 +4,7 @@ import { Layout } from "@/components/Layout";
 import { Metatag } from "@/components/Metatag";
 import { Portfolio } from "../components/e-portfolio/Portfolio";
 import SignIn from "./signin";
-import { PasswordResult } from "@/components/data/PortfolioData";
+import { PasswordResult } from "@/models/PortfolioData";
 
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
 const serviceDescription = process.env.NEXT_PUBLIC_SERVICE_DESCRIPTION as string

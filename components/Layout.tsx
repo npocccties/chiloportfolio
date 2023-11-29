@@ -1,4 +1,4 @@
-import { Flex, Box, Container, Stack, useDisclosure, Drawer, DrawerContent, DrawerOverlay } from "@chakra-ui/react";
+import { Flex, Box, Container, Stack, useDisclosure } from "@chakra-ui/react";
 import React from "react";
 
 import { Footer } from "./Footer";

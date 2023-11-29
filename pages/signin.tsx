@@ -1,8 +1,8 @@
 import { Layout } from "@/components/Layout";
-import { Button, Flex, FormControl, FormErrorMessage, FormLabel, Heading, Input, Text, VStack } from "@chakra-ui/react";
+import { Button, Flex, FormLabel, Heading, Input, Text, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { AuthResult } from "@/components/data/OkutepData";
+import { useState } from "react";
+import { AuthResult } from "@/models/OkutepData";
 
 type SignInProps = {
 };

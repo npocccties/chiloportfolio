@@ -1,6 +1,5 @@
 import { Select } from "@chakra-ui/react";
-import { PortfolioBadgeData } from "../data/PortfolioData";
-import { ConsumerGoal } from "../data/OkutepData";
+import { ConsumerGoal } from "../../models/OkutepData";
 
 type Props = {
   selectedConsumerId: number,

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { loggerInfo } from '@/components/util/Logger';
-import { makeHash } from '@/components/util/hash'
+import { loggerInfo } from '@/util/Logger';
+import { makeHash } from '@/util/hash'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   loggerInfo('*** auth api start ***')

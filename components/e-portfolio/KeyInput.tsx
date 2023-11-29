@@ -2,7 +2,7 @@ import { Input, Box, Button, VStack, Text, Grid, GridItem } from "@chakra-ui/rea
 import { useState } from "react";
 import { UseFormHandleSubmit, UseFormRegister, UseFormWatch } from "react-hook-form";
 import { TriggerWithArgs } from "swr/mutation";
-import { ConsumerBadge, ConsumerGoal } from "../data/OkutepData";
+import { ConsumerGoal } from "../../models/OkutepData";
 
 type Props = {
   register: UseFormRegister<KeyInputForm>,
