@@ -50,6 +50,7 @@ export const Portfolio = () => {
     }
     api()
   })
+  console.log('walletBadges: ', walletBadges)
 
   var portfolioBadges: PortfolioBadgeData[] = []
   if (selectedConsumerId != -1) {
