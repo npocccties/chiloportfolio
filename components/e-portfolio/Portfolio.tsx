@@ -268,7 +268,7 @@ function getPassword(validPassword: string, password: string): string {
 function getCategories(
   selectedConsumerId: number
   , consumerGoals: ConsumerGoal[] | undefined | null
-  , portalCategoryBadges: PortalCategoryBadges | undefined | null): Set<String>
+  , portalCategoryBadges: PortalCategoryBadges | undefined | null): Set<string>
 {
   var categories = new Set<string>()
   if (selectedConsumerId != 0) {
