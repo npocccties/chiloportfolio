@@ -43,18 +43,15 @@ export const Portfolio = () => {
 
   const [walletBadges, setWalletBadges] = useState<WalletBadge[]>()
   useEffect(() => {
-    const api = async() => {
-      // BadgeWalletからバッジ情報の取得
-      getWalletBadgeList().then((res) => {
-        console.log('getWalletBadgeList().then:', res.data)
-        setWalletBadges(res.data as WalletBadge[])
-      })
-      .catch(({res}) => {
-        console.log(res)
-        throw new Error()
-      });
-    }
-    api()
+    // BadgeWalletからバッジ情報の取得
+    getWalletBadgeList().then((res) => {
+      console.log('getWalletBadgeList().then:', res.data)
+      setWalletBadges(res.data as WalletBadge[])
+    })
+    .catch(({res}) => {
+      console.log(res)
+      throw new Error()
+    });
   })
   console.log('walletBadges: ', walletBadges)
 
