@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { SelectConsumer } from "./SelectConsumer"
-import { getWalletBadgeList } from "@/components/api/WalletApi"
+import { getWalletBadgeList, getWalletBadgeListForTest } from "@/components/api/WalletApi"
 import { getCsvText, mergeBadgeDataWithConsumer, toConsumerBadges } from "@/util/Converter"
 import { Button, FormLabel, Link, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure, Box, Flex, HStack } from "@chakra-ui/react"
 import { BadgeList } from "@/components/e-portfolio/BadgeList"
@@ -10,7 +10,7 @@ import { BiKey } from "react-icons/bi";
 import { ConsumerBadgesRequest, PortfolioBadgeData } from "@/models/PortfolioData"
 import { Loading } from "../Loading"
 import { useConsumerBadgesWithTrigger, useConsumerGoals, useConsumerGoalsWithTrigger, usePasswordCheckWithTrigger, usePortalCategoryBadgesWithTrigger } from "../api/OkutepApi"
-import { ConsumerGoal } from "../../models/OkutepData"
+import { ConsumerGoal, PortalCategoryBadges } from "../../models/OkutepData"
 import { categoryColumnName, fieldColumnName } from "@/constants/e-portfolio"
 import { WalletBadge } from "@/models/WalletData"
 const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string
@@ -146,11 +146,9 @@ export const Portfolio = () => {
 
   // CSVダウンロード
   const onCsvDownload = () => {
-    if (!consumerGoals || consumerGoals.length == 0) {
-      return
-    }
+    const categories = getCategories(selectedConsumerId, consumerGoals, portalCategoryBadges)
     const v = portfolioBadges[0]
-    var text = getCsvText(consumerGoals, portfolioBadges)
+    var text = getCsvText(categories, portfolioBadges)
     var bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
     const blob = new Blob([bom, text], {type: 'text/csv'})
     const url = URL.createObjectURL(blob)
@@ -265,4 +263,26 @@ function setErrorMessage(errorMessage: string) {
 
 function getPassword(validPassword: string, password: string): string {
   return validPassword && password == validPassword ? validPassword : ''
+}
+
+function getCategories(
+  selectedConsumerId: number
+  , consumerGoals: ConsumerGoal[] | undefined | null
+  , portalCategoryBadges: PortalCategoryBadges | undefined | null): Set<String>
+{
+  var categories = new Set<string>()
+  if (selectedConsumerId != 0) {
+    if (consumerGoals) {
+      for (const [i, v] of consumerGoals.entries()) {
+        categories.add(v.field1_name)
+      }
+    }
+  } else {
+    if (portalCategoryBadges) {
+      for (const [i, v] of portalCategoryBadges.badges.entries()) {
+        categories.add(v.portal_category_name)
+      }
+    }
+  }
+  return categories
 }

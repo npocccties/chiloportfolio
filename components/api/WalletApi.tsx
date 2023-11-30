@@ -17,7 +17,7 @@ export async function getWalletBadgeList (): Promise<AxiosResponse<any, any>>{
   }
 }
 
-function makeTestData1(): WalletBadge[] {
+export function getWalletBadgeListForTest(): WalletBadge[] {
   var data:WalletBadge[] = []
   var work: WalletBadge = {
     badgeName: "学校の危機管理と課題",
