@@ -1,4 +1,4 @@
-import { Box, Flex, Link, Text } from "@chakra-ui/react";
+import { Box, Flex, Link, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { FaUserAlt } from "react-icons/fa";
 import { MdHelp } from "react-icons/md";
@@ -67,7 +67,14 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
           </Flex>
           <Flex gap={"16px"} alignItems={"center"} display={{ base: "flex", sm: "none" }}>
             <Link href={helpLink}><MdHelp size="24" /></Link>
-            <FaUserAlt />
+            <Menu>
+              <MenuButton cursor={"pointer"} minW={0} transition="all 1s">
+                <FaUserAlt />
+              </MenuButton>
+              <MenuList>
+                <MenuItem>{userName}</MenuItem>
+              </MenuList>
+            </Menu>
           </Flex>
         </Box>
       </Flex>
