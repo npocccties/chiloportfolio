@@ -24,6 +24,7 @@ export const Portfolio = () => {
   const [selectedFrameworkId, setSelectedFrameworkId] = useState(-1)
   const [selectedStageId, setSelectedStageId] = useState(-1)
   const [columnName1, setColumnName1] = useState(fieldColumnName)
+  const [walletBadges, setWalletBadges] = useState<WalletBadge[]>()
 
   // OKUTEPから教員育成指標のプルダウン表示用のデータ取得
   var { consumerGoals, isLoadingConsumerGoals, isErrorConsumerGoals} = useConsumerGoals()
@@ -41,11 +42,9 @@ export const Portfolio = () => {
   // トリガー指定のリクエスト結果があれば、それを優先する
   consumerGoals = consumerGoalsEx ? consumerGoalsEx : consumerGoals
 
-  const [walletBadges, setWalletBadges] = useState<WalletBadge[]>()
   useEffect(() => {
     // BadgeWalletからバッジ情報の取得
     getWalletBadgeList().then((res) => {
-      console.log('getWalletBadgeList().then:', res.data)
       setWalletBadges(res.data as WalletBadge[])
     })
     .catch(({res}) => {
@@ -53,7 +52,6 @@ export const Portfolio = () => {
       throw new Error()
     });
   })
-  console.log('walletBadges: ', walletBadges)
 
   var portfolioBadges: PortfolioBadgeData[] = []
   if (selectedConsumerId != -1) {
