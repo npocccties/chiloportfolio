@@ -1,13 +1,14 @@
 import { ConsumerBadge, ConsumerGoal, WisdomBadge } from "@/models/OkutepData"
 import { WalletBadge } from "@/models/WalletData"
 import { PortfolioBadgeData } from "@/models/PortfolioData"
+import { categoryColumnName } from "@/constants/e-portfolio"
 
 export function toConsumerBadges(wisdomBadges: WisdomBadge[]): ConsumerBadge[] {
   var consumerBadges: ConsumerBadge[] = []
   for (const [i, wisdomBadge] of wisdomBadges.entries()) {
     var consumerBadge: ConsumerBadge = {
       consumer_id: 0,
-      consumer_name: '',
+      consumer_name: categoryColumnName,
       framework_id: 0,
       framework_name: '',
       stage_id: 0,
