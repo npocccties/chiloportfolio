@@ -12,6 +12,7 @@
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.1",
+    "axios": "^1.6.2",
     "bcrypt": "^5.1.1",
     "fs": "^0.0.1-security",
     "jose": "^3.20.4",

@@ -1,6 +1,6 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { SelectConsumer } from "./SelectConsumer"
-import { useWalletBadgeList } from "@/components/api/WalletApi"
+import { getWalletBadgeList } from "@/components/api/WalletApi"
 import { getCsvText, mergeBadgeDataWithConsumer, toConsumerBadges } from "@/util/Converter"
 import { Button, FormLabel, Link, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure, Box, Flex, HStack } from "@chakra-ui/react"
 import { BadgeList } from "@/components/e-portfolio/BadgeList"
@@ -12,6 +12,7 @@ import { Loading } from "../Loading"
 import { useConsumerBadgesWithTrigger, useConsumerGoals, useConsumerGoalsWithTrigger, usePasswordCheckWithTrigger, usePortalCategoryBadgesWithTrigger } from "../api/OkutepApi"
 import { ConsumerGoal } from "../../models/OkutepData"
 import { categoryColumnName, fieldColumnName } from "@/constants/e-portfolio"
+import { WalletBadge } from "@/models/WalletData"
 const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string
 
 export const Portfolio = () => {
@@ -40,8 +41,15 @@ export const Portfolio = () => {
   // トリガー指定のリクエスト結果があれば、それを優先する
   consumerGoals = consumerGoalsEx ? consumerGoalsEx : consumerGoals
 
-  // BadgeWalletからバッジ情報の取得
-  const { walletBadges, isLoadingWB, isErrorWB } = useWalletBadgeList()
+  const [walletBadges, setWalletBadges] = useState<WalletBadge[]>()
+  useEffect(() => {
+    const api = async() => {
+      // BadgeWalletからバッジ情報の取得
+      const result = await getWalletBadgeList()
+      setWalletBadges(walletBadges)
+    }
+    api()
+  })
 
   var portfolioBadges: PortfolioBadgeData[] = []
   if (selectedConsumerId != -1) {
@@ -158,8 +166,8 @@ export const Portfolio = () => {
   console.log('selectedFrameworkId: ', selectedFrameworkId)
   console.log('selectedStageId: ', selectedStageId)
 
-  if (isLoadingConsumerGoals || isLoadingWB || isMutatingConsumerBadges || isMutatingConsumerGoals) return <Loading/>
-  if (isErrorConsumerGoals || isErrorWB) return <div>failed to load</div>
+  if (isLoadingConsumerGoals || isMutatingConsumerBadges || isMutatingConsumerGoals) return <Loading/>
+  if (isErrorConsumerGoals) return <div>failed to load</div>
 
   return (
     <>

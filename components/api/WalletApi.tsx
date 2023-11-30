@@ -1,26 +1,26 @@
+import axios from "axios"
 import { WalletBadge } from "../../models/WalletData"
 import useSWR from 'swr'
+
 const baseUrl = process.env.NEXT_PUBLIC_WALLET_BASE_URL as string
 
-export function useWalletBadgeList () {
+export async function getWalletBadgeList (): Promise<WalletBadge[] | null> {
   const apiPath = '/api/v1/user_badgelist'
   const url = `${baseUrl}${apiPath}`
-  async function fetcher(key: string, init?: RequestInit) {
-    return fetch(key, init).then((res) => res.json() as Promise<WalletBadge[] | null>)
+  try {
+    await axios({
+      withCredentials: true, 
+      method: 'GET',
+      url: url,
+    }).then((response) => {
+      console.log(response.data);
+      return response.data as WalletBadge[]
+    }).catch(error => console.log(error));
+  } catch (ex: any) {
+    console.error("ex", ex);
+    throw new Error()
   }
-  const { data, error, isLoading } = useSWR(`${url}`, fetcher)
-
-  //test
-  // const error = false
-  // const isLoading = false
-  // var data = makeTestData1()
-  //test
- 
-  return {
-    walletBadges: data,
-    isLoadingWB: isLoading,
-    isErrorWB: error
-  }
+  return null
 }
 
 function makeTestData1(): WalletBadge[] {
