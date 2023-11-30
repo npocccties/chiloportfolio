@@ -49,8 +49,10 @@ export const Portfolio = () => {
     })
     .catch(({res}) => {
       console.log(res)
-      throw new Error()
     });
+    //test
+    // setWalletBadges(getWalletBadgeListForTest())
+    //test
   }, [])
   console.log('walletBadges: ', walletBadges)
 
