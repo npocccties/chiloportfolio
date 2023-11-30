@@ -1,17 +1,16 @@
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 import { WalletBadge } from "../../models/WalletData"
 import useSWR from 'swr'
 
 const baseUrl = process.env.NEXT_PUBLIC_WALLET_BASE_URL as string
 
-export async function getWalletBadgeList (): Promise<WalletBadge[] | null> {
+export async function getWalletBadgeList (): Promise<AxiosResponse<any, any>>{
   const apiPath = '/api/v1/user_badgelist'
   const url = `${baseUrl}${apiPath}`
   try {
-    const result = await axios.get(url, {
+    return axios.get(url, {
       withCredentials: true, 
     })
-    return result.data as WalletBadge[]
   } catch (ex: any) {
     console.error("ex", ex);
     throw new Error()
