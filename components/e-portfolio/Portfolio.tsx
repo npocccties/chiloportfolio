@@ -51,7 +51,8 @@ export const Portfolio = () => {
       console.log(res)
       throw new Error()
     });
-  })
+  }, [])
+  console.log('walletBadges: ', walletBadges)
 
   var portfolioBadges: PortfolioBadgeData[] = []
   if (selectedConsumerId != -1) {
