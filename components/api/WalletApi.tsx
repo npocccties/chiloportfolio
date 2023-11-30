@@ -8,19 +8,14 @@ export async function getWalletBadgeList (): Promise<WalletBadge[] | null> {
   const apiPath = '/api/v1/user_badgelist'
   const url = `${baseUrl}${apiPath}`
   try {
-    await axios({
+    const result = await axios.get(url, {
       withCredentials: true, 
-      method: 'GET',
-      url: url,
-    }).then((response) => {
-      console.log(response.data);
-      return response.data as WalletBadge[]
-    }).catch(error => console.log(error));
+    })
+    return result.data as WalletBadge[]
   } catch (ex: any) {
     console.error("ex", ex);
     throw new Error()
   }
-  return null
 }
 
 function makeTestData1(): WalletBadge[] {
