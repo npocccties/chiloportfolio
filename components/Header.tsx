@@ -66,7 +66,7 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
             <Text fontSize={"xl"}>{userName}</Text>
           </Flex>
           <Flex gap={"16px"} alignItems={"center"} display={{ base: "flex", sm: "none" }}>
-            <MdHelp size="24" />
+            <NextLink href={helpLink}><MdHelp size="24" /></NextLink>
             <FaUserAlt />
           </Flex>
         </Box>
