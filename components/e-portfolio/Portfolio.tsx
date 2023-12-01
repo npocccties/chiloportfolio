@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form"
 import { BiKey } from "react-icons/bi";
 import { ConsumerBadgesRequest, PortfolioBadgeData } from "@/models/PortfolioData"
 import { Loading } from "../Loading"
-import { useConsumerBadgesWithTrigger, useConsumerGoals, useConsumerGoalsWithTrigger, usePasswordCheckWithTrigger, usePortalCategoryBadgesWithTrigger } from "../api/OkutepApi"
+import { useConsumerBadgesWithTrigger, useConsumerGoals, useConsumerGoalsWithTrigger, usePortalCategoryBadgesWithTrigger } from "../api/OkutepApi"
 import { ConsumerGoal, PortalCategoryBadges } from "../../models/OkutepData"
 import { categoryColumnName, errorTitle, fieldColumnName } from "@/constants/e-portfolio"
 import { WalletBadge } from "@/models/WalletData"
@@ -21,7 +21,6 @@ export const Portfolio = () => {
 
   const [validPassword, setValidPassword] = useState('')
   const [password, setPassword] = useState('')
-  const [passwordResult, setPasswordResult] = useState(-1)
   const [selectedConsumerId, setSelectedConsumerId] = useState(-1)
   const [selectedFrameworkId, setSelectedFrameworkId] = useState(-1)
   const [selectedStageId, setSelectedStageId] = useState(-1)
@@ -35,12 +34,10 @@ export const Portfolio = () => {
   // イベントに応じて呼び出されるOKUTEPへのリクエスト群
   const { triggerConsumerGoals, consumerGoalsEx, isMutatingConsumerGoals } = useConsumerGoalsWithTrigger()
   var { triggerConsumerBadges, consumerBadgesEx, isMutatingConsumerBadges } = useConsumerBadgesWithTrigger()
-  const { triggerPasswordCheck, isMutatingPasswordCheck } = usePasswordCheckWithTrigger(setPasswordResult)
   const { triggerPortalCategoryBadges, portalCategoryBadges, isMutatingPortalCategoryBadges } = usePortalCategoryBadgesWithTrigger()
 
   console.log('consumerGoalsEx: ', consumerGoalsEx)
   console.log('consumerBadgesEx: ', consumerBadgesEx)
-  console.log('passwordResult: ', passwordResult)
 
   // トリガー指定のリクエスト結果があれば、それを優先する
   consumerGoals = consumerGoalsEx ? consumerGoalsEx : consumerGoals
@@ -173,7 +170,7 @@ export const Portfolio = () => {
   console.log('selectedFrameworkId: ', selectedFrameworkId)
   console.log('selectedStageId: ', selectedStageId)
 
-  if (isLoadingConsumerGoals || isMutatingConsumerBadges || isMutatingConsumerGoals) return <Loading/>
+  if (isLoadingConsumerGoals || isMutatingConsumerBadges || isMutatingConsumerGoals || isMutatingPortalCategoryBadges) return <Loading/>
   if (isErrorConsumerGoals) return <ErrorDialog title={errorTitle} message={messageFailedToCallOkutepApi} detail={detailContactDeveloper} />
   if (isErrorWalletBadge) return <ErrorDialog title={errorTitle} message={messageFailedToCallWalletApi} detail={detailReloadWallet} />
 
@@ -233,8 +230,7 @@ export const Portfolio = () => {
           <ModalHeader>取得キー入力</ModalHeader>
           <ModalBody>
             <KeyInput register={register} watch={watch} handleSubmit={handleSubmit} onClose={onClose} setPassword={setPassword} password={password}
-              setValidPassword={setValidPassword} onKeyInputClosed={onKeyInputClosed} passwordResult={passwordResult} triggerPasswordCheck={triggerPasswordCheck}
-              triggerConsumerGoals={triggerConsumerGoals}/>
+              setValidPassword={setValidPassword} onKeyInputClosed={onKeyInputClosed} triggerConsumerGoals={triggerConsumerGoals}/>
           </ModalBody>
         </ModalContent>
       </Modal>

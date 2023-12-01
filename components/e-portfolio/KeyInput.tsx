@@ -3,6 +3,7 @@ import { useState } from "react";
 import { UseFormHandleSubmit, UseFormRegister, UseFormWatch } from "react-hook-form";
 import { TriggerWithArgs } from "swr/mutation";
 import { ConsumerGoal } from "../../models/OkutepData";
+import { getConsumerGoalList } from "../api/OkutepApi";
 
 type Props = {
   register: UseFormRegister<KeyInputForm>,
@@ -13,34 +14,27 @@ type Props = {
   setPassword: React.Dispatch<React.SetStateAction<string>>,
   password: string,
   onKeyInputClosed: () => void,
-  passwordResult: number,
-  triggerPasswordCheck: TriggerWithArgs<void, any, string, string>,
   triggerConsumerGoals: TriggerWithArgs<ConsumerGoal[] | null, any, string, string>,
 }
 
-export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, setValidPassword, password, onKeyInputClosed, passwordResult, triggerPasswordCheck, triggerConsumerGoals}: Props) => {
+export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, setValidPassword, password, onKeyInputClosed, triggerConsumerGoals}: Props) => {
 
   const isValid = (data: KeyInputForm) => {
-    if (passwordResult != -1) {
-      if (passwordResult == 0) {
-        setErrorMessage('入力したキーが誤っております。')
-      } else {
-        passwordResult = -1
-        setErrorMessage('')
-        onKeyInputClosed()
-        // OKUTEPから教員育成指標のプルダウン表示用のデータ取得（トリガー指定）
-        triggerConsumerGoals(password)
-        setValidPassword(password)
-        onClose()
-      }
-    }
+    getConsumerGoalList(data.password).then((res) => {
+      setErrorMessage('')
+      onKeyInputClosed()
+      // OKUTEPから教員育成指標のプルダウン表示用のデータ取得（トリガー指定）
+      triggerConsumerGoals(password)
+      setValidPassword(password)
+      onClose()
+    })
+    .catch(({res}) => {
+      setErrorMessage('入力したキーが誤っております。')
+    });
   };
 
   const onChangePassword = (event): void => {
     setPassword(event.target.value);
-    if (triggerPasswordCheck) {
-      triggerPasswordCheck(event.target.value)
-    }
   }
 
   const isInvalid = (errors: any) => {

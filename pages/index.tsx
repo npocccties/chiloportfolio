@@ -5,6 +5,7 @@ import { Metatag } from "@/components/Metatag";
 import { Portfolio } from "../components/e-portfolio/Portfolio";
 import SignIn from "./signin";
 import { PasswordResult } from "@/models/PortfolioData";
+import { postJudge } from "@/components/api/PortfolioApi";
 
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
 const serviceDescription = process.env.NEXT_PUBLIC_SERVICE_DESCRIPTION as string
@@ -16,15 +17,10 @@ const Home: NextPage = () => {
     console.log('session_portfolio:', session)
 
     const api = async() => {
-      const res = await fetch('/api/judge', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ session }),
-      })
-      const data = await res.json() as PasswordResult
-      setJudgeHashResult(data.result == 1)
+      if (session) {
+        const data = await postJudge(session)
+        setJudgeHashResult(data.result == 1)
+      }
     }
     api()
   })

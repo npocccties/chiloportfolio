@@ -7,14 +7,9 @@ const baseUrl = process.env.NEXT_PUBLIC_WALLET_BASE_URL as string
 export async function getWalletBadgeList (): Promise<AxiosResponse<any, any>>{
   const apiPath = '/api/v1/user_badgelist'
   const url = `${baseUrl}${apiPath}`
-  try {
-    return axios.get(url, {
-      withCredentials: true, 
-    })
-  } catch (ex: any) {
-    console.error("ex", ex);
-    throw new Error()
-  }
+  return axios.get(url, {
+    withCredentials: true, 
+  })
 }
 
 export function getWalletBadgeListForTest(): WalletBadge[] {

@@ -3,6 +3,7 @@ import { Button, Flex, FormLabel, Heading, Input, Text, VStack } from "@chakra-u
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { AuthResult } from "@/models/OkutepData";
+import { postAuth } from "@/components/api/PortfolioApi";
 
 type SignInProps = {
 };
@@ -18,18 +19,7 @@ export default function SignIn({}: SignInProps) {
   const router = useRouter()
   const onSubmitHandler = async (e) => {
     e.preventDefault()
-
-    const res = await fetch('/api/auth', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ password }),
-    })
-
-    const data = await res.json()
-    console.log(data)
-    const authResult = data as AuthResult
+    const authResult = await postAuth(password)
     setPostedData(authResult)
     sessionStorage.setItem('session_portfolio', authResult.result)
     if (authResult.result != "") {

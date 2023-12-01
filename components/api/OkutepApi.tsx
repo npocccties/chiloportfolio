@@ -2,6 +2,7 @@ import useSWRMutation from "swr/mutation"
 import { ConsumerGoal, ConsumerBadge, PortalCategoryBadges } from "../../models/OkutepData"
 import { ConsumerBadgesRequest } from "../../models/PortfolioData"
 import useSWR from "swr"
+import axios, { AxiosResponse } from "axios"
 const baseUrl = process.env.NEXT_PUBLIC_OKUTEP_BASE_URL as string
 
 export function useConsumerGoals () {
@@ -41,25 +42,14 @@ export function useConsumerGoalsWithTrigger () {
   }
 }
 
-export function usePasswordCheckWithTrigger (setPasswordResult: React.Dispatch<React.SetStateAction<number>>) {
+export async function getConsumerGoalList(password: string): Promise<AxiosResponse<any, any>>{
   const apiPath = `/api/v1/consumer/goal/list/`
   const url = `${baseUrl}${apiPath}`
-  console.log(url)
-  async function fetcher(url, { arg }: { arg: string }) {
-    return await fetch(url, {
-      method: 'GET',
-      headers: {
-        Authorization: arg
-      }
-    }).then((res) => {
-      setPasswordResult(res.status == 200 ? 1 : 0)
-    })
-  }
-  const { trigger, data, isMutating } = useSWRMutation(`${url}`, fetcher)
-  return {
-    triggerPasswordCheck: trigger,
-    isMutatingPasswordCheck: isMutating
-  }
+  return axios.get(url, {
+    headers: {
+      Authorization: password
+    }
+})
 }
 
 export function useConsumerBadgesWithTrigger () {
