@@ -14,7 +14,8 @@ import { ConsumerGoal, PortalCategoryBadges } from "../../models/OkutepData"
 import { categoryColumnName, errorTitle, fieldColumnName } from "@/constants/e-portfolio"
 import { WalletBadge } from "@/models/WalletData"
 import { messageFailedToCallOkutepApi, messageFailedToCallWalletApi, detailReloadWallet, detailContactDeveloper } from "@/constants/messages"
-import { ErrorDialog } from "../error"
+import { ErrorDialog } from "../ErrorDialog"
+
 const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string
 
 export const Portfolio = () => {
@@ -53,7 +54,7 @@ export const Portfolio = () => {
       setErrorWalletBadge(true)
     });
     //test
-    // setWalletBadges(getWalletBadgeListForTest())
+    //setWalletBadges(getWalletBadgeListForTest())
     //test
   }, [])
   console.log('walletBadges: ', walletBadges)
@@ -179,10 +180,19 @@ export const Portfolio = () => {
   console.log('selectedFrameworkId: ', selectedFrameworkId)
   console.log('selectedStageId: ', selectedStageId)
 
-  if (isLoadingConsumerGoals || isMutatingConsumerBadges || isMutatingConsumerGoals || isMutatingPortalCategoryBadges) return <Loading/>
-  if (isErrorConsumerGoals) return <ErrorDialog title={errorTitle} message={messageFailedToCallOkutepApi} detail={detailContactDeveloper} />
-  if (isErrorWalletBadge) return <ErrorDialog title={errorTitle} message={messageFailedToCallWalletApi} detail={detailReloadWallet} />
-
+  if (isLoadingConsumerGoals || isMutatingConsumerBadges || isMutatingConsumerGoals || isMutatingPortalCategoryBadges) {
+     return <Loading/>
+  }
+  if (isErrorConsumerGoals) {
+    return <ErrorDialog title={errorTitle} message={messageFailedToCallOkutepApi} detail={detailContactDeveloper} onClick={onClose} visibleCloseButton={false}/>
+  }
+  if (isErrorWalletBadge) {
+    const onClick = () => {
+      window.close
+      console.log('close')
+    }
+    return <ErrorDialog title={errorTitle} message={messageFailedToCallWalletApi} detail={detailReloadWallet} onClick={onClick} visibleCloseButton={true}/>
+  }
   return (
     <>
       {/** desktop */}
