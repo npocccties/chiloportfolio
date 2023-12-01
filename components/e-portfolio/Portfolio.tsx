@@ -266,13 +266,6 @@ function getCsvFileName(cosumerName: string, frameworkName: string, stageName: s
   return newFileName
 }
 
-function setErrorMessage(errorMessage: string) {
-  var element = document.getElementById('input-error-message') as HTMLElement
-  if (element) {
-    element.innerText = errorMessage
-  }
-}
-
 function getPassword(validPassword: string, password: string): string {
   return validPassword && password == validPassword ? validPassword : ''
 }
