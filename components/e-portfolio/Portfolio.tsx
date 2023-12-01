@@ -11,8 +11,10 @@ import { ConsumerBadgesRequest, PortfolioBadgeData } from "@/models/PortfolioDat
 import { Loading } from "../Loading"
 import { useConsumerBadgesWithTrigger, useConsumerGoals, useConsumerGoalsWithTrigger, usePasswordCheckWithTrigger, usePortalCategoryBadgesWithTrigger } from "../api/OkutepApi"
 import { ConsumerGoal, PortalCategoryBadges } from "../../models/OkutepData"
-import { categoryColumnName, fieldColumnName } from "@/constants/e-portfolio"
+import { categoryColumnName, errorTitle, fieldColumnName } from "@/constants/e-portfolio"
 import { WalletBadge } from "@/models/WalletData"
+import { messageFailedToCallOkutepApi, messageFailedToCallWalletApi, detailReloadWallet, detailContactDeveloper } from "@/constants/messages"
+import { ErrorDialog } from "../error"
 const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string
 
 export const Portfolio = () => {
@@ -25,6 +27,7 @@ export const Portfolio = () => {
   const [selectedStageId, setSelectedStageId] = useState(-1)
   const [columnName1, setColumnName1] = useState(fieldColumnName)
   const [walletBadges, setWalletBadges] = useState<WalletBadge[]>()
+  const [isErrorWalletBadge, setErrorWalletBadge] = useState(false)
 
   // OKUTEPから教員育成指標のプルダウン表示用のデータ取得
   var { consumerGoals, isLoadingConsumerGoals, isErrorConsumerGoals} = useConsumerGoals()
@@ -49,6 +52,7 @@ export const Portfolio = () => {
     })
     .catch(({res}) => {
       console.log(res)
+      setErrorWalletBadge(true)
     });
     //test
     // setWalletBadges(getWalletBadgeListForTest())
@@ -170,7 +174,8 @@ export const Portfolio = () => {
   console.log('selectedStageId: ', selectedStageId)
 
   if (isLoadingConsumerGoals || isMutatingConsumerBadges || isMutatingConsumerGoals) return <Loading/>
-  if (isErrorConsumerGoals) return <div>failed to load</div>
+  if (isErrorConsumerGoals) return <ErrorDialog title={errorTitle} message={messageFailedToCallOkutepApi} detail={detailContactDeveloper} />
+  if (isErrorWalletBadge) return <ErrorDialog title={errorTitle} message={messageFailedToCallWalletApi} detail={detailReloadWallet} />
 
   return (
     <>
