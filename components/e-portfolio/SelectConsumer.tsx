@@ -1,5 +1,6 @@
 import { Select } from "@chakra-ui/react";
 import { ConsumerGoal } from "../../models/OkutepData";
+import { placeholderSelect } from "@/constants/messages";
 
 type Props = {
   selectedName: string,
@@ -10,7 +11,7 @@ type Props = {
 export const SelectConsumer = ({ selectedName, consumers, handleChange }: Props) => {
   return (
     <div>
-      <Select name='consumer' placeholder="選択してください" onChange={handleChange}>
+      <Select name='consumer' placeholder={placeholderSelect} onChange={handleChange}>
         {consumers?.map((v, index) => (
           <option key={index} value={makeOptionValue(v)} selected={makeDisplayValue(v) == selectedName}>
             {makeDisplayValue(v)}
