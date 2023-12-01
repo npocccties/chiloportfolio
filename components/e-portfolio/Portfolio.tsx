@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { SelectConsumer } from "./SelectConsumer"
+import { SelectConsumer, makeDisplayValue } from "./SelectConsumer"
 import { getWalletBadgeList, getWalletBadgeListForTest } from "@/components/api/WalletApi"
 import { getCsvText, mergeBadgeDataWithConsumer, toConsumerBadges } from "@/util/Converter"
 import { Button, FormLabel, Link, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure, Box, Flex, HStack } from "@chakra-ui/react"
@@ -24,6 +24,7 @@ export const Portfolio = () => {
   const [selectedConsumerId, setSelectedConsumerId] = useState(-1)
   const [selectedFrameworkId, setSelectedFrameworkId] = useState(-1)
   const [selectedStageId, setSelectedStageId] = useState(-1)
+  const [selectedName, setSelectedName] = useState('')
   const [columnName1, setColumnName1] = useState(fieldColumnName)
   const [walletBadges, setWalletBadges] = useState<WalletBadge[]>()
   const [isErrorWalletBadge, setErrorWalletBadge] = useState(false)
@@ -116,6 +117,7 @@ export const Portfolio = () => {
 
     const pass = getPassword(validPassword, password)
     console.log('pass:', pass)
+    
     if (consumerId == 0 && frameworkId == 0 && stageId == 0) {
       // OKUTEPからポータルカテゴリに紐づくバッジ情報の取得
       triggerPortalCategoryBadges()
@@ -136,6 +138,13 @@ export const Portfolio = () => {
     setSelectedConsumerId(consumerId)
     setSelectedFrameworkId(frameworkId)
     setSelectedStageId(stageId)
+
+    const targets = consumers.filter(v => v.consumer_id == consumerId && v.framework_id == frameworkId && v.stage_id == stageId)
+    if (targets.length != 0) {
+      const name = makeDisplayValue(targets[0])
+      setSelectedName(name)
+      console.log('selectedName: ', name)
+    }
   }
 
   // キー入力のダイアログとの連携
@@ -189,7 +198,7 @@ export const Portfolio = () => {
             教員育成指標選択
           </FormLabel>
           <HStack>
-            <SelectConsumer selectedConsumerId={selectedConsumerId} selectedFrameworkId={selectedFrameworkId} selectedStageId={selectedStageId} consumers={consumers} handleChange={onChangeConsumer} />
+            <SelectConsumer selectedName={selectedName} consumers={consumers} handleChange={onChangeConsumer} />
             <Link onClick={onOpen}>
               <Text fontSize='40px'><BiKey/></Text>
             </Link>
@@ -213,7 +222,7 @@ export const Portfolio = () => {
             教員育成指標選択
           </FormLabel>
           <HStack>
-            <SelectConsumer selectedConsumerId={selectedConsumerId} selectedFrameworkId={selectedFrameworkId} selectedStageId={selectedStageId} consumers={consumers} handleChange={onChangeConsumer} />
+            <SelectConsumer selectedName={selectedName} consumers={consumers} handleChange={onChangeConsumer} />
             <Link onClick={onOpen}>
               <Text fontSize='40px'><BiKey/></Text>
             </Link>
