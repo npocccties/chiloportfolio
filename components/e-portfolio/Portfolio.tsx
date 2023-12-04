@@ -184,14 +184,10 @@ export const Portfolio = () => {
      return <Loading/>
   }
   if (isErrorConsumerGoals) {
-    return <ErrorDialog title={errorTitle} message={messageFailedToCallOkutepApi} detail={detailContactDeveloper} onClick={onClose} visibleCloseButton={false}/>
+    return <ErrorDialog title={errorTitle} message={messageFailedToCallOkutepApi} detail={detailContactDeveloper}/>
   }
   if (isErrorWalletBadge) {
-    const onClick = () => {
-      window.close
-      console.log('close')
-    }
-    return <ErrorDialog title={errorTitle} message={messageFailedToCallWalletApi} detail={detailReloadWallet} onClick={onClick} visibleCloseButton={true}/>
+    return <ErrorDialog title={errorTitle} message={messageFailedToCallWalletApi} detail={detailReloadWallet}/>
   }
   return (
     <>

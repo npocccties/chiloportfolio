@@ -12,7 +12,7 @@ import {
 import React from "react";
 import { MouseEventHandler, ReactNode, useEffect, useRef, useState } from "react";
 
-export const ErrorDialog = ({ title, message, detail, onClick, visibleCloseButton }: { title: string; message: string; detail: any, onClick: () => void, visibleCloseButton: boolean}) => {
+export const ErrorDialog = ({ title, message, detail }: { title: string; message: string; detail: any}) => {
   const cancelRef = useRef<HTMLButtonElement>(null);
   const { onClose } = useDisclosure();
 
@@ -32,15 +32,16 @@ export const ErrorDialog = ({ title, message, detail, onClick, visibleCloseButto
           </AlertDialogBody>
 
           <AlertDialogFooter>
-            {visibleCloseButton &&
-              <Button
-                ml={3}
-                colorScheme="red"
-                onClick={onClick}
-              >
-                閉じる
-              </Button>
-            }
+            <Button
+              ml={3}
+              colorScheme="red"
+              onClick={() => {
+                window.close
+                console.log('close')
+              }}
+            >
+              閉じる
+            </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialogOverlay>
