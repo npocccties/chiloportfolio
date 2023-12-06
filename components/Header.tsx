@@ -5,6 +5,7 @@ import { MdHelp } from "react-icons/md";
 import { getCookieValue } from "@/lib/cookie";
 import { getUserInfoFormJwt } from "@/lib/userInfo";
 import React, { useEffect, useState } from "react";
+import { headerColor, textColor, whiteTextColor } from "@/constants/color";
 
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
 const helpLink = process.env.NEXT_PUBLIC_HELP_LINK as string
@@ -40,7 +41,8 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
         h={"64px"}
         alignItems={"center"}
         justifyContent={"space-between"}
-        backgroundColor={"gray.200"}
+        textColor={whiteTextColor}
+        backgroundColor={headerColor}
         p={{ base: 8 }}
       >
         <Box >
@@ -53,7 +55,7 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
           }}
         >
           <NextLink href="/">
-            <Text fontSize={"2xl"} fontWeight={"bold"} style={{ textDecoration: "none" }}>
+            <Text color={whiteTextColor} fontSize={"2xl"} fontWeight={"bold"} style={{ textDecoration: "none" }}>
               {serviceName}
             </Text>
           </NextLink>
@@ -61,18 +63,18 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
         <Box >
           <Flex gap={"16px"} alignItems={"center"} display={{ base: "none", sm: "flex" }}>
             <MdHelp size="24" />
-            <NextLink href={helpLink}>ヘルプ</NextLink>
-            <FaUserAlt />
-            <Text fontSize={"xl"}>{userName}</Text>
+            <NextLink color={whiteTextColor} href={helpLink}>ヘルプ</NextLink>
+            <FaUserAlt color={whiteTextColor} />
+            <Text fontSize={"xl"} color={whiteTextColor}>{userName}</Text>
           </Flex>
           <Flex gap={"16px"} alignItems={"center"} display={{ base: "flex", sm: "none" }}>
-            <Link href={helpLink}><MdHelp size="24" /></Link>
+            <Link href={helpLink}><MdHelp size="24" color={whiteTextColor}/></Link>
             <Menu>
               <MenuButton cursor={"pointer"} minW={0} transition="all 1s">
-                <FaUserAlt />
+                <FaUserAlt color={whiteTextColor}/>
               </MenuButton>
               <MenuList>
-                <MenuItem>{userName}</MenuItem>
+                <MenuItem color={whiteTextColor}>{userName}</MenuItem>
               </MenuList>
             </Menu>
           </Flex>

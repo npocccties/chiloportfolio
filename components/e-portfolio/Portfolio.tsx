@@ -15,6 +15,7 @@ import { categoryColumnName, errorTitle, fieldColumnName } from "@/constants/e-p
 import { WalletBadge } from "@/models/WalletData"
 import { messageFailedToCallOkutepApi, messageFailedToCallWalletApi, detailReloadWallet, detailContactDeveloper } from "@/constants/messages"
 import { ErrorDialog } from "../ErrorDialog"
+import { buttonColor, textColor, whiteTextColor } from "@/constants/color"
 
 const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string
 
@@ -46,15 +47,15 @@ export const Portfolio = () => {
 
   useEffect(() => {
     // BadgeWalletからバッジ情報の取得
-    getWalletBadgeList().then((res) => {
-      setWalletBadges(res.data as WalletBadge[])
-    })
-    .catch(({res}) => {
-      console.log(res)
-      setErrorWalletBadge(true)
-    });
+    // getWalletBadgeList().then((res) => {
+    //   setWalletBadges(res.data as WalletBadge[])
+    // })
+    // .catch(({res}) => {
+    //   console.log(res)
+    //   setErrorWalletBadge(true)
+    // });
     //test
-    //setWalletBadges(getWalletBadgeListForTest())
+    setWalletBadges(getWalletBadgeListForTest())
     //test
   }, [])
   console.log('walletBadges: ', walletBadges)
@@ -206,12 +207,12 @@ export const Portfolio = () => {
           <HStack>
             <SelectConsumer selectedName={selectedName} consumers={consumers} handleChange={onChangeConsumer} />
             <Link onClick={onOpen}>
-              <Text fontSize='40px'><BiKey/></Text>
+              <Text fontSize='40px' color={textColor}><BiKey/></Text>
             </Link>
           </HStack>
         </Box>
         <Box mt={4}>
-          <Button colorScheme='blue' onClick={onCsvDownload} isDisabled={selectedConsumerId == -1}>CSVダウンロード</Button>
+          <Button bg={buttonColor} color={whiteTextColor} onClick={onCsvDownload} isDisabled={selectedConsumerId == -1}>CSVダウンロード</Button>
         </Box>
       </Flex>
 
@@ -230,12 +231,12 @@ export const Portfolio = () => {
           <HStack>
             <SelectConsumer selectedName={selectedName} consumers={consumers} handleChange={onChangeConsumer} />
             <Link onClick={onOpen}>
-              <Text fontSize='40px'><BiKey/></Text>
+              <Text fontSize='40px' color={textColor}><BiKey/></Text>
             </Link>
           </HStack>
         </Box>
         <Box w={"full"} mt={8}>
-          <Button w={"full"} colorScheme='blue' onClick={onCsvDownload} isDisabled={selectedConsumerId == -1}>CSVダウンロード</Button>
+          <Button w={"full"} bg={buttonColor} color={whiteTextColor} onClick={onCsvDownload} isDisabled={selectedConsumerId == -1}>CSVダウンロード</Button>
         </Box>
       </Flex>
 

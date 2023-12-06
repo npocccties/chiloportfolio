@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 import { Layout } from "@/components/Layout";
 import { Metatag } from "@/components/Metatag";
+import { buttonColor, textColor } from "@/constants/color";
 
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
 const serviceDescription = process.env.NEXT_PUBLIC_SERVICE_DESCRIPTION as string
@@ -22,12 +23,12 @@ function ErrorPage({ statusCode, errorMessage }) {
       <Metatag title={serviceName} description={serviceDescription} />
       <VStack justifyContent={"center"} gap={16} mt={8}>
         <WarningIcon w={16} h={16} color={"red.500"} />
-        <Text fontSize={"xl"}>{errorLabel}</Text>
-        <Text fontSize={"md"}>{errorMessage}</Text>
+        <Text fontSize={"xl"} color={textColor}>{errorLabel}</Text>
+        <Text fontSize={"md"} color={textColor}>{errorMessage}</Text>
 
         <HStack>
           <Box>
-            <Button colorScheme={"gray"} onClick={handleBack}>
+            <Button bg={buttonColor} color={whiteTextColor} onClick={handleBack}>
               前のページに戻る
             </Button>
           </Box>

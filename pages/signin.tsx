@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { AuthResult } from "@/models/OkutepData";
 import { postAuth } from "@/components/api/PortfolioApi";
+import { buttonColor, textColor, whiteTextColor } from "@/constants/color";
 
 type SignInProps = {
 };
@@ -34,8 +35,8 @@ export default function SignIn({}: SignInProps) {
           <Flex direction="column" rounded={6}>
             <FormLabel htmlFor="password">利用キー</FormLabel>
             <Input type="password" name="password" onChange={onChangeHandler} placeholder="********" variant="filled" mb={6} />
-            <Button type="submit" mb={6} colorScheme="teal">アクティベーションを行う</Button>
-            {postedData && postedData.result == "" && <Text color="red">利用キーが正しくありません。</Text>}
+            <Button type="submit" mb={6} bg={buttonColor} color={whiteTextColor}>アクティベーションを行う</Button>
+            {postedData && postedData.result == "" && <Text color={textColor}>利用キーが正しくありません。</Text>}
           </Flex>
         </VStack>
       </form>

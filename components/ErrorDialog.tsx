@@ -1,3 +1,4 @@
+import { buttonColor, textColor, whiteTextColor } from "@/constants/color";
 import {
   AlertDialog,
   AlertDialogOverlay,
@@ -25,16 +26,17 @@ export const ErrorDialog = ({ title, message, detail }: { title: string; message
           </AlertDialogHeader>
 
           <AlertDialogBody>
-            <Text fontSize={"lg"} mb={4}>
+            <Text color={textColor} fontSize={"lg"} mb={4}>
               {message}
             </Text>
-            <Text fontSize={"md"}>詳細: {br(detail)}</Text>
+            <Text color={textColor} fontSize={"md"}>詳細: {br(detail)}</Text>
           </AlertDialogBody>
 
           <AlertDialogFooter>
             <Button
               ml={3}
-              colorScheme="red"
+              bg={buttonColor}
+              color={whiteTextColor}
               onClick={() => {
                 window.close
                 console.log('close')

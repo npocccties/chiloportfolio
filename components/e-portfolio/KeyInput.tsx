@@ -4,6 +4,7 @@ import { UseFormHandleSubmit, UseFormRegister, UseFormWatch } from "react-hook-f
 import { TriggerWithArgs } from "swr/mutation";
 import { ConsumerGoal } from "../../models/OkutepData";
 import { getConsumerGoalList } from "../api/OkutepApi";
+import { buttonColor, textColor, whiteTextColor } from "@/constants/color";
 
 type Props = {
   register: UseFormRegister<KeyInputForm>,
@@ -51,19 +52,19 @@ export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, s
           required: "キーを入力してください。",
           onChange: (e) => onChangePassword(e)
         })} name="password" />
-        <Text id='input-error-message' color='red'>{errorMessage}</Text>
+        <Text id='input-error-message' color={textColor}>{errorMessage}</Text>
       </Box>
       <Box p='3'>
         <Grid templateColumns='repeat(4, 1fr)' gap={6}>
           <GridItem/>
           <GridItem/>
           <GridItem>
-            <Button w='32' colorScheme='gray' onClick={onClose}>
+            <Button w='32' bg={buttonColor} color={whiteTextColor} onClick={onClose}>
               キャンセル
             </Button>
           </GridItem>
           <GridItem>
-            <Button w='32' type="submit" colorScheme='blue' >
+            <Button w='32' bg={buttonColor} color={whiteTextColor} type="submit" colorScheme='blue' >
               送信
             </Button>
           </GridItem>

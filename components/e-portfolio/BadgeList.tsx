@@ -1,5 +1,6 @@
 import { Box, Table, Tbody, Td, Th, Thead, Tr, Text, Flex } from '@chakra-ui/react'
 import { PortfolioBadgeData } from '../../models/PortfolioData'
+import { headerColor, textColor, whiteTextColor } from '@/constants/color'
 
 type Props = {
   portfolioBadges: PortfolioBadgeData[],
@@ -21,12 +22,12 @@ export const BadgeList = ({ columnName1, portfolioBadges}: Props) => {
           <Table id='badge-list' variant='simple'>
             <Thead position='sticky' top={-1} zIndex='docked'>
               <Tr bg='gray.100'>
-                <Th whiteSpace='nowrap' w='52' borderWidth='1px' bg='green.400' color='#262626' fontSize='md' textAlign='center'>{columnName1}</Th>
-                <Th whiteSpace='nowrap' w='52' borderWidth='1px' bg='green.400' color='#262626' fontSize='md' textAlign='center'>能力バッジ名</Th>
-                <Th whiteSpace='nowrap' borderWidth='1px' bg='gray.200' color='#262626' fontSize='md' textAlign='center'>取得可能</Th>
-                <Th whiteSpace='nowrap' borderWidth='1px' bg='gray.200' color='#262626' fontSize='md' textAlign='center'>取得予定</Th>
-                <Th whiteSpace='nowrap' borderWidth='1px' bg='gray.200' color='#262626' fontSize='md' textAlign='center'>獲得済み</Th>
-                <Th whiteSpace='nowrap' borderWidth='1px' bg='gray.200' color='#262626' fontSize='md' textAlign='center'>能力バッジ概要</Th>
+                <Th whiteSpace='nowrap' w='52' borderWidth='1px' bg={headerColor} color={whiteTextColor} fontSize='md' textAlign='center'>{columnName1}</Th>
+                <Th whiteSpace='nowrap' w='52' borderWidth='1px' bg={headerColor} color={whiteTextColor} fontSize='md' textAlign='center'>能力バッジ名</Th>
+                <Th whiteSpace='nowrap' borderWidth='1px' bg={headerColor} color={whiteTextColor} fontSize='md' textAlign='center'>取得可能</Th>
+                <Th whiteSpace='nowrap' borderWidth='1px' bg={headerColor} color={whiteTextColor} fontSize='md' textAlign='center'>取得予定</Th>
+                <Th whiteSpace='nowrap' borderWidth='1px' bg={headerColor} color={whiteTextColor} fontSize='md' textAlign='center'>獲得済み</Th>
+                <Th whiteSpace='nowrap' borderWidth='1px' bg={headerColor} color={whiteTextColor} fontSize='md' textAlign='center'>能力バッジ概要</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -39,15 +40,15 @@ export const BadgeList = ({ columnName1, portfolioBadges}: Props) => {
                     {row.wisdom_badges_name}
                   </Td>
                   <Td borderWidth='1px' borderColor='gray.200' bg='white'>
-                    <Text textAlign='center'>{row.knowledge_badges_count}</Text>
+                    <Text color={textColor} textAlign='center'>{row.knowledge_badges_count}</Text>
                   </Td>
                   <Td borderWidth='1px' borderColor='gray.200' bg='white'>
-                    <Text textAlign='center'>{row.scheduled_badges_count}</Text>
+                    <Text color={textColor} textAlign='center'>{row.scheduled_badges_count}</Text>
                   </Td>
                   <Td borderWidth='1px' borderColor='gray.200' bg='white'>
-                    <Text textAlign='center'>{row.acquired_badges_count}</Text>
+                    <Text color={textColor} textAlign='center'>{row.acquired_badges_count}</Text>
                   </Td>
-                  <Td borderWidth='1px' borderColor='gray.200' bg='white'>
+                  <Td borderWidth='1px' borderColor='gray.200' bg='white' color={textColor} >
                     {row.wisdom_badges_description}
                   </Td>
                 </Tr>
