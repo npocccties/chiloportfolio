@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 
 import { Layout } from "@/components/Layout";
 import { Metatag } from "@/components/Metatag";
-import { buttonColor, textColor } from "@/constants/color";
+import { buttonColor, textColor, whiteTextColor } from "@/constants/color";
 
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
 const serviceDescription = process.env.NEXT_PUBLIC_SERVICE_DESCRIPTION as string
