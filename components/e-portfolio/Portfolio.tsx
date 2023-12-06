@@ -161,7 +161,7 @@ export const Portfolio = () => {
   const onCsvDownload = () => {
     const categories = getCategories(selectedConsumerId, consumerGoals, portalCategoryBadges)
     const v = portfolioBadges[0]
-    var text = getCsvText(categories, portfolioBadges)
+    var text = getCsvText(columnName1, categories, portfolioBadges)
     var bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
     const blob = new Blob([bom, text], {type: 'text/csv'})
     const url = URL.createObjectURL(blob)
