@@ -36,13 +36,11 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
   }, [])
 
   return (
-    <Box>
+    <Box bg={headerColor} color={whiteTextColor}>
       <Flex
         h={"64px"}
         alignItems={"center"}
         justifyContent={"space-between"}
-        textColor={whiteTextColor}
-        backgroundColor={headerColor}
         p={{ base: 8 }}
       >
         <Box >
@@ -55,7 +53,7 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
           }}
         >
           <NextLink href="/">
-            <Text color={whiteTextColor} fontSize={"2xl"} fontWeight={"bold"} style={{ textDecoration: "none" }}>
+            <Text fontSize={"2xl"} fontWeight={"bold"} style={{ textDecoration: "none" }}>
               {serviceName}
             </Text>
           </NextLink>
@@ -63,18 +61,18 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
         <Box >
           <Flex gap={"16px"} alignItems={"center"} display={{ base: "none", sm: "flex" }}>
             <MdHelp size="24" />
-            <NextLink color={whiteTextColor} href={helpLink}>ヘルプ</NextLink>
-            <FaUserAlt color={whiteTextColor} />
-            <Text fontSize={"xl"} color={whiteTextColor}>{userName}</Text>
+            <NextLink href={helpLink}><Text>ヘルプ</Text></NextLink>
+            <FaUserAlt />
+            <Text fontSize={"xl"}>{userName}</Text>
           </Flex>
           <Flex gap={"16px"} alignItems={"center"} display={{ base: "flex", sm: "none" }}>
-            <Link href={helpLink}><MdHelp size="24" color={whiteTextColor}/></Link>
+            <Link href={helpLink}><MdHelp size="24"/></Link>
             <Menu>
               <MenuButton cursor={"pointer"} minW={0} transition="all 1s">
-                <FaUserAlt color={whiteTextColor}/>
+                <FaUserAlt/>
               </MenuButton>
               <MenuList>
-                <MenuItem color={whiteTextColor}>{userName}</MenuItem>
+                <MenuItem>{userName}</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
