@@ -1,4 +1,5 @@
-import { Box, Flex, Link, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react";
+import { Box, Flex, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react";
+import Link from 'next/link'
 import NextLink from "next/link";
 import { FaUserAlt } from "react-icons/fa";
 import { MdHelp } from "react-icons/md";
