@@ -38,6 +38,7 @@ export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
       console.log(errorDetail)
     }
   }, [])
+  console.log('logoutLink:', logoutLink)
 
   return (
     <Box as="header" w={"100%"} zIndex={1000} bg={headerColor} color={whiteTextColor}>
