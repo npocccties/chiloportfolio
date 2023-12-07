@@ -25,14 +25,14 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       <Flex h="20" alignItems="center" p="8" justifyContent="flex-end" borderBottom="1px" borderColor="gray.400">
         <CloseButton onClick={onClose} />
       </Flex>
-      <NavItem key={wallet} name={wallet} link={walletUrl} />
+      <NavItem key={wallet} name={wallet} link={walletUrl} external={false} />
     </Box>
   );
 };
 
 interface NavItemProps extends FlexProps {
   name: string;
-  link?: string;
+  link: string;
   external?: boolean;
 }
 
