@@ -2,7 +2,7 @@ import { Box, Flex, Link, Menu, MenuButton, MenuItem, MenuList, Text } from "@ch
 import NextLink from "next/link";
 import { FaUserAlt } from "react-icons/fa";
 import { MdHelp } from "react-icons/md";
-import { RiLogoutBoxFill } from "react-icons/ri";
+import { MdLogout } from "react-icons/md";
 import { getCookieValue } from "@/lib/cookie";
 import { getUserInfoFormJwt } from "@/lib/userInfo";
 import React, { useEffect, useState } from "react";
@@ -67,7 +67,7 @@ export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
             <NextLink href={helpLink}><Text>ヘルプ</Text></NextLink>
             <FaUserAlt />
             <Text fontSize={"xl"}>{userName}</Text>
-            <RiLogoutBoxFill size="24" />
+            <MdLogout size="24" />
             <NextLink href={logoutLink}><Text>ログアウト</Text></NextLink>
           </Flex>
           <Flex gap={"16px"} alignItems={"center"} display={{ base: "flex", sm: "none" }}>
@@ -78,7 +78,7 @@ export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
               </MenuButton>
               <MenuList>
                 <MenuItem color={textColor}>{userName}</MenuItem>
-                <MenuItem color={textColor}><RiLogoutBoxFill size="24"/><NextLink href={logoutLink}>ログアウト</NextLink></MenuItem>
+                <MenuItem color={textColor}><NextLink href={logoutLink}>ログアウト</NextLink></MenuItem>
               </MenuList>
             </Menu>
           </Flex>
