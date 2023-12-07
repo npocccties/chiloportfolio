@@ -11,7 +11,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
-import { MouseEventHandler, ReactNode, useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 export const ErrorDialog = ({ title, message, detail }: { title: string; message: string; detail: any}) => {
   const cancelRef = useRef<HTMLButtonElement>(null);

@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios"
 import { WalletBadge } from "../../models/WalletData"
-import useSWR from 'swr'
 
 const baseUrl = process.env.NEXT_PUBLIC_WALLET_BASE_URL as string
 

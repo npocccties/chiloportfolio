@@ -4,7 +4,6 @@ import { Layout } from "@/components/Layout";
 import { Metatag } from "@/components/Metatag";
 import { Portfolio } from "../components/e-portfolio/Portfolio";
 import SignIn from "./signin";
-import { PasswordResult } from "@/models/PortfolioData";
 import { postJudge } from "@/components/api/PortfolioApi";
 
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
