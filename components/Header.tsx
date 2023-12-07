@@ -68,7 +68,7 @@ export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
             <FaUserAlt />
             <Text fontSize={"xl"}>{userName}</Text>
             <RiLogoutBoxFill size="24" />
-            <NextLink href={helpLink}><Text>ログアウト</Text></NextLink>
+            <NextLink href={logoutLink}><Text>ログアウト</Text></NextLink>
           </Flex>
           <Flex gap={"16px"} alignItems={"center"} display={{ base: "flex", sm: "none" }}>
             <Link href={helpLink}><MdHelp size="24"/></Link>
