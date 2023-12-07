@@ -25,7 +25,7 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       <Flex h="20" alignItems="center" p="8" justifyContent="flex-end" borderBottom="1px" borderColor="gray.400">
         <CloseButton onClick={onClose} />
       </Flex>
-      <NavItem key={wallet} name={wallet} link={walletUrl} external={false} />
+      <NavItem key={wallet} name={wallet} link={walletUrl} />
     </Box>
   );
 };
@@ -33,61 +33,33 @@ export const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 interface NavItemProps extends FlexProps {
   name: string;
   link: string;
-  external?: boolean;
 }
 
-const NavItem = ({ name, link, external, ...rest }: NavItemProps) => {
-  if (external) {
-    return (
-      <Link
-        href={link ? link : "#"}
-        style={{ textDecoration: "none" }}
-        _focus={{ boxShadow: "none" }}
-        isExternal={external}
+const NavItem = ({ name, link, ...rest }: NavItemProps) => {
+  return (
+    <Link
+      href={link ? link : "#"}
+      style={{ textDecoration: "none" }}
+      _focus={{ boxShadow: "none" }}
+    >
+      <Flex
+        align="center"
+        p="6"
+        borderBottom="1px"
+        borderColor="gray.400"
+        role="group"
+        cursor="pointer"
+        _hover={{
+          bg: "gray.400",
+          color: "white",
+        }}
+        {...rest}
       >
-        <Flex
-          align="center"
-          p="6"
-          borderBottom="1px"
-          borderColor="gray.400"
-          role="group"
-          cursor="pointer"
-          _hover={{
-            bg: "gray.400",
-            color: "white",
-          }}
-          {...rest}
-        >
-          <Text fontSize="md" mr={2}>
-            {name}
-          </Text>{" "}
-          {external && <ExternalLinkIcon />}
-        </Flex>
-      </Link>
-    );
-  } else {
-    return (
-      <NextLink href={link}>
-        <Link style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>
-          <Flex
-            align="center"
-            p="6"
-            borderBottom="1px"
-            borderColor="gray.400"
-            role="group"
-            cursor="pointer"
-            _hover={{
-              bg: "gray.400",
-              color: "white",
-            }}
-            {...rest}
-          >
-            <Text fontSize="md" mr={2}>
-              {name}
-            </Text>{" "}
-          </Flex>
-        </Link>
-      </NextLink>
-    );
-  }
+        <Text fontSize="md" mr={2}>
+          {name}
+        </Text>{" "}
+        {external && <ExternalLinkIcon />}
+      </Flex>
+    </Link>
+  );
 };
