@@ -36,7 +36,7 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
   }, [])
 
   return (
-    <Box bg={headerColor} color={whiteTextColor}>
+    <Box as="header" w={"100%"} zIndex={1000} bg={headerColor} color={whiteTextColor}>
       <Flex
         h={"64px"}
         alignItems={"center"}
