@@ -8,6 +8,7 @@ import { getUserInfoFormJwt } from "@/lib/userInfo";
 import React, { useEffect, useState } from "react";
 import { headerColor, textColor, whiteTextColor } from "@/constants/color";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import { linkStyle } from "@/constants/style";
 
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
 const helpLink = process.env.NEXT_PUBLIC_HELP_LINK as string
@@ -57,7 +58,7 @@ export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
           }}
         >
           <NextLink href="/">
-            <Text fontSize={"2xl"} fontWeight={"bold"} style={{ textDecoration: "none" }}>
+            <Text fontSize={"2xl"} fontWeight={"bold"} style={linkStyle}>
               {serviceName}
             </Text>
           </NextLink>
@@ -65,11 +66,11 @@ export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
         <Box >
           <Flex gap={"16px"} alignItems={"center"} display={{ base: "none", sm: "flex" }}>
             <MdHelp size="24" />
-            <NextLink href={helpLink}><Text>ヘルプ</Text></NextLink>
+            <Link href={helpLink} style={linkStyle}><Text>ヘルプ</Text></Link>
             <FaUserAlt />
             <Text fontSize={"xl"}>{userName}</Text>
             <MdLogout size="24" />
-            <NextLink href={logoutLink}><Text>ログアウト</Text></NextLink>
+            <Link href={logoutLink} style={linkStyle}><Text>ログアウト</Text></Link>
           </Flex>
           <Flex gap={"16px"} alignItems={"center"} display={{ base: "flex", sm: "none" }}>
             <Link href={helpLink}><MdHelp size="24"/></Link>
@@ -79,7 +80,7 @@ export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
               </MenuButton>
               <MenuList>
                 <MenuItem color={textColor}>{userName}</MenuItem>
-                <MenuItem color={textColor}><NextLink href={logoutLink}>ログアウト</NextLink></MenuItem>
+                <MenuItem color={textColor}><Link href={logoutLink} style={linkStyle}>ログアウト</Link></MenuItem>
               </MenuList>
             </Menu>
           </Flex>
