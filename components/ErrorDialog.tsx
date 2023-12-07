@@ -14,6 +14,8 @@ import React from "react";
 import { useRef } from "react";
 import { useRouter } from "next/router";
 
+const walletUrl = process.env.NEXT_PUBLIC_WALLET_BASE_URL as string
+
 export const ErrorDialog = ({ title, message, detail }: { title: string; message: string; detail: any}) => {
   const router = useRouter();
   const cancelRef = useRef<HTMLButtonElement>(null);
@@ -40,7 +42,7 @@ export const ErrorDialog = ({ title, message, detail }: { title: string; message
               bg={buttonColor}
               color={whiteTextColor}
               onClick={() => {
-                router.back();
+                router.push(walletUrl);
               }}
             >
               前のページに戻る
