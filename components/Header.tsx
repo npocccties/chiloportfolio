@@ -72,7 +72,7 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
                 <FaUserAlt/>
               </MenuButton>
               <MenuList>
-                <MenuItem>{userName}</MenuItem>
+                <MenuItem color={textColor}>{userName}</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
