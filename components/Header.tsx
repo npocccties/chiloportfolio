@@ -10,7 +10,6 @@ import React, { useEffect, useState } from "react";
 import { headerColor, textColor, whiteTextColor } from "@/constants/color";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { linkStyle } from "@/constants/style";
-import { useRouter } from "next/router";
 
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
 const helpLink = process.env.NEXT_PUBLIC_HELP_LINK as string
@@ -23,7 +22,6 @@ type Props = {
 
 export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
   const [userName, setUserName] = useState('Unknown')
-  const router = useRouter();
 
   useEffect(() => {
     var errorDetail = ''
@@ -69,21 +67,21 @@ export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
         <Box >
           <Flex gap={"16px"} alignItems={"center"} display={{ base: "none", sm: "flex" }}>
             <MdHelp size="24" />
-            <a href={helpLink} style={linkStyle}><Text>ヘルプ</Text></a>
+            <Link href={helpLink} style={linkStyle}><Text>ヘルプ</Text></Link>
             <FaUserAlt />
             <Text fontSize={"xl"}>{userName}</Text>
             <MdLogout size="24" />
-            <a onClick={()=>router.push(logoutLink)} style={linkStyle}><Text>ログアウト</Text></a>
+            <Link href={logoutLink} style={linkStyle}><Text>ログアウト</Text></Link>
           </Flex>
           <Flex gap={"16px"} alignItems={"center"} display={{ base: "flex", sm: "none" }}>
-            <a href={helpLink}><MdHelp size="24"/></a>
+            <Link href={helpLink}><MdHelp size="24"/></Link>
             <Menu>
               <MenuButton cursor={"pointer"} minW={0} transition="all 1s">
                 <FaUserAlt/>
               </MenuButton>
               <MenuList>
                 <MenuItem color={textColor}>{userName}</MenuItem>
-                <MenuItem color={textColor}><a onClick={()=>router.push(logoutLink)} style={linkStyle}>ログアウト</a></MenuItem>
+                <MenuItem color={textColor}><Link href={logoutLink} style={linkStyle}>ログアウト</Link></MenuItem>
               </MenuList>
             </Menu>
           </Flex>
