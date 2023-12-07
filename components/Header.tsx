@@ -2,6 +2,7 @@ import { Box, Flex, Link, Menu, MenuButton, MenuItem, MenuList, Text } from "@ch
 import NextLink from "next/link";
 import { FaUserAlt } from "react-icons/fa";
 import { MdHelp } from "react-icons/md";
+import { RiLogoutBoxFill } from "react-icons/ri";
 import { getCookieValue } from "@/lib/cookie";
 import { getUserInfoFormJwt } from "@/lib/userInfo";
 import React, { useEffect, useState } from "react";
@@ -9,6 +10,7 @@ import { headerColor, textColor, whiteTextColor } from "@/constants/color";
 
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
 const helpLink = process.env.NEXT_PUBLIC_HELP_LINK as string
+const logoutLink = process.env.NEXT_PUBLIC_LOGOUT_LINK as string
 
 type Props = {
   onOpen: () => void;
@@ -64,6 +66,8 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
             <NextLink href={helpLink}><Text>ヘルプ</Text></NextLink>
             <FaUserAlt />
             <Text fontSize={"xl"}>{userName}</Text>
+            <RiLogoutBoxFill size="24" />
+            <NextLink href={helpLink}><Text>ログアウト</Text></NextLink>
           </Flex>
           <Flex gap={"16px"} alignItems={"center"} display={{ base: "flex", sm: "none" }}>
             <Link href={helpLink}><MdHelp size="24"/></Link>
@@ -73,6 +77,7 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
               </MenuButton>
               <MenuList>
                 <MenuItem color={textColor}>{userName}</MenuItem>
+                <MenuItem color={textColor}><RiLogoutBoxFill size="24"/><NextLink href={logoutLink}>ログアウト</NextLink></MenuItem>
               </MenuList>
             </Menu>
           </Flex>
