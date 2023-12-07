@@ -7,6 +7,7 @@ import { getCookieValue } from "@/lib/cookie";
 import { getUserInfoFormJwt } from "@/lib/userInfo";
 import React, { useEffect, useState } from "react";
 import { headerColor, textColor, whiteTextColor } from "@/constants/color";
+import { HamburgerIcon } from "@chakra-ui/icons";
 
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
 const helpLink = process.env.NEXT_PUBLIC_HELP_LINK as string
