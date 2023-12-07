@@ -34,7 +34,7 @@ export default function SignIn({}: SignInProps) {
           <Heading mb={6}>アクティベーション</Heading>
           <Flex direction="column" rounded={6}>
             <FormLabel htmlFor="password">利用キー</FormLabel>
-            <Input type="password" name="password" onChange={onChangeHandler} placeholder="********" variant="filled" mb={6} />
+            <Input type="password" name="password" onChange={onChangeHandler} placeholder="********" mb={6} />
             <Button type="submit" mb={6} bg={buttonColor} color={whiteTextColor}>アクティベーションを行う</Button>
             {postedData && postedData.result == "" && <Text color={textColor}>利用キーが正しくありません。</Text>}
           </Flex>
