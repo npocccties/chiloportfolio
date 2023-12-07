@@ -1,4 +1,4 @@
-import { textColor } from "@/constants/color";
+import { headerColor, textColor, whiteTextColor } from "@/constants/color";
 import { Flex, Link } from "@chakra-ui/react";
 import React from "react";
 const copyrightLink = process.env.NEXT_PUBLIC_COPYRIGHT_LINK as string
@@ -12,9 +12,9 @@ export const Footer: React.VFC = () => {
       justifyContent={"center"}
       p={{ base: 4 }}
       gap={"16px"}
+      bg={headerColor} color={whiteTextColor}
     >
       <Link
-        color={textColor} 
         href={copyrightLink}
         fontSize={"sm"}
         fontWeight={"medium"}
