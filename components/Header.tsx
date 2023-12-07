@@ -13,10 +13,11 @@ const helpLink = process.env.NEXT_PUBLIC_HELP_LINK as string
 const logoutLink = process.env.NEXT_PUBLIC_LOGOUT_LINK as string
 
 type Props = {
+  showContents: boolean,
   onOpen: () => void;
 };
 
-export const Header: React.FC<Props> = ({ onOpen }) => {
+export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
   const [userName, setUserName] = useState('Unknown')
 
   useEffect(() => {
@@ -45,8 +46,7 @@ export const Header: React.FC<Props> = ({ onOpen }) => {
         justifyContent={"space-between"}
         p={{ base: 8 }}
       >
-        <Box >
-        </Box>
+        <Box>{showContents && <HamburgerIcon w={6} h={6} cursor={"pointer"} onClick={() => onOpen()} />}</Box>
         <Box
           style={{
             position: "absolute",

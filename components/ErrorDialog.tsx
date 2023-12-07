@@ -12,8 +12,10 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { useRef } from "react";
+import { useRouter } from "next/router";
 
 export const ErrorDialog = ({ title, message, detail }: { title: string; message: string; detail: any}) => {
+  const router = useRouter();
   const cancelRef = useRef<HTMLButtonElement>(null);
   const { onClose } = useDisclosure();
 
@@ -38,11 +40,10 @@ export const ErrorDialog = ({ title, message, detail }: { title: string; message
               bg={buttonColor}
               color={whiteTextColor}
               onClick={() => {
-                window.close
-                console.log('close')
+                router.back();
               }}
             >
-              閉じる
+              前のページに戻る
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
