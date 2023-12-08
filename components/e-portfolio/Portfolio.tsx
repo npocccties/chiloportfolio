@@ -280,23 +280,19 @@ function getPassword(validPassword: string, password: string): string {
 function getCategories(
   selectedConsumerId: number
   , consumerGoals: ConsumerGoal[] | undefined | null
-  , portalCategoryBadges: PortalCategoryBadges | undefined | null): Array<string>
+  , portalCategoryBadges: PortalCategoryBadges | undefined | null): Set<string>
 {
-  var categories = new Array<string>()
+  var categories = new Set<string>()
   if (selectedConsumerId != 0) {
     if (consumerGoals) {
       for (const [i, v] of consumerGoals.entries()) {
-        if (categories.indexOf(v.field1_name) == -1) {
-          categories.push(v.field1_name)
-        }
+        categories.add(v.field1_name)
       }
     }
   } else {
     if (portalCategoryBadges) {
       for (const [i, v] of portalCategoryBadges.badges.entries()) {
-        if (categories.indexOf(v.portal_category_name) == -1) {
-          categories.push(v.portal_category_name)
-        }
+        categories.add(v.portal_category_name)
       }
     }
   }
