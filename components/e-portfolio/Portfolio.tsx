@@ -280,7 +280,7 @@ function getPassword(validPassword: string, password: string): string {
 function getCategories(
   selectedConsumerId: number
   , consumerGoals: ConsumerGoal[] | undefined | null
-  , portalCategoryBadges: PortalCategoryBadges | undefined | null): Set<string>
+  , portalCategoryBadges: PortalCategoryBadges | undefined | null): Array<string>
 {
   var categories = new Set<string>()
   if (selectedConsumerId != 0) {
@@ -296,5 +296,5 @@ function getCategories(
       }
     }
   }
-  return categories
+  return Array.from(categories).sort((a: string, b: string) => { if (a > b) { return 1 } else { return -1 }})
 }

@@ -76,7 +76,7 @@ export function mergeBadgeDataWithConsumer(consumerBadges: ConsumerBadge[], wall
   return badgeDatas
 }
 
-export function getCsvText(columnName1: string, consumers: Set<string>, badgeDatas: PortfolioBadgeData[]): string {
+export function getCsvText(columnName1: string, consumers: Array<string>, badgeDatas: PortfolioBadgeData[]): string {
   var text = ""
   for (const v of consumers) {
     text += `"${v}",`
