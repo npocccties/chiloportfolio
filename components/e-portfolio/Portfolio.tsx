@@ -64,13 +64,13 @@ export const Portfolio = () => {
   if (selectedConsumerId != -1) {
     if (selectedConsumerId != 0) {
       // ウォレットのバッジ情報とOKUTEPのバッジ情報をマージ
-      if (consumerBadgesEx && walletBadges && walletBadges.length != 0) {
+      if (consumerBadgesEx && consumerBadgesEx.length != 0 && walletBadges && walletBadges.length != 0) {
         portfolioBadges = mergeBadgeDataWithConsumer(consumerBadgesEx, walletBadges)
         console.log('portfolioBadges: ', portfolioBadges)
       }
     } else {
       // OKUTEPのポータルカテゴリに紐づくバッジ情報をマージ
-      if (portalCategoryBadges && walletBadges && walletBadges.length != 0) {
+      if (portalCategoryBadges && portalCategoryBadges.badges.length != 0 && walletBadges && walletBadges.length != 0) {
         portfolioBadges = mergeBadgeDataWithConsumer(toConsumerBadges(portalCategoryBadges.badges), walletBadges)
         console.log('portfolioBadges: ', portfolioBadges)
       }
