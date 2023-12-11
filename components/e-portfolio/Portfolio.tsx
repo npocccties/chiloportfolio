@@ -128,12 +128,7 @@ export const Portfolio = () => {
   const onChangeConsumer = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const array = e.target.value.split(',')
     if (array.length == 1) {
-      // テーブルの内容をクリアする
-      var tb = document.getElementById('badge-list') as HTMLTableElement
-      console.log('tb.rows.length', tb.rows.length)
-      while(tb.rows.length > 1) {
-        tb.deleteRow(1);
-      }
+      setConsumerBadges([] as ConsumerBadge[])
       return
     }
     var consumerId = Number(array[0])
@@ -191,8 +186,6 @@ export const Portfolio = () => {
   }
 
   const onKeyInputClosed = () => {
-    console.log('callOkutepApi3:', validPassword, selectedFrameworkId, selectedStageId)
-    callOkutepApi(validPassword, selectedFrameworkId, selectedStageId)
   }
   console.log('selectedConsumerId: ', selectedConsumerId)
   console.log('selectedFrameworkId: ', selectedFrameworkId)
@@ -263,7 +256,8 @@ export const Portfolio = () => {
           <ModalHeader>取得キー入力</ModalHeader>
           <ModalBody>
             <KeyInput register={register} watch={watch} handleSubmit={handleSubmit} onClose={onClose} setPassword={setPassword} password={password}
-              onKeyInputClosed={onKeyInputClosed} />
+              onKeyInputClosed={onKeyInputClosed} callOkutepApi={callOkutepApi} selectedFrameworkId={selectedFrameworkId} selectedStageId={selectedStageId}
+              setValidPassword={setValidPassword}/>
           </ModalBody>
         </ModalContent>
       </Modal>

@@ -15,14 +15,20 @@ type Props = {
   setPassword: React.Dispatch<React.SetStateAction<string>>,
   password: string,
   onKeyInputClosed: () => void,
+  callOkutepApi: (password: string, frameworkId: number, stageId: number) => void,
+  selectedFrameworkId: number,
+  selectedStageId: number,
+  setValidPassword: React.Dispatch<React.SetStateAction<string>>,
 }
 
-export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, password, onKeyInputClosed}: Props) => {
+export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, password, onKeyInputClosed, callOkutepApi, selectedFrameworkId, selectedStageId, setValidPassword}: Props) => {
 
   const isValid = (data: KeyInputForm) => {
     getConsumerGoalList(data.password).then((res) => {
       setErrorMessage('')
-      sessionStorage.setItem(sessionKeyInput, password)
+      sessionStorage.setItem(sessionKeyInput, data.password)
+      setValidPassword(data.password)
+      callOkutepApi(data.password, selectedFrameworkId, selectedStageId)
       onKeyInputClosed()
       onClose()
     })
