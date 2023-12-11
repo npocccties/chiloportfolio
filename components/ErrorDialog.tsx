@@ -31,7 +31,7 @@ export const ErrorDialog = ({ title, message, detail }: { title: string; message
 
           <AlertDialogBody>
             <Text color={textColor} fontSize={"lg"} mb={4}>
-              {message}
+              {br(message)}
             </Text>
             <Text color={textColor} fontSize={"md"}>詳細: {br(detail)}</Text>
           </AlertDialogBody>
