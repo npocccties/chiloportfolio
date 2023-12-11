@@ -71,15 +71,15 @@ export const Portfolio = () => {
 
   useEffect(() => {
     // BadgeWalletからバッジ情報の取得
-    getWalletBadgeList().then((res) => {
-      setWalletBadges(res.data as WalletBadge[])
-    })
-    .catch(({res}) => {
-      console.log(res)
-      setErrorWalletBadge(true)
-    });
+    // getWalletBadgeList().then((res) => {
+    //   setWalletBadges(res.data as WalletBadge[])
+    // })
+    // .catch(({res}) => {
+    //   console.log(res)
+    //   setErrorWalletBadge(true)
+    // });
     //test
-    // setWalletBadges(getWalletBadgeListForTest())
+    setWalletBadges(getWalletBadgeListForTest())
     //test
   }, [])
   console.log('walletBadges: ', walletBadges)

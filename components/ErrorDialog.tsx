@@ -42,10 +42,12 @@ export const ErrorDialog = ({ title, message, detail }: { title: string; message
               bg={buttonColor}
               color={whiteTextColor}
               onClick={() => {
-                router.push(walletUrl);
+                //router.push(walletUrl);
+                window.close()
               }}
             >
-              前のページに戻る
+              {/* 前のページに戻る */}
+              閉じる
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
