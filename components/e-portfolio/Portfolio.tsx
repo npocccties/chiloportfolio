@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form"
 import { BiKey } from "react-icons/bi";
 import { ConsumerBadgesRequest, PortfolioBadgeData } from "@/models/PortfolioData"
 import { Loading } from "../Loading"
-import { getConsumerBadgeList, getConsumerGoalList, useConsumerBadgesWithTrigger, useConsumerGoals, useConsumerGoalsWithTrigger, usePortalCategoryBadgesWithTrigger } from "../api/OkutepApi"
+import { getConsumerBadgeList, getConsumerGoalList, usePortalCategoryBadgesWithTrigger } from "../api/OkutepApi"
 import { ConsumerBadge, ConsumerGoal, PortalCategoryBadges } from "../../models/OkutepData"
 import { categoryColumnName, errorTitle, fieldColumnName } from "@/constants/e-portfolio"
 import { WalletBadge } from "@/models/WalletData"
