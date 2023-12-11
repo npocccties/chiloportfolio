@@ -9,13 +9,14 @@ import { useForm } from "react-hook-form"
 import { BiKey } from "react-icons/bi";
 import { ConsumerBadgesRequest, PortfolioBadgeData } from "@/models/PortfolioData"
 import { Loading } from "../Loading"
-import { useConsumerBadgesWithTrigger, useConsumerGoals, useConsumerGoalsWithTrigger, usePortalCategoryBadgesWithTrigger } from "../api/OkutepApi"
-import { ConsumerGoal, PortalCategoryBadges } from "../../models/OkutepData"
+import { getConsumerBadgeList, getConsumerGoalList, useConsumerBadgesWithTrigger, useConsumerGoals, useConsumerGoalsWithTrigger, usePortalCategoryBadgesWithTrigger } from "../api/OkutepApi"
+import { ConsumerBadge, ConsumerGoal, PortalCategoryBadges } from "../../models/OkutepData"
 import { categoryColumnName, errorTitle, fieldColumnName } from "@/constants/e-portfolio"
 import { WalletBadge } from "@/models/WalletData"
 import { messageFailedToCallOkutepApi, messageFailedToCallWalletApi, detailReloadWallet, detailContactDeveloper } from "@/constants/messages"
 import { ErrorDialog } from "../ErrorDialog"
 import { buttonColor, textColor, whiteTextColor } from "@/constants/color"
+import { sessionKeyInput } from "@/constants/session"
 
 const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string
 
@@ -30,20 +31,43 @@ export const Portfolio = () => {
   const [columnName1, setColumnName1] = useState(fieldColumnName)
   const [walletBadges, setWalletBadges] = useState<WalletBadge[]>()
   const [isErrorWalletBadge, setErrorWalletBadge] = useState(false)
+  var [consumerGoals, setConsumerGoals] = useState<ConsumerGoal[]>()
+  const [isErrorConsumerGoals, setErrorConsumerGoals] = useState(false)
+  var [consumerBadges, setConsumerBadges] = useState<ConsumerBadge[]>()
+  const [isErrorConsumerBadges, setErrorConsumerBadges] = useState(false)
+  useEffect(() => {
+    const pass = sessionStorage.getItem(sessionKeyInput)
+    if (pass) {
+      console.log('session_key-input:', pass)
+      setValidPassword(pass)
+    }
+    callOkutepApi(pass ?? '', selectedFrameworkId, selectedStageId)
+  }, [])
+  console.log('validPassword:', validPassword)
 
-  // OKUTEPから教員育成指標のプルダウン表示用のデータ取得
-  var { consumerGoals, isLoadingConsumerGoals, isErrorConsumerGoals} = useConsumerGoals()
+  const callOkutepApi = (password: string, frameworkId: number, stageId: number) => {
+    // OKUTEPから教員育成指標のプルダウン表示用のデータ取得
+    getConsumerGoalList(password).then((res) => {
+      setErrorConsumerGoals(false)
+      setConsumerGoals(res.data as ConsumerGoal[])
+    })
+    .catch(({res}) => {
+      setErrorConsumerGoals(true)
+    });
+    // OKUTEPから教員育成指標のプルダウン選択時のデータ取得
+    if (frameworkId != 0 && stageId != 0) {
+      getConsumerBadgeList(password, frameworkId, stageId).then((res) => {
+        setErrorConsumerBadges(false)
+        setConsumerBadges(res.data as ConsumerBadge[])
+      })
+      .catch(({res}) => {
+        setErrorConsumerBadges(true)
+      });
+    }    
+  }
 
   // イベントに応じて呼び出されるOKUTEPへのリクエスト群
-  const { triggerConsumerGoals, consumerGoalsEx, isMutatingConsumerGoals } = useConsumerGoalsWithTrigger()
-  var { triggerConsumerBadges, consumerBadgesEx, isMutatingConsumerBadges } = useConsumerBadgesWithTrigger()
   const { triggerPortalCategoryBadges, portalCategoryBadges, isMutatingPortalCategoryBadges } = usePortalCategoryBadgesWithTrigger()
-
-  console.log('consumerGoalsEx: ', consumerGoalsEx)
-  console.log('consumerBadgesEx: ', consumerBadgesEx)
-
-  // トリガー指定のリクエスト結果があれば、それを優先する
-  consumerGoals = consumerGoalsEx ? consumerGoalsEx : consumerGoals
 
   useEffect(() => {
     // BadgeWalletからバッジ情報の取得
@@ -64,8 +88,8 @@ export const Portfolio = () => {
   if (selectedConsumerId != -1) {
     if (selectedConsumerId != 0) {
       // ウォレットのバッジ情報とOKUTEPのバッジ情報をマージ
-      if (consumerBadgesEx && consumerBadgesEx.length != 0 && walletBadges && walletBadges.length != 0) {
-        portfolioBadges = mergeBadgeDataWithConsumer(consumerBadgesEx, walletBadges)
+      if (consumerBadges && consumerBadges.length != 0 && walletBadges && walletBadges.length != 0) {
+        portfolioBadges = mergeBadgeDataWithConsumer(consumerBadges, walletBadges)
         console.log('portfolioBadges: ', portfolioBadges)
       }
     } else {
@@ -117,29 +141,20 @@ export const Portfolio = () => {
     var stageId = Number(array[2])
     console.log(`consumerId: ${consumerId} frameworkId: ${frameworkId} stageId: ${stageId}`)
 
-    const pass = getPassword(validPassword, password)
-    console.log('pass:', pass)
-    
     if (consumerId == 0 && frameworkId == 0 && stageId == 0) {
       // OKUTEPからポータルカテゴリに紐づくバッジ情報の取得
       triggerPortalCategoryBadges()
       setColumnName1(categoryColumnName)
     } else {
-      // OKUTEPから教員育成指標のプルダウン表示用のデータ取得（トリガー指定）
-      triggerConsumerGoals(pass)
-      const consumerBadgesRequest: ConsumerBadgesRequest = {
-        password: pass,
-        framework_id: frameworkId,
-        stage_id: stageId,
-      }
-      // OKUTEPからテーブル表示用のデータ取得（トリガー指定）
-      triggerConsumerBadges(consumerBadgesRequest)
       setColumnName1(fieldColumnName)
     }
 
     setSelectedConsumerId(consumerId)
     setSelectedFrameworkId(frameworkId)
     setSelectedStageId(stageId)
+
+    console.log('callOkutepApi2:', validPassword, selectedFrameworkId, selectedStageId)
+    callOkutepApi(validPassword, frameworkId, stageId)
 
     const targets = consumers.filter(v => v.consumer_id == consumerId && v.framework_id == frameworkId && v.stage_id == stageId)
     if (targets.length != 0) {
@@ -176,12 +191,14 @@ export const Portfolio = () => {
   }
 
   const onKeyInputClosed = () => {
+    console.log('callOkutepApi3:', validPassword, selectedFrameworkId, selectedStageId)
+    callOkutepApi(validPassword, selectedFrameworkId, selectedStageId)
   }
   console.log('selectedConsumerId: ', selectedConsumerId)
   console.log('selectedFrameworkId: ', selectedFrameworkId)
   console.log('selectedStageId: ', selectedStageId)
 
-  if (isLoadingConsumerGoals || isMutatingConsumerBadges || isMutatingConsumerGoals || isMutatingPortalCategoryBadges) {
+  if (isMutatingPortalCategoryBadges) {
      return <Loading/>
   }
   if (isErrorConsumerGoals) {
@@ -246,7 +263,7 @@ export const Portfolio = () => {
           <ModalHeader>取得キー入力</ModalHeader>
           <ModalBody>
             <KeyInput register={register} watch={watch} handleSubmit={handleSubmit} onClose={onClose} setPassword={setPassword} password={password}
-              setValidPassword={setValidPassword} onKeyInputClosed={onKeyInputClosed} triggerConsumerGoals={triggerConsumerGoals}/>
+              onKeyInputClosed={onKeyInputClosed} />
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -274,7 +291,8 @@ function getCsvFileName(cosumerName: string, frameworkName: string, stageName: s
 }
 
 function getPassword(validPassword: string, password: string): string {
-  return validPassword && password == validPassword ? validPassword : ''
+  //return validPassword && password == validPassword ? validPassword : ''
+  return validPassword
 }
 
 function getCategories(

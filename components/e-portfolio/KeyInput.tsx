@@ -5,28 +5,25 @@ import { TriggerWithArgs } from "swr/mutation";
 import { ConsumerGoal } from "../../models/OkutepData";
 import { getConsumerGoalList } from "../api/OkutepApi";
 import { buttonColor, textColor, whiteTextColor } from "@/constants/color";
+import { sessionKeyInput } from "@/constants/session";
 
 type Props = {
   register: UseFormRegister<KeyInputForm>,
   watch: UseFormWatch<KeyInputForm>,
   handleSubmit: UseFormHandleSubmit<KeyInputForm, undefined>,
   onClose: () => void,
-  setValidPassword: React.Dispatch<React.SetStateAction<string>>,
   setPassword: React.Dispatch<React.SetStateAction<string>>,
   password: string,
   onKeyInputClosed: () => void,
-  triggerConsumerGoals: TriggerWithArgs<ConsumerGoal[] | null, any, string, string>,
 }
 
-export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, setValidPassword, password, onKeyInputClosed, triggerConsumerGoals}: Props) => {
+export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, password, onKeyInputClosed}: Props) => {
 
   const isValid = (data: KeyInputForm) => {
     getConsumerGoalList(data.password).then((res) => {
       setErrorMessage('')
+      sessionStorage.setItem(sessionKeyInput, password)
       onKeyInputClosed()
-      // OKUTEPから教員育成指標のプルダウン表示用のデータ取得（トリガー指定）
-      triggerConsumerGoals(password)
-      setValidPassword(password)
       onClose()
     })
     .catch(({res}) => {
