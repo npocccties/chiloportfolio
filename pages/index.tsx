@@ -5,6 +5,7 @@ import { Metatag } from "@/components/Metatag";
 import { Portfolio } from "../components/e-portfolio/Portfolio";
 import SignIn from "./signin";
 import { postJudge } from "@/components/api/PortfolioApi";
+import { sessionPortfolio } from "@/constants/session";
 
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
 const serviceDescription = process.env.NEXT_PUBLIC_SERVICE_DESCRIPTION as string
@@ -12,7 +13,7 @@ const serviceDescription = process.env.NEXT_PUBLIC_SERVICE_DESCRIPTION as string
 const Home: NextPage = () => {
   const [judgeHashResult, setJudgeHashResult] = useState(false)
   useEffect(() => {
-    const session = sessionStorage.getItem('session_portfolio')
+    const session = sessionStorage.getItem(sessionPortfolio)
     console.log('session_portfolio:', session)
 
     const api = async() => {

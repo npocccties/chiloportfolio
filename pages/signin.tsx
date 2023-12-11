@@ -5,6 +5,7 @@ import { useState } from "react";
 import { AuthResult } from "@/models/OkutepData";
 import { postAuth } from "@/components/api/PortfolioApi";
 import { buttonColor, textColor, whiteTextColor } from "@/constants/color";
+import { sessionPortfolio } from "@/constants/session";
 
 type SignInProps = {
 };
@@ -22,7 +23,7 @@ export default function SignIn({}: SignInProps) {
     e.preventDefault()
     const authResult = await postAuth(password)
     setPostedData(authResult)
-    sessionStorage.setItem('session_portfolio', authResult.result)
+    sessionStorage.setItem(sessionPortfolio, authResult.result)
     if (authResult.result != "") {
       router.push('/')
     }
