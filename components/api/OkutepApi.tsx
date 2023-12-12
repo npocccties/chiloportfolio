@@ -1,7 +1,7 @@
 import useSWRMutation from "swr/mutation"
 import { PortalCategoryBadges } from "../../models/OkutepData"
 import axios, { AxiosResponse } from "axios"
-const baseUrl = process.env.NEXT_PUBLIC_OKUTEP_BASE_URL as string
+const baseUrl = process.env.NEXT_PUBLIC_PORTAL_BASE_URL as string
 
 export async function getConsumerGoalList(password: string): Promise<AxiosResponse<any, any>>{
   const apiPath = `/api/v1/consumer/goal/list/`
