@@ -22,3 +22,25 @@ export async function postJudge(session: string): Promise<PasswordResult> {
   })
   return await res.json() as PasswordResult
 }
+
+export async function postEncrypt(password: string): Promise<AuthResult> {
+  const res = await fetch('/api/encrypt', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ password }),
+  })
+  return await res.json() as AuthResult
+}
+
+export async function postDecrypt(encryped: string): Promise<AuthResult> {
+  const res = await fetch('/api/decrypt', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ encryped }),
+  })
+  return await res.json() as AuthResult
+}

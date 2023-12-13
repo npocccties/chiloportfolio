@@ -6,6 +6,8 @@ import { ConsumerGoal } from "../../models/OkutepData";
 import { getConsumerGoalList } from "../api/OkutepApi";
 import { buttonColor, textColor, whiteTextColor } from "@/constants/color";
 import { sessionKeyInput } from "@/constants/session";
+import { encrypt } from "@/util/Converter";
+import { postEncrypt } from "../api/PortfolioApi";
 
 type Props = {
   register: UseFormRegister<KeyInputForm>,
@@ -19,20 +21,28 @@ type Props = {
   selectedFrameworkId: number,
   selectedStageId: number,
   setValidPassword: React.Dispatch<React.SetStateAction<string>>,
+  session: string,
 }
 
-export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, password, onKeyInputClosed, callOkutepApi, selectedFrameworkId, selectedStageId, setValidPassword}: Props) => {
+export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, password, onKeyInputClosed, callOkutepApi, selectedFrameworkId, selectedStageId, setValidPassword, session}: Props) => {
 
   const isValid = (data: KeyInputForm) => {
     getConsumerGoalList(data.password).then((res) => {
       setErrorMessage('')
-      sessionStorage.setItem(sessionKeyInput, data.password)
-      setValidPassword(data.password)
-      callOkutepApi(data.password, selectedFrameworkId, selectedStageId)
-      onKeyInputClosed()
-      onClose()
+      postEncrypt(password).then((res) => {
+        const encrypted = res.result
+        sessionStorage.setItem(sessionKeyInput, encrypted)
+        setValidPassword(encrypted)
+        callOkutepApi(encrypted, selectedFrameworkId, selectedStageId)
+        onKeyInputClosed()
+        onClose()
+      }).catch(({res}) => {
+        console.log('res1: ', res)
+        setErrorMessage('入力したキーが誤っております。（暗号化に失敗）')
+      });
     })
     .catch(({res}) => {
+      console.log('res2: ', res)
       setErrorMessage('入力したキーが誤っております。')
     });
   };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { SelectConsumer, makeDisplayValue } from "./SelectConsumer"
 import { getWalletBadgeList, getWalletBadgeListForTest } from "@/components/api/WalletApi"
-import { getCsvText, mergeBadgeDataWithConsumer, toConsumerBadges } from "@/util/Converter"
+import { decrypt, getCsvText, mergeBadgeDataWithConsumer, toConsumerBadges } from "@/util/Converter"
 import { Button, FormLabel, Link, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure, Box, Flex, HStack } from "@chakra-ui/react"
 import { BadgeList } from "@/components/e-portfolio/BadgeList"
 import { KeyInput, KeyInputForm } from "./KeyInput"
@@ -16,7 +16,8 @@ import { WalletBadge } from "@/models/WalletData"
 import { messageFailedToCallOkutepApi, messageFailedToCallWalletApi, detailReloadWallet, detailContactDeveloper } from "@/constants/messages"
 import { ErrorDialog } from "../ErrorDialog"
 import { buttonColor, textColor, whiteTextColor } from "@/constants/color"
-import { sessionKeyInput } from "@/constants/session"
+import { sessionKeyInput, sessionPortfolio } from "@/constants/session"
+import { postDecrypt } from "../api/PortfolioApi"
 
 const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string
 
@@ -35,6 +36,13 @@ export const Portfolio = () => {
   const [isErrorConsumerGoals, setErrorConsumerGoals] = useState(false)
   var [consumerBadges, setConsumerBadges] = useState<ConsumerBadge[]>()
   const [isErrorConsumerBadges, setErrorConsumerBadges] = useState(false)
+  const [session, setSession] = useState('')
+  useEffect(() => {
+    const session = sessionStorage.getItem(sessionPortfolio)
+    if (session) {
+      setSession(session)
+    }
+  }, [])
   useEffect(() => {
     const pass = sessionStorage.getItem(sessionKeyInput)
     if (pass) {
@@ -45,25 +53,30 @@ export const Portfolio = () => {
   }, [])
   console.log('validPassword:', validPassword)
 
-  const callOkutepApi = (password: string, frameworkId: number, stageId: number) => {
-    // OKUTEPから教員育成指標のプルダウン表示用のデータ取得
-    getConsumerGoalList(password).then((res) => {
-      setErrorConsumerGoals(false)
-      setConsumerGoals(res.data as ConsumerGoal[])
-    })
-    .catch(({res}) => {
-      setErrorConsumerGoals(true)
-    });
-    // OKUTEPから教員育成指標のプルダウン選択時のデータ取得
-    if (frameworkId != 0 && stageId != 0) {
-      getConsumerBadgeList(password, frameworkId, stageId).then((res) => {
-        setErrorConsumerBadges(false)
-        setConsumerBadges(res.data as ConsumerBadge[])
+  const callOkutepApi = (encrypted: string, frameworkId: number, stageId: number) => {
+    postDecrypt(encrypted).then((res) => {
+      const password = res.result
+      // OKUTEPから教員育成指標のプルダウン表示用のデータ取得
+      getConsumerGoalList(password).then((res) => {
+        setErrorConsumerGoals(false)
+        setConsumerGoals(res.data as ConsumerGoal[])
       })
       .catch(({res}) => {
-        setErrorConsumerBadges(true)
+        setErrorConsumerGoals(true)
       });
-    }    
+      // OKUTEPから教員育成指標のプルダウン選択時のデータ取得
+      if (frameworkId > 0 && stageId > 0) {
+        getConsumerBadgeList(password, frameworkId, stageId).then((res) => {
+          setErrorConsumerBadges(false)
+          setConsumerBadges(res.data as ConsumerBadge[])
+        })
+        .catch(({res}) => {
+          setErrorConsumerBadges(true)
+        });
+      }    
+    }).catch(({res}) => {
+      console.log('res3: ', res)
+    });
   }
 
   // イベントに応じて呼び出されるOKUTEPへのリクエスト群
@@ -257,7 +270,7 @@ export const Portfolio = () => {
           <ModalBody>
             <KeyInput register={register} watch={watch} handleSubmit={handleSubmit} onClose={onClose} setPassword={setPassword} password={password}
               onKeyInputClosed={onKeyInputClosed} callOkutepApi={callOkutepApi} selectedFrameworkId={selectedFrameworkId} selectedStageId={selectedStageId}
-              setValidPassword={setValidPassword}/>
+              setValidPassword={setValidPassword} session={session}/>
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -282,11 +295,6 @@ function getCsvFileName(cosumerName: string, frameworkName: string, stageName: s
    // 禁則文字の削除
   var newFileName = fileName.replace(/[\\\/:\*\?\"<>\|]/g, "")
   return newFileName
-}
-
-function getPassword(validPassword: string, password: string): string {
-  //return validPassword && password == validPassword ? validPassword : ''
-  return validPassword
 }
 
 function getCategories(

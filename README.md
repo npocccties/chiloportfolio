@@ -129,3 +129,5 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 |LOG_MAX_FILE|ログファイルの世代数|7|
 |orthros_login_key_base64|Orthrosから発行されるJWTの署名に対応した公開鍵のbase64エンコード形式|-|
 |BCRYPT_SALT|アクティベーションの利用キーのハッシュ値のソルト<br>※$の直前にはバックスラッシュを付与してエスケープすること<br>詳細は https://github.com/npocccties/chiloportal/tree/develop/backend#%E6%88%90%E9%95%B7%E6%AE%B5%E9%9A%8E%E3%81%AE%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%81%AE%E3%83%8F%E3%83%83%E3%82%B7%E3%83%A5%E5%80%A4%E3%81%AE%E7%94%9F%E6%88%90%E3%81%AB%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AE%E3%82%BD%E3%83%AB%E3%83%88%E7%94%9F%E6%88%90 を参照|-|
+|ENCRYPTION_KEY|キー入力時の値の暗号化に使用する鍵 ※半角英数32文字<br>暗号化された値はセッションで保持|-|
+|ENCRYPTION_IV|キー入力時の値の暗号化に使用するIV ※半角英数16文字<br>暗号化された値はセッションで保持|-|

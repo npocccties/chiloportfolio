@@ -2,6 +2,7 @@ import { ConsumerBadge, ConsumerGoal, WisdomBadge } from "@/models/OkutepData"
 import { WalletBadge } from "@/models/WalletData"
 import { PortfolioBadgeData } from "@/models/PortfolioData"
 import { categoryColumnName } from "@/constants/e-portfolio"
+import { createCipheriv, createDecipheriv } from "crypto"
 
 export function toConsumerBadges(wisdomBadges: WisdomBadge[]): ConsumerBadge[] {
   var consumerBadges: ConsumerBadge[] = []
@@ -95,4 +96,25 @@ export function getCsvText(columnName1: string, consumers: Array<string>, badgeD
     text += "\r\n"
   }
   return text
+}
+
+const algorithm = 'aes-256-cbc'
+const inputEncoding = 'utf8'
+const outputEncoding = 'hex'
+const key = process.env.ENCRYPTION_KEY ?? ''
+const iv = process.env.ENCRYPTION_IV ?? ''
+
+export function encrypt(text: string): string {
+  console.log(key, iv)
+  const cipher = createCipheriv(algorithm, Buffer.from(key), Buffer.from(iv))
+  let cipheredData = cipher.update(text, inputEncoding, outputEncoding)
+  cipheredData += cipher.final(outputEncoding)
+  return cipheredData
+}
+
+export function decrypt(encrypted: string): string {
+  const decipher = createDecipheriv(algorithm, Buffer.from(key), Buffer.from(iv))
+  let decipheredData = decipher.update(encrypted, outputEncoding, inputEncoding)
+  decipheredData += decipher.final(inputEncoding)
+  return decipheredData
 }
