@@ -1,7 +1,6 @@
 import { Input, Box, Button, VStack, Text, Grid, GridItem } from "@chakra-ui/react";
 import { useState } from "react";
 import { UseFormHandleSubmit, UseFormRegister, UseFormWatch } from "react-hook-form";
-import { TriggerWithArgs } from "swr/mutation";
 import { ConsumerGoal } from "../../models/OkutepData";
 import { getConsumerGoalList } from "../api/OkutepApi";
 import { buttonColor, textColor, whiteTextColor } from "@/constants/color";

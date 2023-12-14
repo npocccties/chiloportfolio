@@ -1,4 +1,3 @@
-import useSWRMutation from "swr/mutation"
 import { PortalCategoryBadges } from "../../models/OkutepData"
 import axios, { AxiosResponse } from "axios"
 const baseUrl = process.env.NEXT_PUBLIC_PORTAL_BASE_URL as string
