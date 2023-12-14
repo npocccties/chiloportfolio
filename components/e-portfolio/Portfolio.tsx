@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form"
 import { BiKey } from "react-icons/bi";
 import { ConsumerBadgesRequest, PortfolioBadgeData } from "@/models/PortfolioData"
 import { Loading } from "../Loading"
-import { getConsumerBadgeList, getConsumerGoalList, usePortalCategoryBadgesWithTrigger } from "../api/OkutepApi"
+import { getConsumerBadgeList, getConsumerGoalList, getPortalCategoryBadges } from "../api/OkutepApi"
 import { ConsumerBadge, ConsumerGoal, PortalCategoryBadges } from "../../models/OkutepData"
 import { categoryColumnName, errorTitle, fieldColumnName } from "@/constants/e-portfolio"
 import { WalletBadge } from "@/models/WalletData"
@@ -37,6 +37,8 @@ export const Portfolio = () => {
   var [consumerBadges, setConsumerBadges] = useState<ConsumerBadge[]>()
   const [isErrorConsumerBadges, setErrorConsumerBadges] = useState(false)
   const [session, setSession] = useState('')
+  var [portalCategoryBadges, setPortalCategoryBadges] = useState<PortalCategoryBadges>()
+  const [isErrorPortalCategoryBadges, setErrorPortalCategoryBadges] = useState(false)
   useEffect(() => {
     const session = sessionStorage.getItem(sessionPortfolio)
     if (session) {
@@ -78,9 +80,6 @@ export const Portfolio = () => {
       console.log('res3: ', res)
     });
   }
-
-  // イベントに応じて呼び出されるOKUTEPへのリクエスト群
-  const { triggerPortalCategoryBadges, portalCategoryBadges, isMutatingPortalCategoryBadges } = usePortalCategoryBadgesWithTrigger()
 
   useEffect(() => {
     // BadgeWalletからバッジ情報の取得
@@ -142,6 +141,7 @@ export const Portfolio = () => {
     const array = e.target.value.split(',')
     if (array.length == 1) {
       setConsumerBadges([] as ConsumerBadge[])
+      setPortalCategoryBadges(undefined)
       return
     }
     var consumerId = Number(array[0])
@@ -151,7 +151,13 @@ export const Portfolio = () => {
 
     if (consumerId == 0 && frameworkId == 0 && stageId == 0) {
       // OKUTEPからポータルカテゴリに紐づくバッジ情報の取得
-      triggerPortalCategoryBadges()
+      getPortalCategoryBadges().then((res) => {
+        setErrorPortalCategoryBadges(false)
+        setPortalCategoryBadges(res.data as PortalCategoryBadges)
+      })
+      .catch(({res}) => {
+        setErrorPortalCategoryBadges(true)
+      });
       setColumnName1(categoryColumnName)
     } else {
       setColumnName1(fieldColumnName)
@@ -204,10 +210,7 @@ export const Portfolio = () => {
   console.log('selectedFrameworkId: ', selectedFrameworkId)
   console.log('selectedStageId: ', selectedStageId)
 
-  if (isMutatingPortalCategoryBadges) {
-     return <Loading/>
-  }
-  if (isErrorConsumerGoals) {
+  if (isErrorConsumerGoals || isErrorConsumerBadges || isErrorPortalCategoryBadges) {
     return <ErrorDialog title={errorTitle} message={messageFailedToCallOkutepApi} detail={detailContactDeveloper}/>
   }
   if (isErrorWalletBadge) {

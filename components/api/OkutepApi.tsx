@@ -26,19 +26,10 @@ export async function getConsumerBadgeList(password: string, frameworkId: number
   })
 }
 
-export function usePortalCategoryBadgesWithTrigger () {
+export async function getPortalCategoryBadges(): Promise<AxiosResponse<any, any>>{
   const apiPath = `/api/v1/portalCategory/badges/list/`
   const url = `${baseUrl}${apiPath}`
   console.log(url)
-  async function fetcher(url) {
-    return await fetch(url).then((res) => {
-      return res.json() as Promise<PortalCategoryBadges | null>
-    })
-  }
-  const { trigger, data, isMutating } = useSWRMutation(`${url}`, fetcher)
-  return {
-    triggerPortalCategoryBadges: trigger,
-    portalCategoryBadges: data,
-    isMutatingPortalCategoryBadges: isMutating
-  }
+  return axios.get(url)
 }
+
