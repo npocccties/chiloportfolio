@@ -142,7 +142,10 @@ export const Portfolio = () => {
     if (array.length == 1) {
       setConsumerBadges([] as ConsumerBadge[])
       setPortalCategoryBadges(undefined)
-      return
+      setSelectedConsumerId(-1)
+      setSelectedFrameworkId(-1)
+      setSelectedStageId(-1)
+        return
     }
     var consumerId = Number(array[0])
     var frameworkId = Number(array[1])
