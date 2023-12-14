@@ -145,7 +145,7 @@ export const Portfolio = () => {
       setSelectedConsumerId(-1)
       setSelectedFrameworkId(-1)
       setSelectedStageId(-1)
-        return
+      return
     }
     var consumerId = Number(array[0])
     var frameworkId = Number(array[1])
