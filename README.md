@@ -37,20 +37,24 @@ git clone実行後、ルートディレクトリで以下のコマンドを実�
    ```
 1. `*.sh` に権限付与
    ```
-   sudo chmod 755 script/*.sh
+   sudo chmod 755 *.sh
    ```
 1. 環境変数を定義した `.env` をルートディレクトリに配置
    * 開発サーバー：
-      * ルートディレクトリで、`script/setup.sh` を実行する
+      * ルートディレクトリで、`setup.sh` を実行する
 
 1. デプロイ
-  - 開発サーバー
+  - デプロイ
     ```
-    ./script/build-dev.sh
+    ./app_start.sh
     ```
-  - 停止（開発サーバー）
+  - 停止
     ```
-    ./script/down-dev.sh
+    ./app_stop.sh
+    ```
+  - 再デプロイ
+    ```
+    ./app_restart.sh
     ```
 
 

@@ -4,4 +4,4 @@ DIR=$(cd $(dirname $0)/..; pwd)
 echo $DIR
 cd $DIR
 
-docker compose -f docker-compose.dev-server.yml down
+docker compose -f docker-compose.production.yml down
