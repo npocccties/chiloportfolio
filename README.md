@@ -6,38 +6,6 @@
 
 # setup
 git clone実行後、ルートディレクトリで以下のコマンドを実行します。
-```
-script/setup.sh
-```
-
-# 開発
-makeコマンドがインストールされていない場合は、適宜インストールしてください。
-
-コンテナのビルド
-```
-make build-local
-```
-
-コンテナ起動
-```
-make up-local
-# make up-d-localの場合はdaemonで起動
-```
-
-appコンテナ内に移動
-```
-script/inapp.sh
-```
-
-コンテナのdown
-```
-make down-local
-```
-
-アプリケーションの移動（appコンテナ内）
-```
-npm run dev
-```
 
 ## Visual Studio CodeでdevContainerを使用する場合
 1. Docker および Docker Compose をインストール
@@ -56,7 +24,7 @@ npm run dev
    * Git  
 1. 適当なディレクトリへ移動
    ```
-   cd /work
+   cd /opt
    ```
 1. chiloportfolio のソースを取得
    ```
@@ -69,7 +37,7 @@ npm run dev
    ```
 1. `*.sh` に権限付与
    ```
-   sudo chmod 755 *.sh
+   sudo chmod 755 script/*.sh
    ```
 1. 環境変数を定義した `.env` をルートディレクトリに配置
    * 開発サーバー：
@@ -78,11 +46,11 @@ npm run dev
 1. デプロイ
   - 開発サーバー
     ```
-    make build-dev
+    ./script/build-dev.sh
     ```
   - 停止（開発サーバー）
     ```
-    make down-dev
+    ./script/down-dev.sh
     ```
 
 
@@ -90,9 +58,11 @@ npm run dev
 
 ## ビルド時用
 .env
-| 変数名                               | 説明                                        | デフォルト値         |
-| :----------------------------------- | :------------------------------------------ | :------------------- |
-|-|-|-|
+| 変数名                               | 説明                                        | デフォルト値         |必須/任意|
+| :----------------------------------- | :------------------------------------------ | :------------------- | :---- |
+|LOG_LEVEL|ログレベル<br>'fatal', 'error', 'warn', 'info', 'debug', 'trace' or 'silent'|-|必須|
+|LOG_MAX_SIZE|ログファイルサイズ<br>単位には k / m / g のいずれか指定|100m|必須|
+|LOG_MAX_FILE|ログファイルの世代数|7|必須|
 
 ## Next.jsアプリケーション用
 Next.jsアプリケーションでは、環境毎に以下のパターンで.envファイルを参照します。
@@ -123,9 +93,6 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 |NEXT_PUBLIC_HELP_LINK|ヘルプのリンク|-|必須|
 |NEXT_PUBLIC_LOGOUT_LINK|オルトロスのログアウトのリンク|-|必須|
 |PASSWORD|e-ポートフォリオのアクティベーション画面で入力する利用キー<br>※複数指定時はカンマ区切り|-|必須|
-|LOG_LEVEL|ログレベル<br>'fatal', 'error', 'warn', 'info', 'debug', 'trace' or 'silent'|-|必須|
-|LOG_MAX_SIZE|ログファイルサイズ<br>単位には k / m / g のいずれか指定|100m|必須|
-|LOG_MAX_FILE|ログファイルの世代数|7|必須|
 |orthros_login_key_base64|Orthrosから発行されるJWTの署名に対応した公開鍵のbase64エンコード形式|-|必須|
 |BCRYPT_SALT|アクティベーションの利用キーのハッシュ値のソルト<br>※$の直前にはバックスラッシュを付与してエスケープすること<br>詳細は[こちら](https://github.com/npocccties/chiloportal/tree/develop/backend#%E6%88%90%E9%95%B7%E6%AE%B5%E9%9A%8E%E3%81%AE%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%81%AE%E3%83%8F%E3%83%83%E3%82%B7%E3%83%A5%E5%80%A4%E3%81%AE%E7%94%9F%E6%88%90%E3%81%AB%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AE%E3%82%BD%E3%83%AB%E3%83%88%E7%94%9F%E6%88%90)を参照|-|必須|
 |ENCRYPTION_KEY|キー入力時の値の暗号化に使用する鍵 ※半角英数32文字<br>暗号化された値はセッションで保持|-|必須|
