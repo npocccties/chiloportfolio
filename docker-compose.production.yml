@@ -7,8 +7,6 @@ services:
       dockerfile: Dockerfile.dev-server
     ports:
       - "3000:3000"
-    networks:
-      - app_network
     container_name: chiloportfolio
     # command: sh -c "npm run dev"
     restart: always
@@ -19,8 +17,3 @@ services:
       options:
         max-size: ${LOG_MAX_SIZE}
         max-file: ${LOG_MAX_FILE}
-
-networks:
-  app_network:
-    driver: bridge
-    external: true
