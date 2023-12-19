@@ -41,15 +41,33 @@
       * ルートディレクトリで、`setup.sh` を実行する
 
 1. デプロイ
-   コンテナ起動  
    ```
    ./app_start.sh
+   ```
+   * 権限付与後の `app_start.sh` は何度でも実行可能です
+
+1. 備考  
+   コンテナ起動  
+   ```
+   chiloportfolio/app_start.sh
    ```
 
    コンテナ停止  
    ```
-   ./app_stop.sh
+   chiloportfolio/app_stop.sh
    ```
+
+   コンテナ再起動  
+   ```
+   chiloportfolio/app_restart.sh
+   ```
+   * `app_stop.sh` と `app_start.sh` を呼びます
+
+   全てのコンテナログの確認  
+   ```
+   docker container logs -f
+   ```
+   * -f の後ろにコンテナ名（chiloportfolio）を入れると該当コンテナのみのログが見れます  
 
 
 # 環境変数
