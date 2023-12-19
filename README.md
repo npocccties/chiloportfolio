@@ -4,9 +4,6 @@
 - Docker
 - Docker Compose (v2)
 
-# setup
-git clone実行後、ルートディレクトリで以下のコマンドを実行します。
-
 ## Visual Studio CodeでdevContainerを使用する場合
 1. Docker および Docker Compose をインストール
 2. Visual Studio Code に拡張機能「Dev - Containers」をインストール
