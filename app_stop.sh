@@ -4,4 +4,7 @@ DIR=$(cd $(dirname $0); pwd)
 echo $DIR
 cd $DIR
 
-docker compose -f docker-compose.production.yml down
+if docker ps -q --filter "name=^chiloportfolio$" | grep -q .; then
+    echo "Stopping existing container: chiloportfolio"
+    docker container stop chiloportfolio
+fi
