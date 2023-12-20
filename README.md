@@ -1,17 +1,46 @@
 # 動作環境
 - OS: Unix 系（Windows では WSL 等をお使いください）
-- Node.js: v16.20.1
+- Node.js: v18.19.0
 - Docker
 - Docker Compose (v2)
 
+# setup
+git clone実行後、ルートディレクトリで以下のコマンドを実行します。
+```
+script/setup.sh
+```
+
+# 開発
+
+コンテナのビルド
+```
+docker compose -f docker-compose.dev-local.yml build
+```
+
+コンテナ起動
+```
+docker compose -f docker-compose.dev-local.yml up -d
+```
+
+appコンテナ内に移動
+```
+docker container exec -it chiloportfolio sh
+```
+
+コンテナのdown
+```
+docker compose -f docker-compose.dev-local.yml down
+```
+
+アプリケーションの移動（appコンテナ内）
+```
+npm run dev
+```
 ## Visual Studio CodeでdevContainerを使用する場合
 1. Docker および Docker Compose をインストール
 2. Visual Studio Code に拡張機能「Dev - Containers」をインストール
 3. 当READMEのsetupを実行
 4. コマンドパレット で「Remote-Containers: Open Folder in Container...」を選択し、chiloportfolioディレクトリを選択
-
-## デバッグ方法
-上記のdevContainerを起動し、VSCodeの左側にあるデバッグから起動ボタンを押して実行してください。
 
 # 開発サーバー（または本番サーバー）
 
