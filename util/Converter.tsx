@@ -25,7 +25,7 @@ export function toConsumerBadges(wisdomBadges: WisdomBadge[]): ConsumerBadge[] {
   return consumerBadges
 }
 
-export function mergeBadgeDataWithConsumer(consumerBadges: ConsumerBadge[], walletBadges: WalletBadge[]): PortfolioBadgeData[] {
+export function mergeBadgeDataWithConsumer(consumerBadges: ConsumerBadge[], walletBadges: WalletBadge[], allBadges: ConsumerBadge[]): PortfolioBadgeData[] {
   var badgeDatas: PortfolioBadgeData[] = []
   if (!consumerBadges || !walletBadges || consumerBadges.length == 0 || walletBadges.length == 0) {
     return badgeDatas
@@ -48,14 +48,25 @@ export function mergeBadgeDataWithConsumer(consumerBadges: ConsumerBadge[], wall
     }
     const targets = walletBadges.filter(v => v.badgeClassId == consumerBadge.digital_badge_class_id)
     if (targets.length != 0) {
-      const walletBadge = targets[0]
       badgeData.acquired_badges_count = consumerBadge.knowledge_badges_count
     }
     badgeDatas.push(badgeData)
   }
   for (const [i, walletBadge] of walletBadges.entries()) {
     const targets = badgeDatas.filter(v => v.badge_class_id == walletBadge.badgeClassId)
-    if (targets.length == 0) {
+      // プルダウン選択時のバッジにウォレットのバッジが含まれない場合
+      if (targets.length == 0) {
+      var knowledge_badges_count = 0
+      var scheduled_badges_count = 0
+      var acquired_badges_count = 0
+      const target2 = allBadges.filter(v => v.digital_badge_class_id == walletBadge.badgeClassId)
+      // ポータルのバッジにウォレットのバッジが含まれる場合
+      if (target2.length != 0) {
+        const badge = target2[0]
+        knowledge_badges_count = badge.knowledge_badges_count
+        scheduled_badges_count = 0
+        acquired_badges_count = badge.knowledge_badges_count
+      }
       var badgeData: PortfolioBadgeData = {
         badge_class_id: walletBadge.badgeClassId,
         consumer_id: 0,
@@ -66,9 +77,9 @@ export function mergeBadgeDataWithConsumer(consumerBadges: ConsumerBadge[], wall
         stage_name: '',
         field1_name: '',
         wisdom_badges_name: walletBadge.badgeName,
-        knowledge_badges_count: 0,
-        scheduled_badges_count: 0,
-        acquired_badges_count: 0,
+        knowledge_badges_count: knowledge_badges_count,
+        scheduled_badges_count: scheduled_badges_count,
+        acquired_badges_count: acquired_badges_count,
         wisdom_badges_description: '',
       }
       badgeDatas.push(badgeData)

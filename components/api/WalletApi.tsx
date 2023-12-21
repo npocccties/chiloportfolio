@@ -15,7 +15,7 @@ export function getWalletBadgeListForTest(): WalletBadge[] {
   var data:WalletBadge[] = []
   var work: WalletBadge = {
     badgeName: "学校の危機管理と課題",
-    badgeClassId: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=158",
+    badgeClassId: "hogehoge.ac.jp/hoge.php?badge_id=1",
   }
   data.push(work)
   work = {

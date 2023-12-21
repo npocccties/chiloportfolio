@@ -79,6 +79,14 @@ export const Portfolio = () => {
     }).catch(({res}) => {
       console.log('res3: ', res)
     });
+    // OKUTEPからポータルカテゴリに紐づくバッジ情報の取得
+    getPortalCategoryBadges().then((res) => {
+      setErrorPortalCategoryBadges(false)
+      setPortalCategoryBadges(res.data as PortalCategoryBadges)
+    })
+    .catch(({res}) => {
+      setErrorPortalCategoryBadges(true)
+    });
   }
 
   useEffect(() => {
@@ -95,19 +103,21 @@ export const Portfolio = () => {
     //test
   }, [])
   console.log('walletBadges: ', walletBadges)
+  console.log('portalCategoryBadges: ', portalCategoryBadges)
 
   var portfolioBadges: PortfolioBadgeData[] = []
+  const allBadges = portalCategoryBadges ? toConsumerBadges(portalCategoryBadges.badges) : []
   if (selectedConsumerId != -1) {
     if (selectedConsumerId != 0) {
       // ウォレットのバッジ情報とOKUTEPのバッジ情報をマージ
       if (consumerBadges && consumerBadges.length != 0 && walletBadges && walletBadges.length != 0) {
-        portfolioBadges = mergeBadgeDataWithConsumer(consumerBadges, walletBadges)
+        portfolioBadges = mergeBadgeDataWithConsumer(consumerBadges, walletBadges, allBadges)
         console.log('portfolioBadges: ', portfolioBadges)
       }
     } else {
       // OKUTEPのポータルカテゴリに紐づくバッジ情報をマージ
       if (portalCategoryBadges && portalCategoryBadges.badges.length != 0 && walletBadges && walletBadges.length != 0) {
-        portfolioBadges = mergeBadgeDataWithConsumer(toConsumerBadges(portalCategoryBadges.badges), walletBadges)
+        portfolioBadges = mergeBadgeDataWithConsumer(allBadges, walletBadges, allBadges)
         console.log('portfolioBadges: ', portfolioBadges)
       }
     }
@@ -153,14 +163,6 @@ export const Portfolio = () => {
     console.log(`consumerId: ${consumerId} frameworkId: ${frameworkId} stageId: ${stageId}`)
 
     if (consumerId == 0 && frameworkId == 0 && stageId == 0) {
-      // OKUTEPからポータルカテゴリに紐づくバッジ情報の取得
-      getPortalCategoryBadges().then((res) => {
-        setErrorPortalCategoryBadges(false)
-        setPortalCategoryBadges(res.data as PortalCategoryBadges)
-      })
-      .catch(({res}) => {
-        setErrorPortalCategoryBadges(true)
-      });
       setColumnName1(categoryColumnName)
     } else {
       setColumnName1(fieldColumnName)
