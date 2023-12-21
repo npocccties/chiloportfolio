@@ -40,13 +40,13 @@ export const BadgeList = ({ columnName1, portfolioBadges}: Props) => {
                     {row.wisdom_badges_name}
                   </Td>
                   <Td borderWidth='1px' borderColor='gray.200' bg='white'>
-                    <Text color={textColor} textAlign='center'>{row.knowledge_badges_count}</Text>
+                    <Text color={textColor} textAlign='center'>{row.knowledge_badges_count != 0 ? row.knowledge_badges_count : '-'}</Text>
                   </Td>
                   <Td borderWidth='1px' borderColor='gray.200' bg='white'>
-                    <Text color={textColor} textAlign='center'>{row.scheduled_badges_count}</Text>
+                    <Text color={textColor} textAlign='center'>{row.knowledge_badges_count != 0 ? row.scheduled_badges_count : '-'}</Text>
                   </Td>
                   <Td borderWidth='1px' borderColor='gray.200' bg='white'>
-                    <Text color={textColor} textAlign='center'>{row.acquired_badges_count}</Text>
+                    <Text color={textColor} textAlign='center'>{row.knowledge_badges_count != 0 ? row.acquired_badges_count : '-'}</Text>
                   </Td>
                   <Td borderWidth='1px' borderColor='gray.200' bg='white' color={textColor} >
                     {row.wisdom_badges_description}
