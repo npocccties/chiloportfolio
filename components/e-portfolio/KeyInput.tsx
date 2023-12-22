@@ -37,12 +37,12 @@ export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, p
         onClose()
       }).catch(({res}) => {
         console.log('res1: ', res)
-        setErrorMessage('入力したキーが誤っております。（暗号化に失敗）')
+        setErrorMessage('入力したキーが誤っています。（暗号化に失敗）')
       });
     })
     .catch(({res}) => {
       console.log('res2: ', res)
-      setErrorMessage('入力したキーが誤っております。')
+      setErrorMessage('入力したキーが誤っています。')
     });
   };
 
