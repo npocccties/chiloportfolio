@@ -1,0 +1,18 @@
+services:
+  chiloportfolio_app:
+    tty: true
+    build:
+      context: .
+      dockerfile: Dockerfile.dev-local
+    ports:
+      - "3000:3000"
+      - "5555:5555"
+    # command: npm run dev
+    environment:
+      - LOG_LEVEL=$LOG_LEVEL
+    volumes:
+      - ./:/app
+      - node_modules:/app/node_modules
+
+volumes:
+  node_modules:
