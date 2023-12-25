@@ -99,7 +99,8 @@ npm run dev
 
 
 # 5. 環境変数
-
+sampleに記載の値（NEXT_PUBLIC_PORTAL_BASE_URLやNEXT_PUBLIC_WALLET_BASE_URL等）はダミー値です。運用環境に合わせて適宜設定して下さい。<br>
+文字列中に空白を含むものに対しては "" (ダブルクォーテーション) を使用してください。
 ## 5-1. ビルド時用
 .env
 | 変数名                               | 説明                                        | デフォルト値         |必須/任意|
