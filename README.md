@@ -157,6 +157,7 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 1. ポータルのDjangoの管理画面にログインします<br>
    詳細は[こちら](https://github.com/npocccties/chiloportal/tree/develop/backend#django-%E3%81%AE%E7%AE%A1%E7%90%86%E7%94%BB%E9%9D%A2)を参照
 1. Stages テーブル の変更メニューを選択します
-1. 非表示としたい教員教育指標を選択したうえで、Password の項目に以下を参考にハッシュ値を設定します
-詳細は[こちら](https://github.com/npocccties/chiloportal/tree/develop/backend#%E6%88%90%E9%95%B7%E6%AE%B5%E9%9A%8E%E3%81%AE%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%81%AE%E3%83%8F%E3%83%83%E3%82%B7%E3%83%A5%E5%80%A4%E3%81%AE%E7%94%9F%E6%88%90%E3%81%AB%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AE%E3%82%BD%E3%83%AB%E3%83%88%E7%94%9F%E6%88%90)を参照
+1. 非表示としたい教員教育指標を選択したうえで、Password の項目に以下を参考にハッシュ値を設定します<br>
+詳細は[こちら](https://github.com/npocccties/chiloportal/tree/develop/backend#%E6%88%90%E9%95%B7%E6%AE%B5%E9%9A%8E%E3%81%AE%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%81%AE%E3%83%8F%E3%83%83%E3%82%B7%E3%83%A5%E5%80%A4%E3%81%AE%E7%94%9F%E6%88%90%E3%81%AB%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AE%E3%82%BD%E3%83%AB%E3%83%88%E7%94%9F%E6%88%90)を参照<br>
+ハッシュ値例：$2a$12$aqYLqFynQDdDs5CeyIcKFOKis5Bq7Slv6bYYNQfQCIzbuqvMNoX1W
 1. ハッシュ値を設定したら保存ボタンを押下します
