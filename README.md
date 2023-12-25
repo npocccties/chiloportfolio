@@ -1,16 +1,16 @@
-# 動作環境
+# 1. 動作環境
 - OS: Unix 系（Windows では WSL 等をお使いください）
 - Node.js: v18.19.0
 - Docker
 - Docker Compose (v2)
 
-# setup
+# 2. setup
 git clone実行後、ルートディレクトリで以下のコマンドを実行します。
 ```
 script/setup.sh
 ```
 
-# 開発
+# 3. 開発
 
 コンテナのビルド
 ```
@@ -36,13 +36,13 @@ docker compose -f docker-compose.dev-local.yml down
 ```
 npm run dev
 ```
-## Visual Studio CodeでdevContainerを使用する場合
+## 3-1. Visual Studio CodeでdevContainerを使用する場合
 1. Docker および Docker Compose をインストール
 2. Visual Studio Code に拡張機能「Dev - Containers」をインストール
 3. 当READMEのsetupを実行
 4. コマンドパレット で「Remote-Containers: Open Folder in Container...」を選択し、chiloportfolioディレクトリを選択
 
-# 開発サーバー（または本番サーバー）
+# 4. 開発サーバー（または本番サーバー）
 
 1. 下記をインストール
    * Docker
@@ -98,9 +98,9 @@ npm run dev
    * -f の後ろにコンテナ名（chiloportfolio）を入れると該当コンテナのみのログが見れます  
 
 
-# 環境変数
+# 5. 環境変数
 
-## ビルド時用
+## 5-1. ビルド時用
 .env
 | 変数名                               | 説明                                        | デフォルト値         |必須/任意|
 | :----------------------------------- | :------------------------------------------ | :------------------- | :---- |
@@ -108,7 +108,7 @@ npm run dev
 |LOG_MAX_SIZE|ログファイルサイズ<br>単位には k / m / g のいずれか指定|100m|必須|
 |LOG_MAX_FILE|ログファイルの世代数|7|必須|
 
-## Next.jsアプリケーション用
+## 5-2. Next.jsアプリケーション用
 Next.jsアプリケーションでは、環境毎に以下のパターンで.envファイルを参照します。
 
 | ファイル名 |	読み込まれるタイミング
@@ -142,18 +142,17 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 |ENCRYPTION_KEY|キー入力時の値の暗号化に使用する鍵 ※半角英数32文字<br>暗号化された値はセッションで保持|-|必須|
 |ENCRYPTION_IV|キー入力時の値の暗号化に使用するIV ※半角英数16文字<br>暗号化された値はセッションで保持|-|必須|
 
-# 運用手順
-## ポータルとの連携（更新手順）
+## 6. ポータルとの連携（更新手順）
 環境変数「NEXT_PUBLIC_PORTAL_BASE_URL」はポータルサイトのURLを示しますので、こちらを環境に応じて適宜変更してください。
 
-## ウォレットとの連携（更新手順）
+## 7. ウォレットとの連携（更新手順）
 環境変数「NEXT_PUBLIC_WALLET_BASE_URL」はバッジウォレットのURLを示しますので、こちらを環境に応じて適宜変更してください。
 
-## アクティベーションの設定（更新手順）
+## 8. アクティベーションの設定（更新手順）
 * 利用者（教育委員会）が増えた場合、環境変数「PASSWORD」に利用キーをカンマ区切りで増やしてください。
 * 環境変数「BCRYPT_SALT」はアクティベーションの利用キーをハッシュ化するためのソルトとして使用します。ハッシュ値はセッションストレージに保存し、簡易的なセッション管理として使用しますので、定期的にソルトの値は更新してください。
 
-## 非表示の教員教育指標の設定（追加手順）
+## 9. 非表示の教員教育指標の設定（追加手順）
 初めに、e-ポートフォリオの教員育成指標選択のプルダウンは、[CHiLO-Portal](https://github.com/npocccties/chiloportal/)の教員教育指標と連動し、成長段階（stage テーブル）の粒度で表示を行います。<br>
 また、成長段階は非表示にすることも可能で stage テーブルの password カラムにパスワードに応じたハッシュ値を設定することで、非表示にすることが可能です。<br>
 以下、非表示のための手順を記します。
