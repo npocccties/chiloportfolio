@@ -147,7 +147,7 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 環境変数「NEXT_PUBLIC_PORTAL_BASE_URL」はポータルサイトのURLを示しますので、こちらを環境に応じて適宜変更してください。
 
 ## ウォレットとの連携（更新手順）
-環境変数「NEXT_PUBLIC_PORTAL_BASE_URL」はバッジウォレットのURLを示しますので、こちらを環境に応じて適宜変更してください。
+環境変数「NEXT_PUBLIC_WALLET_BASE_URL」はバッジウォレットのURLを示しますので、こちらを環境に応じて適宜変更してください。
 
 ## アクティベーションの設定（更新手順）
 * 利用者（教育委員会）が増えた場合、環境変数「PASSWORD」に利用キーをカンマ区切りで増やしてください。
