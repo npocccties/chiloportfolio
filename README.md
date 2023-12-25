@@ -166,11 +166,7 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 
 |id|name|sub_name|description|sort_key|password|
 |:----|:----|:----|:----|:----|:----|
-|3|（第3ステージ）中堅教員期| | |13|$2a$12$aqYLqFynQDdDs5CeyIcKFOKis5Bq7Slv6bYYNQfQCIzbuqvMNoX1W|
-|1|（第1ステージ）初任教員期| | |11| |
-|2|（第2ステージ）若手教員期| | |12| |
-|5|test| | |1|a|
-|4|（第4ステージ）中核・ベテラン教員期| | |14|$2a$12$aqYLqFynQDdDs5CeyIcKFOiMOAUrL5FRou83ym3wMIM7GX3ZSCdAa|
-|6|test2| | |2| |
+|1|（表示版）初任教員期| | |11| |
+|2|（非表示版）若手教員期| | |12|$2a$12$aqYLqFynQDdDs5CeyIcKFOKis5Bq7Slv6bYYNQfQCIzbuqvMNoX1W|
 
 4. ハッシュ値を設定したら保存ボタンを押下します
