@@ -162,6 +162,15 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 1. Stages の変更メニューを選択します
 1. 非表示としたい教員教育指標を選択したうえで、Password の項目に以下を参考にハッシュ値を設定します<br>
 詳細は[こちら](https://github.com/npocccties/chiloportal/tree/develop/backend#%E6%88%90%E9%95%B7%E6%AE%B5%E9%9A%8E%E3%81%AE%E3%83%91%E3%82%B9%E3%83%AF%E3%83%BC%E3%83%89%E3%81%AE%E3%83%8F%E3%83%83%E3%82%B7%E3%83%A5%E5%80%A4%E3%81%AE%E7%94%9F%E6%88%90%E3%81%AB%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AE%E3%82%BD%E3%83%AB%E3%83%88%E7%94%9F%E6%88%90)を参照<br>
-以下、設定例
-![設定例](stage-example.png)
-1. ハッシュ値を設定したら保存ボタンを押下します
+以下、stage 設定例<br>
+
+|id|name|sub_name|description|sort_key|password|
+|:----|:----|:----|:----|:----|:----|
+|3|（第3ステージ）中堅教員期| | |13|$2a$12$aqYLqFynQDdDs5CeyIcKFOKis5Bq7Slv6bYYNQfQCIzbuqvMNoX1W|
+|1|（第1ステージ）初任教員期| | |11| |
+|2|（第2ステージ）若手教員期| | |12| |
+|5|test| | |1|a|
+|4|（第4ステージ）中核・ベテラン教員期| | |14|$2a$12$aqYLqFynQDdDs5CeyIcKFOiMOAUrL5FRou83ym3wMIM7GX3ZSCdAa|
+|6|test2| | |2| |
+
+4. ハッシュ値を設定したら保存ボタンを押下します
