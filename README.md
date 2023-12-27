@@ -130,7 +130,7 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 | :----------------------------------- | :------------------------------------------ | :------------------- | :---- |
 |NEXT_PUBLIC_SERVICE_NAME|サービス名|e-ポートフォリオ|必須|
 |NEXT_PUBLIC_SERVICE_DESCRIPTION|サービスの説明<br>metaタグに設定される説明です。|e-ポートフォリオは、教育指標毎のオープンバッジの取得状況を確認するサイトです。|必須|
-|NEXT_PUBLIC_PORTAL_BASE_URL|ポータルサイトのURL|-|必須|
+|NEXT_PUBLIC_PORTAL_BASE_URL|ポータルサイトのURL<br>末尾にはスラッシュは付与しないこと|-|必須|
 |NEXT_PUBLIC_WALLET_BASE_URL|バッジウォレットのURL|-|必須|
 |NEXT_PUBLIC_COPYRIGHT_LINK|フッターに表示するコピーライトのリンク|-|必須|
 |NEXT_PUBLIC_COPYRIGHT|フッターに表示するコピーライト|-|必須|
