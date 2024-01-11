@@ -135,6 +135,7 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 |NEXT_PUBLIC_COPYRIGHT_LINK|フッターに表示するコピーライトのリンク|-|必須|
 |NEXT_PUBLIC_COPYRIGHT|フッターに表示するコピーライト|-|必須|
 |NEXT_PUBLIC_CSV_FILE_NAME|CSVダウンロードで指定するファイル名|e-Portfolio|必須|
+|NEXT_PUBLIC_ANALYTICS_SHEET_LINK|分析シートダウンロードリンク|-|必須|
 |NEXT_PUBLIC_HELP_LINK|ヘルプのリンク|-|必須|
 |NEXT_PUBLIC_LOGOUT_LINK|オルトロスのログアウトのリンク|-|必須|
 |PASSWORD|e-ポートフォリオのアクティベーション画面で入力する利用キー<br>※複数指定時はカンマ区切り|-|必須|

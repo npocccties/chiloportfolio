@@ -20,6 +20,7 @@ import { sessionKeyInput, sessionPortfolio } from "@/constants/session"
 import { postDecrypt } from "../api/PortfolioApi"
 
 const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string
+const analyticsSheetLink = process.env.NEXT_PUBLIC_ANALYTICS_SHEET_LINK as string
 
 export const Portfolio = () => {
 
@@ -225,7 +226,7 @@ export const Portfolio = () => {
     <>
       {/** desktop */}
       <Flex
-        display={{ base: "none", sm: "flex" }}
+        display={{ base: "none", md: "flex" }}
         w="full"
         justify={"space-between"}
         direction={"row"}
@@ -242,14 +243,21 @@ export const Portfolio = () => {
             </Link>
           </HStack>
         </Box>
-        <Box mt={4}>
+        <Box mt={4} mr={4}>
           <Button bg={buttonColor} color={whiteTextColor} onClick={onCsvDownload} isDisabled={selectedConsumerId == -1}>CSVダウンロード</Button>
+        </Box>
+        <Box mt={4}>
+          <Button bg={buttonColor} color={whiteTextColor} >
+            <Link href={analyticsSheetLink} download="e-Portfolio-analytics.xlsx">
+              分析シートダウンロード
+            </Link>
+          </Button>
         </Box>
       </Flex>
 
       {/** smart phone */}
       <Flex
-        display={{ base: "flex", sm: "none" }}
+        display={{ base: "flex", md: "none" }}
         w="full"
         justify={"space-between"}
         direction={"column"}
@@ -268,6 +276,13 @@ export const Portfolio = () => {
         </Box>
         <Box w={"full"} mt={8}>
           <Button w={"full"} bg={buttonColor} color={whiteTextColor} onClick={onCsvDownload} isDisabled={selectedConsumerId == -1}>CSVダウンロード</Button>
+        </Box>
+        <Box w={"full"} mt={8}>
+          <Button w={"full"} bg={buttonColor} color={whiteTextColor} >
+            <Link href={analyticsSheetLink} download="e-Portfolio-analytics.xlsx">
+              分析シートダウンロード
+            </Link>
+          </Button>
         </Box>
       </Flex>
 

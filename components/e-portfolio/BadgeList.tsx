@@ -12,7 +12,7 @@ export const BadgeList = ({ columnName1, portfolioBadges}: Props) => {
     <>
       {/** desktop */}
       <Flex
-        display={{ base: "none", sm: "flex" }}
+        display={{ base: "none", md: "flex" }}
         w="full"
         justify={"space-between"}
         direction={"row"}
@@ -60,7 +60,7 @@ export const BadgeList = ({ columnName1, portfolioBadges}: Props) => {
 
       {/** smart phone */}
       <Flex
-        display={{ base: "flex", sm: "none" }}
+        display={{ base: "flex", md: "none" }}
         w="full"
         justify={"space-between"}
         direction={"column"}
