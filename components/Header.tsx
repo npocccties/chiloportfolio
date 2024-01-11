@@ -64,24 +64,34 @@ export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
             </Text>
           </NextLink>
         </Box>
-        <Box >
-          <Flex gap={"16px"} alignItems={"center"} display={{ base: "none", sm: "flex" }}>
+        <Box>
+          <Flex gap={"8px"} alignItems={"center"} display={{ base: "none", sm: "flex" }}>
             <MdHelp size="24" />
-            <Link href={helpLink} style={linkStyle}><Text>ヘルプ</Text></Link>
+            <Link href={helpLink} style={linkStyle}>
+              <Text fontSize={"xl"}>ヘルプ</Text>
+            </Link>
             <FaUserAlt />
             <Text fontSize={"xl"}>{userName}</Text>
             <MdLogout size="24" />
-            <Link href={logoutLink} style={linkStyle}><Text>ログアウト</Text></Link>
+            <Link href={logoutLink} style={linkStyle}>
+              <Text fontSize={"xl"}>ログアウト</Text>
+            </Link>
           </Flex>
-          <Flex gap={"16px"} alignItems={"center"} display={{ base: "flex", sm: "none" }}>
-            <Link href={helpLink}><MdHelp size="24"/></Link>
+          <Flex gap={"8px"} alignItems={"center"} display={{ base: "flex", sm: "none" }}>
+            <Link href={helpLink}>
+              <MdHelp size="24" />
+            </Link>
             <Menu>
               <MenuButton cursor={"pointer"} minW={0} transition="all 1s">
-                <FaUserAlt/>
+                <FaUserAlt />
               </MenuButton>
               <MenuList>
                 <MenuItem color={textColor}>{userName}</MenuItem>
-                <MenuItem color={textColor}><Link href={logoutLink} style={linkStyle}>ログアウト</Link></MenuItem>
+                <MenuItem color={textColor}>
+                  <Link href={logoutLink} style={linkStyle}>
+                    ログアウト
+                  </Link>
+                </MenuItem>
               </MenuList>
             </Menu>
           </Flex>
