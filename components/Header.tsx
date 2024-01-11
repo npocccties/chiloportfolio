@@ -1,13 +1,15 @@
 import { Box, Flex, Menu, MenuButton, MenuItem, MenuList, Text, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { FaUserAlt } from "react-icons/fa";
-import { MdHelp } from "react-icons/md";
+import { MdLogout, MdHelp } from "react-icons/md";
 import { BsWallet2 } from "react-icons/bs";
 import { getCookieValue } from "@/lib/cookie";
 import { getUserInfoFormJwt } from "@/lib/userInfo";
 import React, { useEffect, useState } from "react";
 import { headerColor, textColor, whiteTextColor } from "@/constants/color";
 import { linkStyle } from "@/constants/style";
+import { HamburgerIcon } from "@chakra-ui/icons";
+import { TbDeviceDesktopAnalytics } from "react-icons/tb";
 
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string;
 const helpLink = process.env.NEXT_PUBLIC_HELP_LINK as string;
@@ -43,29 +45,42 @@ export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
 
   return (
     <Box as="header" w={"100%"} zIndex={1000} bg={headerColor} color={whiteTextColor}>
-      <Flex h={"64px"} alignItems={"center"} justifyContent={"space-between"} p={{ base: 8 }}>
-        <Box>
-          <Flex gap={2} alignItems={"center"}>
+      <Flex
+        h={"64px"}
+        alignItems={"center"}
+        justifyContent={"space-between"}
+        backgroundColor={"basic.black"}
+        p={{ base: 8 }}
+      >
+        <Box display={{ base: "block", md: "none" }}>
+          <HamburgerIcon color={"basic.white"} w={6} h={6} cursor={"pointer"} onClick={() => onOpen()} />
+        </Box>
+        <Box display={{ base: "none", md: "block" }}>
+          <Flex gap={"8px"} alignItems={"center"} color={"basic.white"} display={{ base: "none", md: "flex" }}>
             <Link href={walletUrl} style={linkStyle}>
-              <Box flexDirection={"row"} alignItems={"center"} gap={2} display={{ base: "none", md: "flex" }}>
+              <Box display={"flex"} flexDirection={"row"} alignItems={"center"} gap={1}>
                 <BsWallet2 size="24" />
-                <Text fontSize={"md"}>バッジウォレットへ戻る</Text>
+                <Text mr={2} fontSize={"xl"}>
+                  マイウォレット
+                </Text>
               </Box>
             </Link>
-            <Box gap={1} display={{ base: "flex", md: "none" }}>
-              <Menu>
-                <MenuButton cursor={"pointer"} minW={0} transition="all 1s">
-                  <BsWallet2 size="24" />
-                </MenuButton>
-                <MenuList>
-                  <MenuItem color={textColor}>
-                    <Link href={walletUrl} style={linkStyle}>
-                      バッジウォレットへ戻る
-                    </Link>
-                  </MenuItem>
-                </MenuList>
-              </Menu>
-            </Box>
+            <NextLink href="/" style={{ textDecoration: "none" }}>
+              <Box display={"flex"} flexDirection={"row"} alignItems={"center"} gap={1}>
+                <TbDeviceDesktopAnalytics />
+                <Text mr={2} fontSize={"xl"}>
+                  分析
+                </Text>
+              </Box>
+            </NextLink>
+            <Link href={helpLink} style={linkStyle} isExternal={true} target="help">
+              <Box display={"flex"} flexDirection={"row"} alignItems={"center"} gap={1}>
+                <MdHelp size="24" />
+                <Text mr={2} fontSize={"xl"}>
+                  ヘルプ
+                </Text>
+              </Box>
+            </Link>
           </Flex>
         </Box>
         <Box
@@ -74,52 +89,25 @@ export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
             left: "50%",
             transform: "translateX(-50%)",
           }}
-        >
-          <NextLink href="/">
-            <Text fontSize={"2xl"} fontWeight={"bold"} style={linkStyle}>
-              {serviceName}
-            </Text>
-          </NextLink>
-        </Box>
-        <Box>
-          <Flex gap={"8px"} alignItems={"center"} display={{ base: "none", sm: "flex" }}>
-            <Link href={helpLink} style={linkStyle} isExternal={true} target="help">
+        ></Box>
+        <Box display={{ base: "none", sm: "block" }}>
+          <Flex gap={"8px"} alignItems={"center"} color={"basic.white"}>
+            <Link fontSize={"xl"} href={logoutLink} style={{ textDecoration: "none" }}>
               <Box display={"flex"} flexDirection={"row"} alignItems={"center"} gap={1}>
-                <MdHelp size="24" />
-                <Text fontSize={"xl"}>ヘルプ</Text>
+                <MdLogout size="24" />
+                <Text>ログアウト</Text>
               </Box>
             </Link>
-            <Menu>
-              <MenuButton cursor={"pointer"} minW={0} transition="all 1s">
-                <FaUserAlt />
-              </MenuButton>
-              <MenuList>
-                <MenuItem color={textColor}>{userName}</MenuItem>
-                <MenuItem color={textColor}>
-                  <Link href={logoutLink} style={linkStyle}>
-                    ログアウト
-                  </Link>
-                </MenuItem>
-              </MenuList>
-            </Menu>
           </Flex>
-          <Flex gap={"8px"} alignItems={"center"} display={{ base: "flex", sm: "none" }}>
-            <Link href={helpLink} isExternal={true} target="help">
-              <MdHelp size="24" />
+        </Box>
+        <Box display={{ base: "block", sm: "none" }}>
+          <Flex gap={"8px"} alignItems={"center"}>
+            <Link fontSize={"xl"} href={logoutLink} style={{ textDecoration: "none" }}>
+              <Box display={"flex"} flexDirection={"row"} alignItems={"center"} gap={1}>
+                <MdLogout size="24" />
+                <Text>ログアウト</Text>
+              </Box>
             </Link>
-            <Menu>
-              <MenuButton cursor={"pointer"} minW={0} transition="all 1s">
-                <FaUserAlt />
-              </MenuButton>
-              <MenuList>
-                <MenuItem color={textColor}>{userName}</MenuItem>
-                <MenuItem color={textColor}>
-                  <Link href={logoutLink} style={linkStyle}>
-                    ログアウト
-                  </Link>
-                </MenuItem>
-              </MenuList>
-            </Menu>
           </Flex>
         </Box>
       </Flex>

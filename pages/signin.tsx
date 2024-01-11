@@ -6,9 +6,12 @@ import { AuthResult } from "@/models/OkutepData";
 import { postAuth } from "@/components/api/PortfolioApi";
 import { buttonColor, textColor, whiteTextColor } from "@/constants/color";
 import { sessionPortfolio } from "@/constants/session";
+import { PageTitle } from "@/components/ui/text/Pagetitle";
 
 type SignInProps = {
 };
+
+const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string;
 
 export default function SignIn({}: SignInProps) {
   const [password, setPassword] = useState('')
@@ -30,9 +33,9 @@ export default function SignIn({}: SignInProps) {
   }
   return (
     <Layout maxW="6xl">
+      <PageTitle title={serviceName} />
       <form onSubmit={onSubmitHandler} action='/api/auth' method='POST'>
         <VStack spacing='5'>
-          <Heading mb={6}>アクティベーション</Heading>
           <Flex direction="column" rounded={6}>
             <FormLabel htmlFor="password">利用キー</FormLabel>
             <Input type="password" name="password" onChange={onChangeHandler} placeholder="********" mb={6} />

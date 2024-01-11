@@ -6,6 +6,7 @@ import { Portfolio } from "../components/e-portfolio/Portfolio";
 import SignIn from "./signin";
 import { postJudge } from "@/components/api/PortfolioApi";
 import { sessionPortfolio } from "@/constants/session";
+import { PageTitle } from "@/components/ui/text/Pagetitle";
 
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
 const serviceDescription = process.env.NEXT_PUBLIC_SERVICE_DESCRIPTION as string
@@ -30,6 +31,7 @@ const Home: NextPage = () => {
     return (
       <Layout maxW="6xl">
         <Metatag title={serviceName} description={serviceDescription} />
+        <PageTitle title={serviceName} />
         <Portfolio />
       </Layout>
     );
