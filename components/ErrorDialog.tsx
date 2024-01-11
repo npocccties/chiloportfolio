@@ -42,8 +42,7 @@ export const ErrorDialog = ({ title, message, detail }: { title: string; message
               bg={buttonColor}
               color={whiteTextColor}
               onClick={() => {
-                //router.push(walletUrl);
-                window.close()
+                router.push(walletUrl);
               }}
             >
               {/* 前のページに戻る */}

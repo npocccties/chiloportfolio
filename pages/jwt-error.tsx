@@ -7,8 +7,7 @@ const JwtError = () => {
   const router = useRouter();
   if (typeof window !== 'undefined') {
     window.alert(messageFailedToUserInfo)
-    // router.push(walletUrl);
-    window.close()
+    router.push(walletUrl);
   }
   return null
 };
