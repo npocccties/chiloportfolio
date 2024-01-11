@@ -46,7 +46,7 @@ export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
       <Flex h={"64px"} alignItems={"center"} justifyContent={"space-between"} p={{ base: 8 }}>
         <Box>
           <Flex gap={2} alignItems={"center"}>
-            <Link href={helpLink} style={linkStyle} isExternal={true} target="help">
+            <Link href={walletUrl} style={linkStyle}>
               <Box flexDirection={"row"} alignItems={"center"} gap={2} display={{ base: "none", md: "flex" }}>
                 <BsWallet2 size="24" />
                 <Text fontSize={"md"}>バッジウォレットへ戻る</Text>
