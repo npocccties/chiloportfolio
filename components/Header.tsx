@@ -7,7 +7,6 @@ import { getCookieValue } from "@/lib/cookie";
 import { getUserInfoFormJwt } from "@/lib/userInfo";
 import React, { useEffect, useState } from "react";
 import { headerColor, textColor, whiteTextColor } from "@/constants/color";
-import { HamburgerIcon } from "@chakra-ui/icons";
 import { linkStyle } from "@/constants/style";
 
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string;
@@ -16,31 +15,31 @@ const logoutLink = process.env.NEXT_PUBLIC_LOGOUT_LINK as string;
 const walletUrl = process.env.NEXT_PUBLIC_WALLET_BASE_URL as string;
 
 type Props = {
-  showContents: boolean,
+  showContents: boolean;
   onOpen: () => void;
 };
 
 export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
-  const [userName, setUserName] = useState('Unknown')
+  const [userName, setUserName] = useState("Unknown");
 
   useEffect(() => {
-    var errorDetail = ''
+    var errorDetail = "";
     const session_cookie = getCookieValue("session_cookie");
     if (!session_cookie) {
-      errorDetail = 'Not found session_cookie.'
+      errorDetail = "Not found session_cookie.";
     } else {
       const userInfo = getUserInfoFormJwt(session_cookie);
       if (!userInfo) {
-        errorDetail = 'Failed to decode.'
+        errorDetail = "Failed to decode.";
       } else {
-        setUserName(userInfo.displayName)
+        setUserName(userInfo.displayName);
       }
     }
     if (errorDetail) {
-      console.log(errorDetail)
+      console.log(errorDetail);
     }
-  }, [])
-  console.log('logoutLink:', logoutLink)
+  }, []);
+  console.log("logoutLink:", logoutLink);
 
   return (
     <Box as="header" w={"100%"} zIndex={1000} bg={headerColor} color={whiteTextColor}>
@@ -86,20 +85,20 @@ export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
           <Flex gap={"8px"} alignItems={"center"} display={{ base: "none", sm: "flex" }}>
             <Link href={helpLink} style={linkStyle} isExternal={true} target="help">
               <Box display={"flex"} flexDirection={"row"} alignItems={"center"} gap={1}>
-            <MdHelp size="24" />
-              <Text fontSize={"xl"}>ヘルプ</Text>
+                <MdHelp size="24" />
+                <Text fontSize={"xl"}>ヘルプ</Text>
               </Box>
             </Link>
             <Menu>
               <MenuButton cursor={"pointer"} minW={0} transition="all 1s">
-            <FaUserAlt />
+                <FaUserAlt />
               </MenuButton>
               <MenuList>
                 <MenuItem color={textColor}>{userName}</MenuItem>
                 <MenuItem color={textColor}>
-            <Link href={logoutLink} style={linkStyle}>
+                  <Link href={logoutLink} style={linkStyle}>
                     ログアウト
-            </Link>
+                  </Link>
                 </MenuItem>
               </MenuList>
             </Menu>
