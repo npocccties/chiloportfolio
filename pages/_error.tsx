@@ -7,8 +7,8 @@ import { Layout } from "@/components/Layout";
 import { Metatag } from "@/components/Metatag";
 import { buttonColor, textColor, whiteTextColor } from "@/constants/color";
 
-const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
-const serviceDescription = process.env.NEXT_PUBLIC_SERVICE_DESCRIPTION as string
+const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string;
+const serviceDescription = process.env.NEXT_PUBLIC_SERVICE_DESCRIPTION as string;
 
 function ErrorPage({ statusCode, errorMessage }) {
   const router = useRouter();
@@ -23,8 +23,12 @@ function ErrorPage({ statusCode, errorMessage }) {
       <Metatag title={serviceName} description={serviceDescription} />
       <VStack justifyContent={"center"} gap={16} mt={8}>
         <WarningIcon w={16} h={16} color={"red.500"} />
-        <Text fontSize={"xl"} color={textColor}>{errorLabel}</Text>
-        <Text fontSize={"md"} color={textColor}>{errorMessage}</Text>
+        <Text fontSize={"xl"} color={textColor}>
+          {errorLabel}
+        </Text>
+        <Text fontSize={"md"} color={textColor}>
+          {errorMessage}
+        </Text>
 
         <HStack>
           <Box>

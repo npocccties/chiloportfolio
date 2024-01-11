@@ -1,20 +1,21 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { loggerInfo } from '@/util/Logger';
-import { makeHash } from '@/util/hash'
+import { makeHash } from "@/util/hash";
+import { loggerInfo } from "@/util/Logger";
+
+import type { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  loggerInfo('*** auth api start ***')
-  var result = ""
-  const passArray = process.env.PASSWORD?.split(',')
+  loggerInfo("*** auth api start ***");
+  var result = "";
+  const passArray = process.env.PASSWORD?.split(",");
   for (var i = 0; passArray && i < passArray.length; i++) {
-    const pass = passArray[i]
+    const pass = passArray[i];
     if (pass == req.body.password) {
-      result = await makeHash(pass, req)
-      break
+      result = await makeHash(pass, req);
+      break;
     }
   }
-  res.status(200).json({ result: result })
-  loggerInfo('*** auth api end ***')
-}
+  res.status(200).json({ result: result });
+  loggerInfo("*** auth api end ***");
+};
 
-export default handler
+export default handler;
