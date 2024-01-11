@@ -67,7 +67,7 @@ export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
             </Link>
             <NextLink href="/" style={{ textDecoration: "none" }}>
               <Box display={"flex"} flexDirection={"row"} alignItems={"center"} gap={1}>
-                <TbDeviceDesktopAnalytics />
+                <TbDeviceDesktopAnalytics size="20" />
                 <Text mr={2} fontSize={"xl"}>
                   分析
                 </Text>
