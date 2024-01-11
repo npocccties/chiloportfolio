@@ -44,6 +44,7 @@ export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
 
   return (
     <Box as="header" w={"100%"} zIndex={1000} bg={headerColor} color={whiteTextColor}>
+      <Flex h={"64px"} alignItems={"center"} justifyContent={"space-between"} p={{ base: 8 }}>
         <Box>
           <Flex gap={2} alignItems={"center"}>
             <Link href={helpLink} style={linkStyle} isExternal={true} target="help">
