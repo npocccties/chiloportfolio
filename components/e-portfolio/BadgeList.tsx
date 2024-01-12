@@ -21,12 +21,11 @@ export const BadgeList = ({ columnName1, portfolioBadges }: Props) => {
         <Box borderWidth="1px" rounded="md" bg="white">
           <Table id="badge-list" variant="simple">
             <Thead position="sticky" top={-1} zIndex="docked">
-              <Tr bg="gray.100">
+              <Tr bg={headerColor}>
                 <Th
                   whiteSpace="nowrap"
                   w="52"
                   borderWidth="1px"
-                  bg={headerColor}
                   color={whiteTextColor}
                   fontSize="md"
                   textAlign="center"
@@ -37,51 +36,22 @@ export const BadgeList = ({ columnName1, portfolioBadges }: Props) => {
                   whiteSpace="nowrap"
                   w="52"
                   borderWidth="1px"
-                  bg={headerColor}
                   color={whiteTextColor}
                   fontSize="md"
                   textAlign="center"
                 >
                   能力バッジ名
                 </Th>
-                <Th
-                  whiteSpace="nowrap"
-                  borderWidth="1px"
-                  bg={headerColor}
-                  color={whiteTextColor}
-                  fontSize="md"
-                  textAlign="center"
-                >
+                <Th whiteSpace="nowrap" borderWidth="1px" color={whiteTextColor} fontSize="md" textAlign="center">
                   取得可能
                 </Th>
-                <Th
-                  whiteSpace="nowrap"
-                  borderWidth="1px"
-                  bg={headerColor}
-                  color={whiteTextColor}
-                  fontSize="md"
-                  textAlign="center"
-                >
+                <Th whiteSpace="nowrap" borderWidth="1px" color={whiteTextColor} fontSize="md" textAlign="center">
                   取得予定
                 </Th>
-                <Th
-                  whiteSpace="nowrap"
-                  borderWidth="1px"
-                  bg={headerColor}
-                  color={whiteTextColor}
-                  fontSize="md"
-                  textAlign="center"
-                >
+                <Th whiteSpace="nowrap" borderWidth="1px" color={whiteTextColor} fontSize="md" textAlign="center">
                   獲得済み
                 </Th>
-                <Th
-                  whiteSpace="nowrap"
-                  borderWidth="1px"
-                  bg={headerColor}
-                  color={whiteTextColor}
-                  fontSize="md"
-                  textAlign="center"
-                >
+                <Th whiteSpace="nowrap" borderWidth="1px" color={whiteTextColor} fontSize="md" textAlign="center">
                   能力バッジ概要
                 </Th>
               </Tr>
@@ -131,25 +101,11 @@ export const BadgeList = ({ columnName1, portfolioBadges }: Props) => {
         <Box borderWidth="1px" rounded="md" bg="white">
           <Table id="badge-list" variant="simple">
             <Thead position="sticky" top={-1} zIndex="docked">
-              <Tr bg="gray.100">
-                <Th
-                  whiteSpace="nowrap"
-                  borderWidth="1px"
-                  bg="green.400"
-                  color="#262626"
-                  fontSize="md"
-                  textAlign="center"
-                >
+              <Tr bg={headerColor}>
+                <Th whiteSpace="nowrap" borderWidth="1px" color={whiteTextColor} fontSize="md" textAlign="center">
                   {columnName1}
                 </Th>
-                <Th
-                  whiteSpace="nowrap"
-                  borderWidth="1px"
-                  bg="green.400"
-                  color="#262626"
-                  fontSize="md"
-                  textAlign="center"
-                >
+                <Th whiteSpace="nowrap" borderWidth="1px" color={whiteTextColor} fontSize="md" textAlign="center">
                   能力バッジ名
                 </Th>
               </Tr>
