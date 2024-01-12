@@ -38,6 +38,7 @@ import { ConsumerBadge, ConsumerGoal, PortalCategoryBadges } from "../../models/
 import { getConsumerBadgeList, getConsumerGoalList, getPortalCategoryBadges } from "../api/OkutepApi";
 import { postDecrypt } from "../api/PortfolioApi";
 import { ErrorDialog } from "../ErrorDialog";
+import { getCategories } from "@/lib/categories";
 
 const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string;
 const analyticsSheetLink = process.env.NEXT_PUBLIC_ANALYTICS_SHEET_LINK as string;
@@ -224,8 +225,20 @@ export const Portfolio = () => {
 
   // CSVダウンロード
   const onCsvDownload = () => {
-    const categories = getCategories(selectedConsumerId, consumerGoals, portalCategoryBadges);
+    const categories = getCategories(
+      selectedConsumerId,
+      selectedFrameworkId,
+      selectedStageId,
+      consumerGoals,
+      portalCategoryBadges,
+    );
     const v = portfolioBadges[0];
+
+    if (!v) {
+      alert("出力するデータがありません");
+      return;
+    }
+
     var text = getCsvText(columnName1, categories, portfolioBadges);
     var bom = new Uint8Array([0xef, 0xbb, 0xbf]);
     const blob = new Blob([bom, text], { type: "text/csv" });
@@ -371,32 +384,4 @@ function getCsvFileName(cosumerName: string, frameworkName: string, stageName: s
   // 禁則文字の削除
   var newFileName = fileName.replace(/[\\\/:\*\?\"<>\|]/g, "");
   return newFileName;
-}
-
-function getCategories(
-  selectedConsumerId: number,
-  consumerGoals: ConsumerGoal[] | undefined | null,
-  portalCategoryBadges: PortalCategoryBadges | undefined | null,
-): Array<string> {
-  var categories = new Set<string>();
-  if (selectedConsumerId != 0) {
-    if (consumerGoals) {
-      for (const [i, v] of consumerGoals.entries()) {
-        categories.add(v.field1_name);
-      }
-    }
-  } else {
-    if (portalCategoryBadges) {
-      for (const [i, v] of portalCategoryBadges.badges.entries()) {
-        categories.add(v.portal_category_name);
-      }
-    }
-  }
-  return Array.from(categories).sort((a: string, b: string) => {
-    if (a > b) {
-      return 1;
-    } else {
-      return -1;
-    }
-  });
 }
