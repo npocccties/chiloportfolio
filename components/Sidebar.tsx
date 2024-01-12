@@ -1,8 +1,8 @@
-import { wallet } from "@/constants/e-portfolio";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { Flex, Box, BoxProps, CloseButton, FlexProps, Text, Link } from "@chakra-ui/react";
+import { Flex, Box, BoxProps, CloseButton, Text, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
+
 import { NavItemProps, sidebarItems } from "@/constants/sidebar";
 
 interface SidebarProps extends BoxProps {

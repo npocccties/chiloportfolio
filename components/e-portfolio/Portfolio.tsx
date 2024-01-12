@@ -1,7 +1,3 @@
-import React, { useEffect, useState } from "react";
-import { SelectConsumer, makeDisplayValue } from "./SelectConsumer";
-import { getWalletBadgeList, getWalletBadgeListForTest } from "@/components/api/WalletApi";
-import { decrypt, getCsvText, mergeBadgeDataWithConsumer, toConsumerBadges } from "@/util/Converter";
 import {
   Button,
   FormLabel,
@@ -17,26 +13,31 @@ import {
   Flex,
   HStack,
 } from "@chakra-ui/react";
-import { BadgeList } from "@/components/e-portfolio/BadgeList";
-import { KeyInput, KeyInputForm } from "./KeyInput";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiKey } from "react-icons/bi";
-import { ConsumerBadgesRequest, PortfolioBadgeData } from "@/models/PortfolioData";
-import { Loading } from "../Loading";
-import { getConsumerBadgeList, getConsumerGoalList, getPortalCategoryBadges } from "../api/OkutepApi";
-import { ConsumerBadge, ConsumerGoal, PortalCategoryBadges } from "../../models/OkutepData";
+
+import { getWalletBadgeList, getWalletBadgeListForTest } from "@/components/api/WalletApi";
+import { BadgeList } from "@/components/e-portfolio/BadgeList";
+import { buttonColor, textColor, whiteTextColor } from "@/constants/color";
 import { categoryColumnName, errorTitle, fieldColumnName } from "@/constants/e-portfolio";
-import { WalletBadge } from "@/models/WalletData";
 import {
   messageFailedToCallOkutepApi,
   messageFailedToCallWalletApi,
   detailReloadWallet,
   detailContactDeveloper,
 } from "@/constants/messages";
-import { ErrorDialog } from "../ErrorDialog";
-import { buttonColor, textColor, whiteTextColor } from "@/constants/color";
 import { sessionKeyInput, sessionPortfolio } from "@/constants/session";
+import { PortfolioBadgeData } from "@/models/PortfolioData";
+import { WalletBadge } from "@/models/WalletData";
+import { getCsvText, mergeBadgeDataWithConsumer, toConsumerBadges } from "@/util/Converter";
+
+import { KeyInput, KeyInputForm } from "./KeyInput";
+import { SelectConsumer, makeDisplayValue } from "./SelectConsumer";
+import { ConsumerBadge, ConsumerGoal, PortalCategoryBadges } from "../../models/OkutepData";
+import { getConsumerBadgeList, getConsumerGoalList, getPortalCategoryBadges } from "../api/OkutepApi";
 import { postDecrypt } from "../api/PortfolioApi";
+import { ErrorDialog } from "../ErrorDialog";
 
 const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string;
 const analyticsSheetLink = process.env.NEXT_PUBLIC_ANALYTICS_SHEET_LINK as string;
@@ -114,14 +115,15 @@ export const Portfolio = () => {
   };
 
   useEffect(() => {
-    // // BadgeWalletからバッジ情報の取得
-    // getWalletBadgeList().then((res) => {
-    //   setWalletBadges(res.data as WalletBadge[])
-    // })
-    // .catch(({res}) => {
-    //   console.log(res)
-    //   setErrorWalletBadge(true)
-    // });
+    // BadgeWalletからバッジ情報の取得
+    // getWalletBadgeList()
+    //   .then((res) => {
+    //     setWalletBadges(res.data as WalletBadge[]);
+    //   })
+    //   .catch(({ res }) => {
+    //     console.log(res);
+    //     setErrorWalletBadge(true);
+    //   });
     //test
     setWalletBadges(getWalletBadgeListForTest());
     //test

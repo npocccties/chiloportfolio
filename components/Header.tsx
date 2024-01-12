@@ -1,15 +1,15 @@
-import { Box, Flex, Menu, MenuButton, MenuItem, MenuList, Text, Link } from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
+import { Box, Flex, Text, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { FaUserAlt } from "react-icons/fa";
-import { MdLogout, MdHelp } from "react-icons/md";
+import React, { useEffect, useState } from "react";
 import { BsWallet2 } from "react-icons/bs";
+import { MdLogout, MdHelp } from "react-icons/md";
+import { TbDeviceDesktopAnalytics } from "react-icons/tb";
+
+import { headerColor, whiteTextColor } from "@/constants/color";
+import { linkStyle } from "@/constants/style";
 import { getCookieValue } from "@/lib/cookie";
 import { getUserInfoFormJwt } from "@/lib/userInfo";
-import React, { useEffect, useState } from "react";
-import { headerColor, textColor, whiteTextColor } from "@/constants/color";
-import { linkStyle } from "@/constants/style";
-import { HamburgerIcon } from "@chakra-ui/icons";
-import { TbDeviceDesktopAnalytics } from "react-icons/tb";
 
 const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string;
 const helpLink = process.env.NEXT_PUBLIC_HELP_LINK as string;
