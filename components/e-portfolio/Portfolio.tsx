@@ -27,7 +27,7 @@ import {
   detailReloadWallet,
   detailContactDeveloper,
 } from "@/constants/messages";
-import { sessionKeyInput, sessionPortfolio } from "@/constants/session";
+import { sessionKeyInput, activationKey } from "@/constants/session";
 import { getCategories } from "@/lib/categories";
 import { PortfolioBadgeData } from "@/models/PortfolioData";
 import { WalletBadge } from "@/models/WalletData";
@@ -61,7 +61,7 @@ export const Portfolio = () => {
   var [portalCategoryBadges, setPortalCategoryBadges] = useState<PortalCategoryBadges>();
   const [isErrorPortalCategoryBadges, setErrorPortalCategoryBadges] = useState(false);
   useEffect(() => {
-    const session = sessionStorage.getItem(sessionPortfolio);
+    const session = localStorage.getItem(activationKey);
     if (session) {
       setSession(session);
     }

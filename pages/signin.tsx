@@ -6,7 +6,7 @@ import { postAuth } from "@/components/api/PortfolioApi";
 import { Layout } from "@/components/Layout";
 import { PageTitle } from "@/components/ui/text/Pagetitle";
 import { buttonColor, textColor, whiteTextColor } from "@/constants/color";
-import { sessionPortfolio } from "@/constants/session";
+import { activationKey } from "@/constants/session";
 import { AuthResult } from "@/models/OkutepData";
 
 type SignInProps = {};
@@ -26,7 +26,7 @@ export default function SignIn({}: SignInProps) {
     e.preventDefault();
     const authResult = await postAuth(password);
     setPostedData(authResult);
-    sessionStorage.setItem(sessionPortfolio, authResult.result);
+    localStorage.setItem(activationKey, authResult.result);
     if (authResult.result != "") {
       router.push("/");
     }
