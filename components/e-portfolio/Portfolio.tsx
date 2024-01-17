@@ -17,7 +17,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { BiKey } from "react-icons/bi";
 
-import { getWalletBadgeList, getWalletBadgeListForTest } from "@/components/api/WalletApi";
+import { getWalletBadgeList } from "@/components/api/WalletApi";
 import { BadgeList } from "@/components/e-portfolio/BadgeList";
 import { buttonColor, textColor, whiteTextColor } from "@/constants/color";
 import { categoryColumnName, errorTitle, fieldColumnName } from "@/constants/e-portfolio";
@@ -28,6 +28,7 @@ import {
   detailContactDeveloper,
 } from "@/constants/messages";
 import { sessionKeyInput, sessionPortfolio } from "@/constants/session";
+import { getCategories } from "@/lib/categories";
 import { PortfolioBadgeData } from "@/models/PortfolioData";
 import { WalletBadge } from "@/models/WalletData";
 import { getCsvText, mergeBadgeDataWithConsumer, toConsumerBadges } from "@/util/Converter";
@@ -38,7 +39,6 @@ import { ConsumerBadge, ConsumerGoal, PortalCategoryBadges } from "../../models/
 import { getConsumerBadgeList, getConsumerGoalList, getPortalCategoryBadges } from "../api/OkutepApi";
 import { postDecrypt } from "../api/PortfolioApi";
 import { ErrorDialog } from "../ErrorDialog";
-import { getCategories } from "@/lib/categories";
 
 const csvFileName = process.env.NEXT_PUBLIC_CSV_FILE_NAME as string;
 const analyticsSheetLink = process.env.NEXT_PUBLIC_ANALYTICS_SHEET_LINK as string;
@@ -73,6 +73,8 @@ export const Portfolio = () => {
       setValidPassword(pass);
     }
     callOkutepApi(pass ?? "", selectedFrameworkId, selectedStageId);
+    // TODO: 一時的な対応
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   console.log("validPassword:", validPassword);
 
@@ -117,16 +119,16 @@ export const Portfolio = () => {
 
   useEffect(() => {
     // BadgeWalletからバッジ情報の取得
-    // getWalletBadgeList()
-    //   .then((res) => {
-    //     setWalletBadges(res.data as WalletBadge[]);
-    //   })
-    //   .catch(({ res }) => {
-    //     console.log(res);
-    //     setErrorWalletBadge(true);
-    //   });
+    getWalletBadgeList()
+      .then((res) => {
+        setWalletBadges(res.data as WalletBadge[]);
+      })
+      .catch(({ res }) => {
+        console.log(res);
+        setErrorWalletBadge(true);
+      });
     //test
-    setWalletBadges(getWalletBadgeListForTest());
+    // setWalletBadges(getWalletBadgeListForTest());
     //test
   }, []);
   console.log("walletBadges: ", walletBadges);

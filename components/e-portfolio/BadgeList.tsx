@@ -1,6 +1,8 @@
 import { Box, Table, Tbody, Td, Th, Thead, Tr, Text, Flex } from "@chakra-ui/react";
-import { PortfolioBadgeData } from "../../models/PortfolioData";
+
 import { headerColor, textColor, whiteTextColor } from "@/constants/color";
+
+import { PortfolioBadgeData } from "../../models/PortfolioData";
 
 type Props = {
   portfolioBadges: PortfolioBadgeData[];
