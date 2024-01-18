@@ -288,18 +288,16 @@ export const Portfolio = () => {
             </Link>
           </HStack>
         </Box>
-        <Box mt={4} mr={4}>
+        <HStack mt={4}>
           <Button bg={buttonColor} color={whiteTextColor} onClick={onCsvDownload} isDisabled={selectedConsumerId == -1}>
             CSVダウンロード
           </Button>
-        </Box>
-        <Box mt={4}>
           <Button bg={buttonColor} color={whiteTextColor}>
             <Link href={analyticsSheetLink} download="e-Portfolio-analytics.xlsx">
               分析シートダウンロード
             </Link>
           </Button>
-        </Box>
+        </HStack>
       </Flex>
 
       {/** smart phone */}
