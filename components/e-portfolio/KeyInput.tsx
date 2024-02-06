@@ -11,7 +11,7 @@ import { postEncrypt } from "../api/PortfolioApi";
 type Props = {
   register: UseFormRegister<KeyInputForm>;
   watch: UseFormWatch<KeyInputForm>;
-  handleSubmit: UseFormHandleSubmit<KeyInputForm, undefined>;
+  handleSubmit: UseFormHandleSubmit<KeyInputForm>;
   onClose: () => void;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   password: string;

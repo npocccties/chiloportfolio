@@ -1,4 +1,4 @@
-import { Box, Table, Tbody, Td, Th, Thead, Tr, Text, Flex } from "@chakra-ui/react";
+import { Table, Tbody, Td, Th, Thead, Tr, Text, Flex } from "@chakra-ui/react";
 
 import { headerColor, textColor, whiteTextColor } from "@/constants/color";
 

@@ -73,9 +73,7 @@ export const Portfolio = () => {
       setValidPassword(pass);
     }
     callOkutepApi(pass ?? "", selectedFrameworkId, selectedStageId);
-    // TODO: 一時的な対応
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [selectedFrameworkId, selectedStageId]);
   console.log("validPassword:", validPassword);
 
   const callOkutepApi = (encrypted: string, frameworkId: number, stageId: number) => {
