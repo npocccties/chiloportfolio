@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "eslint --fix \"pages/**/*.{ts,tsx}\" \"share/**/*.{ts,tsx}\" \"components/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint --fix \"pages/**/*.{ts,tsx}\" \"components/**/*.{ts,tsx}\"",
     "cmd:start:dev": "node server.js"
   },
   "dependencies": {

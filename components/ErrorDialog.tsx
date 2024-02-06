@@ -1,4 +1,3 @@
-import { buttonColor, textColor, whiteTextColor } from "@/constants/color";
 import {
   AlertDialog,
   AlertDialogOverlay,
@@ -10,13 +9,15 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import React from "react";
 import { useRef } from "react";
-import { useRouter } from "next/router";
 
-const walletUrl = process.env.NEXT_PUBLIC_WALLET_BASE_URL as string
+import { buttonColor, textColor, whiteTextColor } from "@/constants/color";
 
-export const ErrorDialog = ({ title, message, detail }: { title: string; message: string; detail: any}) => {
+const walletUrl = process.env.NEXT_PUBLIC_WALLET_BASE_URL as string;
+
+export const ErrorDialog = ({ title, message, detail }: { title: string; message: string; detail: any }) => {
   const router = useRouter();
   const cancelRef = useRef<HTMLButtonElement>(null);
   const { onClose } = useDisclosure();
@@ -33,7 +34,9 @@ export const ErrorDialog = ({ title, message, detail }: { title: string; message
             <Text color={textColor} fontSize={"lg"} mb={4}>
               {br(message)}
             </Text>
-            <Text color={textColor} fontSize={"md"}>詳細: {br(detail)}</Text>
+            <Text color={textColor} fontSize={"md"}>
+              詳細: {br(detail)}
+            </Text>
           </AlertDialogBody>
 
           <AlertDialogFooter>
@@ -42,8 +45,7 @@ export const ErrorDialog = ({ title, message, detail }: { title: string; message
               bg={buttonColor}
               color={whiteTextColor}
               onClick={() => {
-                //router.push(walletUrl);
-                window.close()
+                router.push(walletUrl);
               }}
             >
               {/* 前のページに戻る */}
@@ -60,7 +62,10 @@ function br(msg: string) {
   const texts = msg.split("\n").map((item, index) => {
     // <></> は key を設定できないので、<React.Fragment /> を使う
     return (
-      <React.Fragment key={index}>{item}<br /></React.Fragment>
+      <React.Fragment key={index}>
+        {item}
+        <br />
+      </React.Fragment>
     );
   });
   return <div>{texts}</div>;
