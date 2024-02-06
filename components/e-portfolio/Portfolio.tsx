@@ -67,7 +67,7 @@ export const Portfolio = () => {
     }
   }, []);
   useEffect(() => {
-    const pass = sessionStorage.getItem(sessionKeyInput);
+    const pass = localStorage.getItem(sessionKeyInput);
     if (pass) {
       console.log("session_key-input:", pass);
       setValidPassword(pass);

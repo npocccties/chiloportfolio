@@ -44,7 +44,7 @@ export const KeyInput = ({
         postEncrypt(password)
           .then((res) => {
             const encrypted = res.result;
-            sessionStorage.setItem(sessionKeyInput, encrypted);
+            localStorage.setItem(sessionKeyInput, encrypted);
             setValidPassword(encrypted);
             callOkutepApi(encrypted, selectedFrameworkId, selectedStageId);
             onKeyInputClosed();
