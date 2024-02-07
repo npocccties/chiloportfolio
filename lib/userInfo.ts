@@ -10,12 +10,12 @@ export const getUserInfoFormJwt = (session_cookie: string): UserInfo | null => {
     const decodeJwt = <UserInfo>jsonwebtoken.decode(session_cookie);
 
     if (!decodeJwt) {
-      return null
+      return null;
     }
 
     return decodeJwt;
   } catch (e) {
-    console.log('exception:', e)
-    return null
+    console.error("exception:", e);
+    return null;
   }
 };

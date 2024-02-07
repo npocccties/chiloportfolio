@@ -5,17 +5,16 @@ import { placeholderSelect } from "@/constants/messages";
 import { ConsumerGoal } from "../../models/OkutepData";
 
 type Props = {
-  selectedName: string;
   consumers: ConsumerGoal[];
   handleChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
-export const SelectConsumer = ({ selectedName, consumers, handleChange }: Props) => {
+export const SelectConsumer = ({ consumers, handleChange }: Props) => {
   return (
     <div>
       <Select name="consumer" placeholder={placeholderSelect} onChange={handleChange}>
         {consumers?.map((v, index) => (
-          <option key={index} value={makeOptionValue(v)} selected={makeDisplayValue(v) == selectedName}>
+          <option key={index} value={makeOptionValue(v)}>
             {makeDisplayValue(v)}
           </option>
         ))}
