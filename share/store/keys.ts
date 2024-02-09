@@ -1,3 +1,5 @@
+import { activationKey, sessionKeyInput } from "@/constants/session";
 export const recoilAtomKeys = {
-  activate: "activate",
+  activationKey: activationKey,
+  sessionKeyInput: sessionKeyInput,
 };

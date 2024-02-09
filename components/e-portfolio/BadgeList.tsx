@@ -6,10 +6,10 @@ import { PortfolioBadgeData } from "../../models/PortfolioData";
 
 type Props = {
   portfolioBadges: PortfolioBadgeData[];
-  columnName1: string;
+  columnNameForFirst: string;
 };
 
-export const BadgeList = ({ columnName1, portfolioBadges }: Props) => {
+export const BadgeList = ({ portfolioBadges, columnNameForFirst }: Props) => {
   return (
     <>
       {/** desktop */}
@@ -24,7 +24,7 @@ export const BadgeList = ({ columnName1, portfolioBadges }: Props) => {
           <Thead position="sticky" top={-1} zIndex="docked">
             <Tr bg={headerColor}>
               <Th whiteSpace="nowrap" w="52" borderWidth="1px" color={whiteTextColor} fontSize="md" textAlign="center">
-                {columnName1}
+                {columnNameForFirst}
               </Th>
               <Th whiteSpace="nowrap" w="52" borderWidth="1px" color={whiteTextColor} fontSize="md" textAlign="center">
                 能力バッジ名
@@ -80,7 +80,7 @@ export const BadgeList = ({ columnName1, portfolioBadges }: Props) => {
           <Thead position="sticky" top={-1} zIndex="docked">
             <Tr bg={headerColor}>
               <Th whiteSpace="nowrap" borderWidth="1px" color={whiteTextColor} fontSize="md" textAlign="center">
-                {columnName1}
+                {columnNameForFirst}
               </Th>
               <Th whiteSpace="nowrap" borderWidth="1px" color={whiteTextColor} fontSize="md" textAlign="center">
                 能力バッジ名

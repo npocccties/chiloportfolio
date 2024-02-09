@@ -1,12 +1,12 @@
+import dynamic from "next/dynamic";
 import React from "react";
 
 import { Layout } from "@/components/Layout";
 import { Metatag } from "@/components/Metatag";
 import { PageTitle } from "@/components/ui/text/Pagetitle";
-import dynamic from "next/dynamic";
+import { activateActions } from "@/share/store/activate";
 
 import type { NextPage } from "next";
-import { activateActions } from "@/share/store/activate";
 const TopPage = dynamic(() => import("@/components/pages/Top").then((mod) => mod.TopPage), {
   ssr: false,
 });

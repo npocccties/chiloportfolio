@@ -5,7 +5,7 @@ import { textColor } from "@/constants/color";
 export const Loading: React.VFC = () => {
   return (
     <Box>
-      <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="green.400" size="xl" />
+      <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="primary.500" size="xl" />
       <Text color={textColor} mt="4">
         Loading...
       </Text>

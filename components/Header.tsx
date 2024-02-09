@@ -6,7 +6,6 @@ import { BsWallet2 } from "react-icons/bs";
 import { MdLogout, MdHelp } from "react-icons/md";
 import { TbDeviceDesktopAnalytics } from "react-icons/tb";
 
-import { headerColor, whiteTextColor } from "@/constants/color";
 import { linkStyle } from "@/constants/style";
 import { getCookieValue } from "@/lib/cookie";
 import { getUserInfoFormJwt } from "@/lib/userInfo";
@@ -38,13 +37,12 @@ export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
       }
     }
     if (errorDetail) {
-      console.log(errorDetail);
+      console.error(errorDetail);
     }
   }, []);
-  console.log("logoutLink:", logoutLink);
 
   return (
-    <Box as="header" w={"100%"} zIndex={1000} bg={headerColor} color={whiteTextColor}>
+    <Box as="header" w={"100%"} zIndex={1000}>
       <Flex
         h={"64px"}
         alignItems={"center"}
@@ -101,7 +99,7 @@ export const Header: React.FC<Props> = ({ showContents, onOpen }) => {
           </Flex>
         </Box>
         <Box display={{ base: "block", sm: "none" }}>
-          <Flex gap={"8px"} alignItems={"center"}>
+          <Flex gap={"8px"} alignItems={"center"} color={"basic.white"}>
             <Link fontSize={"xl"} href={logoutLink} style={{ textDecoration: "none" }}>
               <Box display={"flex"} flexDirection={"row"} alignItems={"center"} gap={1}>
                 <MdLogout size="24" />

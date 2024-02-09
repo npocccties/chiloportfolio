@@ -18,7 +18,7 @@ export type ActivateStateActions = {
 };
 
 const activateState = atom<boolean>({
-  key: recoilAtomKeys.activate,
+  key: recoilAtomKeys.activationKey,
   default: undefined,
 });
 

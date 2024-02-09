@@ -2,6 +2,8 @@ import "../styles/global.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { RecoilRoot, RecoilEnv } from "recoil";
 
+import { theme } from "@/styles/chakraTheme";
+
 import type { AppProps } from "next/app";
 
 // MEMO: 開発環境でのAtomキーの重複エラーを非表示
@@ -10,7 +12,7 @@ RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <RecoilRoot>
         <Component {...pageProps} />
       </RecoilRoot>
