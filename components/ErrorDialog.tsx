@@ -17,7 +17,17 @@ import { buttonColor, textColor, whiteTextColor } from "@/constants/color";
 
 const walletUrl = process.env.NEXT_PUBLIC_WALLET_BASE_URL as string;
 
-export const ErrorDialog = ({ title, message, detail }: { title: string; message: string; detail: any }) => {
+export const ErrorDialog = ({
+  title,
+  message,
+  detail,
+  isReload = false,
+}: {
+  title: string;
+  message: string;
+  detail: any;
+  isReload?: boolean;
+}) => {
   const router = useRouter();
   const cancelRef = useRef<HTMLButtonElement>(null);
   const { onClose } = useDisclosure();
@@ -45,7 +55,11 @@ export const ErrorDialog = ({ title, message, detail }: { title: string; message
               bg={buttonColor}
               color={whiteTextColor}
               onClick={() => {
-                router.push(walletUrl);
+                if (isReload) {
+                  router.reload();
+                } else {
+                  router.push(walletUrl);
+                }
               }}
             >
               {/* 前のページに戻る */}

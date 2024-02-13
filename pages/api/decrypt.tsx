@@ -1,17 +1,22 @@
 import { decrypt } from "@/util/Converter";
-import { loggerInfo } from "@/util/Logger";
+import { loggerError, loggerInfo } from "@/util/Logger";
 
 import type { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   loggerInfo("*** decrypt api start ***");
-  var result = "";
-  if (req.body.encryped) {
-    res.status(200).json({ result: decrypt(req.body.encryped) });
-  } else {
-    res.status(200).json({ result: "" });
+  try {
+    if (req.body.encryped) {
+      return res.status(200).json({ result: decrypt(req.body.encryped) });
+    } else {
+      return res.status(200).json({ result: "" });
+    }
+  } catch (e) {
+    loggerError("error! decrypt api");
+    return res.status(500).json({ error: e });
+  } finally {
+    loggerInfo("*** decrypt api end ***");
   }
-  loggerInfo("*** decrypt api end ***");
 };
 
 export default handler;

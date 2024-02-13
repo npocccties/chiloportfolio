@@ -9,6 +9,8 @@ import {
   messageFailedToCallWalletApi,
   detailReloadWallet,
   detailContactDeveloper,
+  messageFailedToSessionKeyInput,
+  detailFailedSessionKeyInput,
 } from "@/constants/messages";
 import { sessionKeyInput } from "@/constants/session";
 import { getCategories } from "@/functions/categories";
@@ -49,6 +51,7 @@ export const Portfolio = () => {
     consumerGoals: false,
     consumerBadges: false,
     portalCategoryBadges: false,
+    invalidSessionKeyInput: false,
   });
 
   // キー入力のダイアログとの連携
@@ -56,7 +59,14 @@ export const Portfolio = () => {
 
   const convertDecryptedSessionKey = async (encrypted: string | null | undefined) => {
     if (!encrypted || encrypted === "") return "";
+
     const res = await postDecrypt(encrypted);
+
+    if (!res.result) {
+      console.error("api/decrypt error: ", res);
+      localStorage.removeItem(sessionKeyInput);
+      return "";
+    }
     return res.result;
   };
 
@@ -150,13 +160,31 @@ export const Portfolio = () => {
         const { data: goalList } = await getConsumerGoalList(decryptedSessionKey);
         setIsErrors({ ...isErrors, consumerGoals: false });
         setConsumerGoals(goalList as ConsumerGoal[]);
-      } catch {
-        setIsErrors({ ...isErrors, consumerGoals: true });
+      } catch (e) {
+        if (e.response.status === 400) {
+          console.error("consumer/goal/list/ request failed: ", e);
+          localStorage.removeItem(sessionKeyInput);
+          setIsErrors({ ...isErrors, invalidSessionKeyInput: true });
+          return;
+        } else {
+          setIsErrors({ ...isErrors, consumerGoals: true });
+        }
       }
 
       setDecryptedSessionKey(decryptedSessionKey);
     })();
   }, []);
+
+  if (isErrors.invalidSessionKeyInput) {
+    return (
+      <ErrorDialog
+        title={errorTitle}
+        message={messageFailedToSessionKeyInput}
+        detail={detailFailedSessionKeyInput}
+        isReload={true}
+      />
+    );
+  }
 
   if (isErrors.consumerGoals || isErrors.consumerBadges || isErrors.portalCategoryBadges) {
     return <ErrorDialog title={errorTitle} message={messageFailedToCallOkutepApi} detail={detailContactDeveloper} />;
