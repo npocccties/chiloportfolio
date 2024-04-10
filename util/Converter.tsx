@@ -95,13 +95,12 @@ export function getCsvText(columnName1: string, consumers: Array<string>, badgeD
     text += "\r\n"
   }
   text += "\r\n"
-  text += `"${columnName1}","能力バッジ名","取得可能","取得予定","獲得済み","能力バッジ概要"`
+  text += `"${columnName1}","能力バッジ名","取得可能","取得済み","能力バッジ概要"`
   text += "\r\n"
   for (const [i, v] of badgeDatas.entries()) {
     text += `"${v.field1_name}",`
     text += `"${v.wisdom_badges_name}",`
     text += `"${v.knowledge_badges_count}",`
-    text += `"${v.scheduled_badges_count}",`
     text += `"${v.acquired_badges_count}",`
     text += `"${v.wisdom_badges_description}",`
     text += "\r\n"

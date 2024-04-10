@@ -1,93 +1,96 @@
-import { Input, Box, Button, VStack, Text, Grid, GridItem } from "@chakra-ui/react";
+import { Input, Box, VStack, Text, Grid, GridItem } from "@chakra-ui/react";
 import { useState } from "react";
-import { UseFormHandleSubmit, UseFormRegister, UseFormWatch } from "react-hook-form";
-import { ConsumerGoal } from "../../models/OkutepData";
-import { getConsumerGoalList } from "../api/OkutepApi";
-import { buttonColor, textColor, whiteTextColor } from "@/constants/color";
+import { useForm } from "react-hook-form";
+
+import { textColor } from "@/constants/color";
 import { sessionKeyInput } from "@/constants/session";
-import { encrypt } from "@/util/Converter";
+import { ConsumerGoal } from "@/models/OkutepData";
+
+import { getConsumerGoalList } from "../api/OkutepApi";
 import { postEncrypt } from "../api/PortfolioApi";
+import { PrimaryButton } from "../ui/button/PrimaryButton";
+import { SecondaryButton } from "../ui/button/SecondaryButton";
 
 type Props = {
-  register: UseFormRegister<KeyInputForm>,
-  watch: UseFormWatch<KeyInputForm>,
-  handleSubmit: UseFormHandleSubmit<KeyInputForm, undefined>,
-  onClose: () => void,
-  setPassword: React.Dispatch<React.SetStateAction<string>>,
-  password: string,
-  onKeyInputClosed: () => void,
-  callOkutepApi: (password: string, frameworkId: number, stageId: number) => void,
-  selectedFrameworkId: number,
-  selectedStageId: number,
-  setValidPassword: React.Dispatch<React.SetStateAction<string>>,
-  session: string,
-}
-
-export const KeyInput = ({register, watch, handleSubmit, onClose, setPassword, password, onKeyInputClosed, callOkutepApi, selectedFrameworkId, selectedStageId, setValidPassword, session}: Props) => {
-
-  const isValid = (data: KeyInputForm) => {
-    getConsumerGoalList(data.password).then((res) => {
-      setErrorMessage('')
-      postEncrypt(password).then((res) => {
-        const encrypted = res.result
-        sessionStorage.setItem(sessionKeyInput, encrypted)
-        setValidPassword(encrypted)
-        callOkutepApi(encrypted, selectedFrameworkId, selectedStageId)
-        onKeyInputClosed()
-        onClose()
-      }).catch(({res}) => {
-        console.log('res1: ', res)
-        setErrorMessage('入力したキーが誤っています。（暗号化に失敗）')
-      });
-    })
-    .catch(({res}) => {
-      console.log('res2: ', res)
-      setErrorMessage('入力したキーが誤っています。')
-    });
-  };
-
-  const onChangePassword = (event): void => {
-    setPassword(event.target.value);
-  }
-
-  const isInvalid = (errors: any) => {
-    setErrorMessage(errors.password.message)
-  };
-  
-  const [errorMessage, setErrorMessage] = useState('');
-
-  return (
-   <VStack>
-    <form onSubmit={handleSubmit(isValid, isInvalid)}>
-      <Box p='3'>
-        <Input type="password" placeholder="********" {...register("password", { 
-          required: "キーを入力してください。",
-          onChange: (e) => onChangePassword(e)
-        })} name="password" />
-        <Text id='input-error-message' color={textColor}>{errorMessage}</Text>
-      </Box>
-      <Box p='3'>
-        <Grid templateColumns='repeat(4, 1fr)' gap={6}>
-          <GridItem/>
-          <GridItem/>
-          <GridItem>
-            <Button w='32' bg={buttonColor} color={whiteTextColor} onClick={onClose}>
-              キャンセル
-            </Button>
-          </GridItem>
-          <GridItem>
-            <Button w='32' bg={buttonColor} color={whiteTextColor} type="submit" colorScheme='blue' >
-              送信
-            </Button>
-          </GridItem>
-        </Grid>
-      </Box>
-    </form>
-   </VStack>
- );
+  onClose: () => void;
+  setDecryptedSessionKey: React.Dispatch<React.SetStateAction<string>>;
+  setConsumerGoals: React.Dispatch<React.SetStateAction<ConsumerGoal[]>>;
 };
 
-export interface KeyInputForm {
+export type KeyInputForm = {
   password: string;
-}
+};
 
+export const KeyInput = ({ onClose, setDecryptedSessionKey, setConsumerGoals }: Props) => {
+  const { register, handleSubmit } = useForm<KeyInputForm>();
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const isValid = async (data: KeyInputForm) => {
+    const { password } = data;
+    let goalList: ConsumerGoal[];
+
+    try {
+      const res = await getConsumerGoalList(data.password);
+      goalList = res.data;
+    } catch (e) {
+      console.error("request error: ", e.message);
+      setErrorMessage("入力したキーが誤っています。");
+      return;
+    }
+
+    try {
+      const { result: encrypted } = await postEncrypt(password);
+      localStorage.setItem(sessionKeyInput, encrypted);
+
+      setDecryptedSessionKey(password);
+
+      onClose();
+    } catch (e) {
+      console.error("encrypted error: ", e.message);
+      setErrorMessage("入力したキーが誤っています。（暗号化に失敗）");
+      return;
+    }
+
+    setConsumerGoals(goalList);
+  };
+
+  const isInvalid = (errors: any) => {
+    setErrorMessage(errors.password.message);
+  };
+
+  return (
+    <VStack>
+      <form onSubmit={handleSubmit(isValid, isInvalid)}>
+        <Box p="3">
+          <Input
+            type="password"
+            placeholder="********"
+            {...register("password", {
+              required: "キーを入力してください。",
+            })}
+            name="password"
+          />
+          <Text id="input-error-message" color={textColor}>
+            {errorMessage}
+          </Text>
+        </Box>
+        <Box p="3">
+          <Grid templateColumns="repeat(4, 1fr)" gap={6}>
+            <GridItem />
+            <GridItem />
+            <GridItem>
+              <SecondaryButton w="32" onClick={onClose}>
+                キャンセル
+              </SecondaryButton>
+            </GridItem>
+            <GridItem>
+              <PrimaryButton w="32" type="submit">
+                送信
+              </PrimaryButton>
+            </GridItem>
+          </Grid>
+        </Box>
+      </form>
+    </VStack>
+  );
+};

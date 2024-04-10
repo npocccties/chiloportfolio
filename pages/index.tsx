@@ -1,42 +1,28 @@
-import React, { useEffect, useState } from "react";
-import type { NextPage } from "next";
+import dynamic from "next/dynamic";
+import React from "react";
+
 import { Layout } from "@/components/Layout";
 import { Metatag } from "@/components/Metatag";
-import { Portfolio } from "../components/e-portfolio/Portfolio";
-import SignIn from "./signin";
-import { postJudge } from "@/components/api/PortfolioApi";
-import { sessionPortfolio } from "@/constants/session";
+import { PageTitle } from "@/components/ui/text/Pagetitle";
+import { activateActions } from "@/share/store/activate";
 
-const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string
-const serviceDescription = process.env.NEXT_PUBLIC_SERVICE_DESCRIPTION as string
+import type { NextPage } from "next";
+const TopPage = dynamic(() => import("@/components/pages/Top").then((mod) => mod.TopPage), {
+  ssr: false,
+});
+
+const serviceName = process.env.NEXT_PUBLIC_SERVICE_NAME as string;
+const serviceDescription = process.env.NEXT_PUBLIC_SERVICE_DESCRIPTION as string;
 
 const Home: NextPage = () => {
-  const [judgeHashResult, setJudgeHashResult] = useState(false)
-  useEffect(() => {
-    const session = sessionStorage.getItem(sessionPortfolio)
-    console.log('session_portfolio:', session)
+  activateActions.useSetActivate();
 
-    const api = async() => {
-      if (session) {
-        const data = await postJudge(session)
-        setJudgeHashResult(data.result == 1)
-      }
-    }
-    api()
-  })
-
-  console.log('judgeHashResult', judgeHashResult)
-  if (judgeHashResult) {
-    return (
-      <Layout maxW="6xl">
-        <Metatag title={serviceName} description={serviceDescription} />
-        <Portfolio />
-      </Layout>
-    );
-  } else {
-    return (
-      <SignIn/>
-    )
-  }
+  return (
+    <Layout maxW="6xl">
+      <Metatag title={serviceName} description={serviceDescription} />
+      <PageTitle title={serviceName} />
+      <TopPage />
+    </Layout>
+  );
 };
 export default Home;
