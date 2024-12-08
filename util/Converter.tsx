@@ -108,11 +108,12 @@ export function getCsvText(columnName1: string, consumers: Array<string>, badgeD
   text += `"${columnName1}","能力バッジ名","取得可能","取得済み","能力バッジ概要"`
   text += "\r\n"
   for (const [i, v] of badgeDatas.entries()) {
-    text += `"${convert(v.field1_name)}",`
-    text += `"${convert(v.wisdom_badges_name)}",`
-    text += `"${convert(v.knowledge_badges_count)}",`
-    text += `"${convert(v.acquired_badges_count)}",`
-    text += `"${convert(v.wisdom_badges_description)}",`
+    console.log(`v: ${JSON.stringify(v)}`)
+    text += `${convert(v.field1_name)},`
+    text += `${convert(v.wisdom_badges_name)},`
+    text += `${convert(v.knowledge_badges_count.toString())},`
+    text += `${convert(v.acquired_badges_count.toString())},`
+    text += `${convert(v.wisdom_badges_description)},`
     text += "\r\n"
   }
   return text
