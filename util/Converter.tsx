@@ -94,15 +94,25 @@ export function getCsvText(columnName1: string, consumers: Array<string>, badgeD
     text += `"${v}",`
     text += "\r\n"
   }
+  //CSV形式に変換
+  const convert = (s) => {
+    return s == null ? '' :
+      s.replace(/\\/g, '\\')
+        .replace(/\r/g, '\\r')
+        .replace(/\n/g, '\\n')
+        .replace(/\t/g, '\\t')
+        .replace(/"/g,'""')
+        .replace(/(.*[,"'`\\].*)/, '"$1"');
+  }
   text += "\r\n"
   text += `"${columnName1}","能力バッジ名","取得可能","取得済み","能力バッジ概要"`
   text += "\r\n"
   for (const [i, v] of badgeDatas.entries()) {
-    text += `"${v.field1_name}",`
-    text += `"${v.wisdom_badges_name}",`
-    text += `"${v.knowledge_badges_count}",`
-    text += `"${v.acquired_badges_count}",`
-    text += `"${v.wisdom_badges_description}",`
+    text += `"${convert(v.field1_name)}",`
+    text += `"${convert(v.wisdom_badges_name)}",`
+    text += `"${convert(v.knowledge_badges_count)}",`
+    text += `"${convert(v.acquired_badges_count)}",`
+    text += `"${convert(v.wisdom_badges_description)}",`
     text += "\r\n"
   }
   return text
