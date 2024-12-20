@@ -101,7 +101,7 @@ export function getCsvText(columnName1: string, consumers: Array<string>, badgeD
         .replace(/\r/g, '\\r')
         .replace(/\n/g, '\\n')
         .replace(/\t/g, '\\t')
-        .replace(/"/g,'""')
+        .replace(/\"/g, '\"\"')
         .replace(/(.*[,"'`\\].*)/, '"$1"');
   }
   text += "\r\n"
