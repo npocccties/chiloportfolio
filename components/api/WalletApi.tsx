@@ -20,17 +20,17 @@ export function getWalletBadgeListForTest(): WalletBadge[] {
   };
   data.push(work);
   work = {
-    badgeName: "子どもの変化と教職について省察する",
+    badgeName: "子どもの\"変化\"と教職について省察する",
     badgeClassId: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=151",
   };
   data.push(work);
   work = {
-    badgeName: "子どもの心に耳をすます‐感情の社会化を促す関わり",
+    badgeName: "子どもの\"心\"に耳をすます‐感情の社会化を促す関わり",
     badgeClassId: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=156",
   };
   data.push(work);
   work = {
-    badgeName: "子ども理解の教育心理学",
+    badgeName: "子ども\"理解\"の教育心理学",
     badgeClassId: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=169",
   };
   data.push(work);
@@ -40,7 +40,7 @@ export function getWalletBadgeListForTest(): WalletBadge[] {
   };
   data.push(work);
   work = {
-    badgeName: "GIGAスクール時代におけるICT活用入門　〜授業実践から校務活用まで〜",
+    badgeName: "GIGAスクール時代における\"ICT\"活用入門　〜授業実践から校務活用まで〜",
     badgeClassId: "https://lms.okutep.osaka-kyoiku.ac.jp/badges/badge_json.php?id=147",
   };
   data.push(work);
