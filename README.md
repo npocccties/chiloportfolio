@@ -171,3 +171,23 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 |2|（非表示版）若手教員期| | |12|$2a$12$aqYLqFynQDdDs5CeyIcKFOKis5Bq7Slv6bYYNQfQCIzbuqvMNoX1W|
 
 4. ハッシュ値を設定したら保存ボタンを押下します
+
+## (備忘) tailwind導入手順(ポータルページのコンポーネントデザイン導入のため)
+
+```
+$ npm install -D tailwindcss@3.4.13 autoprefixer postcss
+$ npx tailwindcss init -p
+$ vi tailwind.config.js
+(tailwindを使用するパスを指定)
+$ vi ./styles/global.cs
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+(上記追加)
+
+$ vi pages/_app.tsx
+import '../styles/global.css'
+```
+
+

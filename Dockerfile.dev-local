@@ -9,7 +9,7 @@ RUN apk add --no-cache git
 RUN npm install -g npm@10.3.0
 RUN npm install -g node-gyp
 RUN npm upgrade --save --legacy-peer-deps
-RUN npm install
+RUN npm install --save --legacy-peer-deps
 
 # RUN yarn install
 # RUN yarn run build
