@@ -4,19 +4,15 @@ import {
   Container,
   Stack,
   useDisclosure,
-  Drawer,
-  DrawerContent,
-  DrawerOverlay,
 } from "@chakra-ui/react";
 import React from "react";
 
-
-import { PortalHeader } from "@/components/portal_components/PortalHeader";
+import PortalFooter from "@/components/portal_components/PortalFooter";
+import PortalHeader from "@/components/portal_components/PortalHeader";
 import { ReturnButton } from "@/components/ui/button/ReturnButton";
-// import { Header } from "./Header"; 
 
-import { Footer } from "./Footer";
-import { SidebarContent } from "./Sidebar";
+// import { Header } from "./Header"; 
+// import { Footer } from "./Footer";
 
 
 export interface LayoutProps {
@@ -36,8 +32,9 @@ export const Layout: React.VFC<LayoutProps> = ({ children, maxW, textAlign, alig
       position={"relative"}
       align={"center"}
       overflow={"visible"}
+      width={"100%"}
       >
-      <PortalHeader showContents={false} onOpen={onOpen} />
+      <PortalHeader showContents={false}/>
       <Box ml="-50%" mt="5">
         <ReturnButton 
           as="a"
@@ -46,6 +43,7 @@ export const Layout: React.VFC<LayoutProps> = ({ children, maxW, textAlign, alig
             戻る
         </ReturnButton>
       </Box>
+      {/*
       <Drawer
         isOpen={isOpen}
         placement="left"
@@ -59,6 +57,7 @@ export const Layout: React.VFC<LayoutProps> = ({ children, maxW, textAlign, alig
           <SidebarContent onClose={onClose} />
         </DrawerContent>
       </Drawer>
+      */}
       <Box flex={2}>
         <Container maxW={maxW}>
           <Stack textAlign={textAlign} align={align} spacing={"14"} py={"14"}>
@@ -66,7 +65,8 @@ export const Layout: React.VFC<LayoutProps> = ({ children, maxW, textAlign, alig
           </Stack>
         </Container>
       </Box>
-      <Footer />
+      <PortalFooter className="shrink-0 w-full"></PortalFooter>
+      
     </Flex>
   );
 };

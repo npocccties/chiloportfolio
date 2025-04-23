@@ -12,28 +12,10 @@ import {
 
 import Issuer from "public/portal/issuer.svg"; // SVGRで読み込み済み
 
-export type IssuerInfo = {
-    name: string;
-    url: string;
-}
-
-export type IssuerInfos = IssuerInfo[]
-
-export function parseIssuers(names: string, urls: string): IssuerInfos {
-    const nameList = (names ?? "").split(",").map(str => str.trim());
-    const urlList = (urls ?? "").split(",").map(str => str.trim());
-    if (nameList.length !== urlList.length) {
-        return []
-    }
-    const issuers: IssuerInfos = nameList.map((name, index) => ({
-        name,
-        url: urlList[index],
-    }));
-    return issuers;
-}
+import { urlInfo } from "./urls"
 
 /* tailwindによる、Popoverの移植が上手く行かない場合に... */
-export const IssuerMenu = ({ issuers }: { issuers: IssuerInfo[] }) => {
+export const IssuerMenu = ({ issuers }: { issuers: urlInfo[] }) => {
     return (    
       <Popover placement="bottom-start">
         <PopoverTrigger>
