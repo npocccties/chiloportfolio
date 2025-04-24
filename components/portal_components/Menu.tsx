@@ -10,7 +10,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, Fragment, useId } from "react";
 
-import { logoLink, dashboardLink, learningLink, issuerInfos } from "./urls";
+import { logoLink, dashboardLink, learningLink, issuerInfos, footerInfos } from "./urls";
 
 type Props = {
   open: boolean;
@@ -106,20 +106,19 @@ function Menu({ open, onClose }: Props) {
                   </ul>
                 </li>
               </ul>
-              {/*
               <ul className="space-y-1">
-                {contents.map((content) => (
-                  <li key={content.slug}>
+                {footerInfos.map((content) => (
+                  <li key={id}>
                     <Link
                       className="jumpu-text-button font-bold w-full text-gray-700 hover:bg-gray-100"
-                      href={pagesPath._slug(content.slug).$url()}
+                      href={content.url}
                     >
-                      {content.title}
+                      {content.name}
                     </Link>
                   </li>
                 ))}
               </ul>
-              */}
+              
             </DialogPanel>
           </div>
         </TransitionChild>
