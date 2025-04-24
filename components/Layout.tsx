@@ -10,6 +10,7 @@ import React from "react";
 import PortalFooter from "@/components/portal_components/PortalFooter";
 import PortalHeader from "@/components/portal_components/PortalHeader";
 import { ReturnButton } from "@/components/ui/button/ReturnButton";
+import { useBackUrl } from "@/functions/useBackUrl";
 
 // import { Header } from "./Header"; 
 // import { Footer } from "./Footer";
@@ -24,7 +25,7 @@ export interface LayoutProps {
 
 export const Layout: React.VFC<LayoutProps> = ({ children, maxW, textAlign, align }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const returnTo = process.env.RETURN_TO_DASHBOARD_URL as string;
+  const returnTo = useBackUrl();
 
   return (
     <Flex minHeight={"100vh"} direction={"column"} 
