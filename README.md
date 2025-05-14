@@ -1,11 +1,14 @@
 # 1. 動作環境
+
 - OS: Unix 系（Windows では WSL 等をお使いください）
 - Node.js: v18.19.0
 - Docker
 - Docker Compose (v2)
 
 # 2. setup
+
 git clone実行後、ルートディレクトリで以下のコマンドを実行します。
+
 ```
 script/setup.sh
 ```
@@ -13,30 +16,37 @@ script/setup.sh
 # 3. 開発
 
 コンテナのビルド
+
 ```
 docker compose -f docker-compose.dev-local.yml build
 ```
 
 コンテナ起動
+
 ```
 docker compose -f docker-compose.dev-local.yml up -d
 ```
 
 appコンテナ内に移動
+
 ```
 docker container exec -it chiloportfolio sh
 ```
 
 コンテナのdown
+
 ```
 docker compose -f docker-compose.dev-local.yml down
 ```
 
 アプリケーションの移動（appコンテナ内）
+
 ```
 npm run dev
 ```
+
 ## 3-1. Visual Studio CodeでdevContainerを使用する場合
+
 1. Docker および Docker Compose をインストール
 2. Visual Studio Code に拡張機能「Dev - Containers」をインストール
 3. 当READMEのsetupを実行
@@ -45,23 +55,30 @@ npm run dev
 # 4. 開発サーバー（または本番サーバー）
 
 1. 下記をインストール
-   * Docker
-   * Docker Compose (v2)
-   * Git  
+   - Docker
+   - Docker Compose (v2)
+   - Git  
 1. 適当なディレクトリへ移動
+
    ```
    cd /opt
    ```
+
 1. chiloportfolio のソースを取得
+
    ```
    git clone https://github.com/npocccties/chiloportfolio.git
    ```
-   * 既にディレクトリが存在するならば `sudo rm -rf chiloportfolio` にて削除してください
+
+   - 既にディレクトリが存在するならば `sudo rm -rf chiloportfolio` にて削除してください
 1. chiloportfolio へ移動
+
    ```
    cd chiloportfolio
    ```
+
 1. `*.sh` に権限付与
+
    ```
    sudo chmod 755 *.sh
    ```
@@ -69,40 +86,51 @@ npm run dev
 1. ルートディレクトリで、`setup.sh` を実行する
 
 1. デプロイ
+
    ```
    ./app_start.sh
    ```
-   * 権限付与後の `app_start.sh` は何度でも実行可能です
+
+   - 権限付与後の `app_start.sh` は何度でも実行可能です
 
 1. 備考  
    コンテナ起動  
+
    ```
    chiloportfolio/app_start.sh
    ```
 
    コンテナ停止  
+
    ```
    chiloportfolio/app_stop.sh
    ```
 
    コンテナ再起動  
+
    ```
    chiloportfolio/app_restart.sh
    ```
-   * `app_stop.sh` と `app_start.sh` を呼びます
+
+   - `app_stop.sh` と `app_start.sh` を呼びます
 
    全てのコンテナログの確認  
+
    ```
    docker container logs -f
    ```
-   * -f の後ろにコンテナ名（chiloportfolio）を入れると該当コンテナのみのログが見れます  
 
+   - -f の後ろにコンテナ名（chiloportfolio）を入れると該当コンテナのみのログが見れます  
 
 # 5. 環境変数
+
 sampleに記載の値（NEXT_PUBLIC_PORTAL_BASE_URLやNEXT_PUBLIC_WALLET_BASE_URL等）はダミー値です。運用環境に合わせて適宜設定して下さい。<br>
 文字列中に空白を含むものに対しては "" (ダブルクォーテーション) を使用してください。
+
 ## 5-1. ビルド時用
+
 .env
+
 | 変数名                               | 説明                                        | デフォルト値         |必須/任意|
 | :----------------------------------- | :------------------------------------------ | :------------------- | :---- |
 |LOG_LEVEL|ログレベル<br>'fatal', 'error', 'warn', 'info', 'debug', 'trace' or 'silent'|-|必須|
@@ -110,15 +138,16 @@ sampleに記載の値（NEXT_PUBLIC_PORTAL_BASE_URLやNEXT_PUBLIC_WALLET_BASE_UR
 |LOG_MAX_FILE|ログファイルの世代数|7|必須|
 
 ## 5-2. Next.jsアプリケーション用
+
 Next.jsアプリケーションでは、環境毎に以下のパターンで.envファイルを参照します。
 
-| ファイル名 |	読み込まれるタイミング
-| :--------- | :--------- | 
-|.env.local |	毎回
-|.env.development |	next dev 時のみ
-|.env.production	| next start 時のみ
+| ファイル名 | 読み込まれるタイミング
+| :--------- | :--------- |
+|.env.local | 毎回
+|.env.development | next dev 時のみ
+|.env.production | next start 時のみ
 
-https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables
+<https://nextjs.org/docs/pages/building-your-application/configuring/environment-variables>
 
 以下の2つの環境変数の値を記述します。
 
@@ -144,20 +173,43 @@ https://nextjs.org/docs/pages/building-your-application/configuring/environment-
 |ENCRYPTION_KEY|キー入力時の値の暗号化に使用する鍵 ※半角英数32文字<br>暗号化された値はセッションで保持|-|必須|
 |ENCRYPTION_IV|キー入力時の値の暗号化に使用するIV ※半角英数16文字<br>暗号化された値はセッションで保持|-|必須|
 
+## 5-3. ポータルダッシュボードとの連携
+
+ポータルダッシュボードと連携するためのパラメータとして、以下を設定してください。
+いずれも、ポータルページと同じ内容に設定してください。
+
+| 変数名                               | 説明                                                | 備考 |
+| :----------------------------------- | :------------------------------------------         | :------------------------------------------ |
+| NEXT_PUBLIC_DASHBOARD_LINK           | ダッシュボードへのリンク                            | ウォレット側の / ページのリダイレクト先など。|
+| NEXT_PUBLIC_HEADER_LOGO_LINK         | ヘッダのロゴのリンク                                ||
+| NEXT_PUBLIC_HEADER_DASHBOARD_LINK    | ヘッダの [ダッシュボード] のリンク                  ||
+| NEXT_PUBLIC_HEADER_LEARNING_LINK     | ヘッダの [学びを探す] のリンク                      ||
+| NEXT_PUBLIC_HEADER_ISSUER_NAME       | ヘッダの [発行元] の名称                            |「, 」区切りで複数指定|
+| NEXT_PUBLIC_HEADER_ISSUER_LINK       | ヘッダの [発行元] のリンク                          |「, 」区切りで複数指定|
+| NEXT_PUBLIC_FOOTER_NAME              | フッタに表示する項目の名称                          |「, 」区切りで複数指定|
+| NEXT_PUBLIC_FOOTER_LINK              | フッタに表示する項目のリンク                        |「, 」区切りで複数指定|
+| NEXT_PUBLIC_BACK_URL                 | 「戻る」ボタンの遷移先デフォルト値                  | back_urlクエリパラメータが指定されている場合は、そちらを優先します。|
+
 ## 6. ポータルとの連携（更新手順）
+
 環境変数「NEXT_PUBLIC_PORTAL_BASE_URL」はポータルサイトのURLを示しますので、こちらを環境に応じて適宜変更してください。
 
 ## 7. ウォレットとの連携（更新手順）
+
 環境変数「NEXT_PUBLIC_WALLET_BASE_URL」はバッジウォレットのURLを示しますので、こちらを環境に応じて適宜変更してください。
 
 ## 8. アクティベーションの設定（更新手順）
-* 利用者（教育委員会）が増えた場合、環境変数「PASSWORD」に利用キーをカンマ区切りで増やしてください。
-* 環境変数「BCRYPT_SALT」はアクティベーションの利用キーをハッシュ化するためのソルトとして使用します。ハッシュ値はローカルストレージに保存し、ユーザーはアクティベーション後のパスワード入力に関してキャッシュ削除や別ブラウザでの閲覧を行わない限り不要となります。
+
+- 利用者（教育委員会）が増えた場合、環境変数「PASSWORD」に利用キーをカンマ区切りで増やしてください。
+
+- 環境変数「BCRYPT_SALT」はアクティベーションの利用キーをハッシュ化するためのソルトとして使用します。ハッシュ値はローカルストレージに保存し、ユーザーはアクティベーション後のパスワード入力に関してキャッシュ削除や別ブラウザでの閲覧を行わない限り不要となります。
 
 ## 9. 非表示の教員教育指標の設定（追加手順）
+
 初めに、e-ポートフォリオの教員育成指標選択のプルダウンは、[CHiLO-Portal](https://github.com/npocccties/chiloportal/)の教員教育指標と連動し、成長段階（stage テーブル）の粒度で表示を行います。<br>
 また、成長段階は非表示にすることも可能で stage テーブルの password カラムにパスワードに応じたハッシュ値を設定することで、非表示にすることが可能です。<br>
 以下、非表示のための手順を記します。
+
 1. ポータルのDjangoの管理画面にログインします<br>
    詳細は[こちら](https://github.com/npocccties/chiloportal/tree/develop/backend#django-%E3%81%AE%E7%AE%A1%E7%90%86%E7%94%BB%E9%9D%A2)を参照
 1. Stages の変更メニューを選択します
@@ -189,5 +241,3 @@ $ vi ./styles/global.cs
 $ vi pages/_app.tsx
 import '../styles/global.css'
 ```
-
-
