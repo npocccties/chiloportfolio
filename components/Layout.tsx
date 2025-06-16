@@ -1,9 +1,20 @@
-import { Flex, Box, Container, Stack, useDisclosure, Drawer, DrawerContent, DrawerOverlay } from "@chakra-ui/react";
+import {
+  Flex,
+  Box,
+  Container,
+  Stack,
+  useDisclosure,
+} from "@chakra-ui/react";
 import React from "react";
 
-import { Footer } from "./Footer";
-import { Header } from "./Header";
-import { SidebarContent } from "./Sidebar";
+import PortalFooter from "@/components/portal_components/PortalFooter";
+import PortalHeader from "@/components/portal_components/PortalHeader";
+import { ReturnButton } from "@/components/ui/button/ReturnButton";
+import { useBackUrl } from "@/functions/useBackUrl";
+
+// import { Header } from "./Header"; 
+// import { Footer } from "./Footer";
+
 
 export interface LayoutProps {
   children: React.ReactNode;
@@ -14,9 +25,26 @@ export interface LayoutProps {
 
 export const Layout: React.VFC<LayoutProps> = ({ children, maxW, textAlign, align }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const returnTo = useBackUrl();
+
   return (
-    <Flex minHeight={"100vh"} direction={"column"}>
-      <Header showContents={false} onOpen={onOpen} />
+    <Flex minHeight={"100vh"} direction={"column"} 
+      justify={"center"}
+      position={"relative"}
+      align={"center"}
+      overflow={"visible"}
+      width={"100%"}
+      >
+      <PortalHeader showContents={false}/>
+      <Box ml="-50%" mt="5">
+        <ReturnButton 
+          as="a"
+          href={returnTo} 
+          color={"black"}>
+            戻る
+        </ReturnButton>
+      </Box>
+      {/*
       <Drawer
         isOpen={isOpen}
         placement="left"
@@ -30,14 +58,16 @@ export const Layout: React.VFC<LayoutProps> = ({ children, maxW, textAlign, alig
           <SidebarContent onClose={onClose} />
         </DrawerContent>
       </Drawer>
-      <Box flex={1}>
+      */}
+      <Box flex={2}>
         <Container maxW={maxW}>
           <Stack textAlign={textAlign} align={align} spacing={"14"} py={"14"}>
             {children}
           </Stack>
         </Container>
       </Box>
-      <Footer />
+      <PortalFooter className="shrink-0 w-full"></PortalFooter>
+      
     </Flex>
   );
 };

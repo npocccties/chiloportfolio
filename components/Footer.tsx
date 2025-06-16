@@ -9,6 +9,7 @@ export const Footer: React.VFC = () => {
   return (
     <Flex
       minH={"64px"}
+      minW={"100%"}
       alignItems={"center"}
       justifyContent={"center"}
       p={{ base: 4 }}
